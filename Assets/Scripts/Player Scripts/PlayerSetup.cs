@@ -12,6 +12,10 @@ namespace Player_Scripts
 		 * Checks is we are the local player
 		 * if we are not the local player we diable components
 		 * components: controller, motor, camera and audiolistener
+		 *
+		 * if we are the local player, we set the scene camera to inactive.
+		 * because we only want to deactive the scene camera for the local once.
+		 * 
 		 */
 		private void Start()
 		{

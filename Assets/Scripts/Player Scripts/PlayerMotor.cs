@@ -12,7 +12,8 @@ namespace Player_Scripts
 		private Vector3 _rotation = Vector3.zero;
 		private Vector3 _cameraRotation = Vector3.zero;
 		
-
+		#region Unity InBuilt Functions
+		
 		private void Start()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
@@ -26,6 +27,9 @@ namespace Player_Scripts
 			PerformCameraRotation();
 			
 		}
+		#endregion
+
+		#region Public Functions accessed from Player Controller
 
 		/*
 		 * Takes in a velocity from PlayerController
@@ -51,6 +55,9 @@ namespace Player_Scripts
 		{
 			_cameraRotation = newCameraRotation;
 		}
+		#endregion
+
+		#region Private Functions used in Fixed Update
 
 		/*
 		 * Performs movement on rigidbody, makes player walker
@@ -82,6 +89,7 @@ namespace Player_Scripts
 				_camera.transform.Rotate(-_cameraRotation);
 			}
 		}
+		#endregion
 
 	}
 }

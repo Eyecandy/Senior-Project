@@ -6,12 +6,13 @@ namespace Player_Scripts
 	[RequireComponent(typeof(PlayerMotor))]
 	
 	public class PlayerController : MonoBehaviour
-	{
+	{	
 		[SerializeField] private float _speed = 5f;
 		[SerializeField] private float _lookSensitivity = 5f;
 		private PlayerMotor _motor;
 
-	
+		#region Unity InBuilt Functions
+
 		private void Start() {
 			_motor = GetComponent<PlayerMotor> ();
 		}
@@ -24,8 +25,11 @@ namespace Player_Scripts
 			CameraRotation();
 			
 		}
-		
-		
+		#endregion
+
+		#region InputFunctions for Player Motor
+
+	
 		/*
 		 * Applies Input to enable the player walk (W,S,A,D).
 		 * The input is sent to Player Motor.
@@ -61,6 +65,7 @@ namespace Player_Scripts
 			_motor.RotateCamera(rotation);
 
 		}
+		#endregion
 
 
 	}
