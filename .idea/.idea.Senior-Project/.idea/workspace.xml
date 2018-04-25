@@ -11,20 +11,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PlayerController.cs" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PlayerController.cs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player Scripts/PlayerController.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="42" column="78" selection-start-line="42" selection-start-column="78" selection-end-line="42" selection-end-column="78" />
+            <state relative-caret-position="135">
+              <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
               <folding>
-                <marker date="1524635151191" expanded="true" signature="45:1153" ph="{...}" />
-                <marker date="1524635151191" expanded="true" signature="137:1151" ph="{...}" />
-                <marker date="1524635151191" expanded="true" signature="309:356" ph="{...}" />
-                <marker date="1524635151191" expanded="true" signature="384:416" ph="{...}" />
-                <marker date="1524635151191" expanded="true" signature="419:515" ph="/* Input to enable the player walk (W,S,A,D). ... */" />
-                <marker date="1524635151191" expanded="true" signature="546:837" ph="{...}" />
-                <marker date="1524635151191" expanded="true" signature="840:965" ph="/* Input to enable player to turn around. ... */" />
-                <marker date="1524635151191" expanded="true" signature="1002:1146" ph="{...}" />
+                <marker date="1524645119954" expanded="true" signature="45:1514" ph="{...}" />
+                <marker date="1524645119954" expanded="true" signature="137:1512" ph="{...}" />
+                <marker date="1524645119954" expanded="true" signature="299:346" ph="{...}" />
+                <marker date="1524645119954" expanded="true" signature="374:453" ph="{...}" />
+                <marker date="1524645119954" expanded="true" signature="462:566" ph="/* Applies Input to enable the player walk (W,S,A,D). ... */" />
+                <marker date="1524645119954" expanded="true" signature="597:893" ph="{...}" />
+                <marker date="1524645119954" expanded="true" signature="896:1029" ph="/* Applies Input to enable player to turn around. ... */" />
+                <marker date="1524645119954" expanded="true" signature="1066:1234" ph="{...}" />
+                <marker date="1524645119954" expanded="true" signature="1237:1292" ph="/* Applies Input to tilt camera up and down. ... */" />
+                <marker date="1524645119954" expanded="true" signature="1324:1507" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -45,25 +47,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerMotor.cs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PlayerMotor.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player Scripts/PlayerMotor.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+            <state relative-caret-position="-220">
+              <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
               <folding>
-                <marker date="1524635400605" expanded="true" signature="44:1197" ph="{...}" />
-                <marker date="1524635400605" expanded="true" signature="130:1195" ph="{...}" />
-                <marker date="1524635400605" expanded="true" signature="279:330" ph="{...}" />
-                <marker date="1524635400605" expanded="true" signature="360:394" ph="{...}" />
-                <marker date="1524635400605" expanded="true" signature="398:497" ph="/* Takes in a velocity from PlayerController ... */" />
-                <marker date="1524635400605" expanded="true" signature="537:573" ph="{...}" />
-                <marker date="1524635400605" expanded="true" signature="579:676" ph="/* Takes in rotation from PlayerController ... */" />
-                <marker date="1524635400605" expanded="true" signature="718:754" ph="{...}" />
-                <marker date="1524635400605" expanded="true" signature="758:825" ph="/* PerformsMovement on rigidbody ... */" />
-                <marker date="1524635400605" expanded="true" signature="858:992" ph="{...}" />
-                <marker date="1524635400605" expanded="true" signature="898:988" ph="{...}" />
-                <marker date="1524635400605" expanded="true" signature="1026:1185" ph="{...}" />
-                <marker date="1524635400605" expanded="true" signature="1064:1181" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="6:40" ph="..." />
+                <marker date="1524644356378" expanded="true" signature="66:1843" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="151:1841" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="394:449" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="479:563" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="567:666" ph="/* Takes in a velocity from PlayerController ... */" />
+                <marker date="1524644356378" expanded="true" signature="706:746" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="752:849" ph="/* Takes in rotation from PlayerController ... */" />
+                <marker date="1524644356378" expanded="true" signature="891:927" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="983:1031" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="1035:1159" ph="/* Performs movement on rigidbody, makes player walker ... */" />
+                <marker date="1524644356378" expanded="true" signature="1192:1326" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="1232:1322" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="1329:1425" ph="/* Performs rotation on rigidbody ... */" />
+                <marker date="1524644356378" expanded="true" signature="1458:1688" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="1496:1684" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="1728:1831" ph="{...}" />
+                <marker date="1524644356378" expanded="true" signature="1756:1814" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -81,12 +88,12 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/Player Scripts/NewBehaviourScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player Scripts/PlayerSetup.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player Scripts/PlayerController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player Scripts/PlayerMotor.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player Scripts/PlayerController.cs" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="10" />
     <option name="y" value="41" />
     <option name="width" value="1260" />
@@ -205,41 +212,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player Scripts/PlayerController.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player Scripts/PlayerMotor.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="42" column="78" selection-start-line="42" selection-start-column="78" selection-end-line="42" selection-end-column="78" />
+        <state relative-caret-position="-220">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
           <folding>
-            <marker date="1524635151191" expanded="true" signature="45:1153" ph="{...}" />
-            <marker date="1524635151191" expanded="true" signature="137:1151" ph="{...}" />
-            <marker date="1524635151191" expanded="true" signature="309:356" ph="{...}" />
-            <marker date="1524635151191" expanded="true" signature="384:416" ph="{...}" />
-            <marker date="1524635151191" expanded="true" signature="419:515" ph="/* Input to enable the player walk (W,S,A,D). ... */" />
-            <marker date="1524635151191" expanded="true" signature="546:837" ph="{...}" />
-            <marker date="1524635151191" expanded="true" signature="840:965" ph="/* Input to enable player to turn around. ... */" />
-            <marker date="1524635151191" expanded="true" signature="1002:1146" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="6:40" ph="..." />
+            <marker date="1524644356378" expanded="true" signature="66:1843" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="151:1841" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="394:449" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="479:563" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="567:666" ph="/* Takes in a velocity from PlayerController ... */" />
+            <marker date="1524644356378" expanded="true" signature="706:746" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="752:849" ph="/* Takes in rotation from PlayerController ... */" />
+            <marker date="1524644356378" expanded="true" signature="891:927" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="983:1031" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="1035:1159" ph="/* Performs movement on rigidbody, makes player walker ... */" />
+            <marker date="1524644356378" expanded="true" signature="1192:1326" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="1232:1322" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="1329:1425" ph="/* Performs rotation on rigidbody ... */" />
+            <marker date="1524644356378" expanded="true" signature="1458:1688" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="1496:1684" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="1728:1831" ph="{...}" />
+            <marker date="1524644356378" expanded="true" signature="1756:1814" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player Scripts/PlayerMotor.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player Scripts/PlayerController.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+        <state relative-caret-position="135">
+          <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
           <folding>
-            <marker date="1524635400605" expanded="true" signature="44:1197" ph="{...}" />
-            <marker date="1524635400605" expanded="true" signature="130:1195" ph="{...}" />
-            <marker date="1524635400605" expanded="true" signature="279:330" ph="{...}" />
-            <marker date="1524635400605" expanded="true" signature="360:394" ph="{...}" />
-            <marker date="1524635400605" expanded="true" signature="398:497" ph="/* Takes in a velocity from PlayerController ... */" />
-            <marker date="1524635400605" expanded="true" signature="537:573" ph="{...}" />
-            <marker date="1524635400605" expanded="true" signature="579:676" ph="/* Takes in rotation from PlayerController ... */" />
-            <marker date="1524635400605" expanded="true" signature="718:754" ph="{...}" />
-            <marker date="1524635400605" expanded="true" signature="758:825" ph="/* PerformsMovement on rigidbody ... */" />
-            <marker date="1524635400605" expanded="true" signature="858:992" ph="{...}" />
-            <marker date="1524635400605" expanded="true" signature="898:988" ph="{...}" />
-            <marker date="1524635400605" expanded="true" signature="1026:1185" ph="{...}" />
-            <marker date="1524635400605" expanded="true" signature="1064:1181" ph="{...}" />
+            <marker date="1524645119954" expanded="true" signature="45:1514" ph="{...}" />
+            <marker date="1524645119954" expanded="true" signature="137:1512" ph="{...}" />
+            <marker date="1524645119954" expanded="true" signature="299:346" ph="{...}" />
+            <marker date="1524645119954" expanded="true" signature="374:453" ph="{...}" />
+            <marker date="1524645119954" expanded="true" signature="462:566" ph="/* Applies Input to enable the player walk (W,S,A,D). ... */" />
+            <marker date="1524645119954" expanded="true" signature="597:893" ph="{...}" />
+            <marker date="1524645119954" expanded="true" signature="896:1029" ph="/* Applies Input to enable player to turn around. ... */" />
+            <marker date="1524645119954" expanded="true" signature="1066:1234" ph="{...}" />
+            <marker date="1524645119954" expanded="true" signature="1237:1292" ph="/* Applies Input to tilt camera up and down. ... */" />
+            <marker date="1524645119954" expanded="true" signature="1324:1507" ph="{...}" />
           </folding>
         </state>
       </provider>
