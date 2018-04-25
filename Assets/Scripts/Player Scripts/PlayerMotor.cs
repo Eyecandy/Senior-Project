@@ -1,5 +1,4 @@
-﻿using System.CodeDom;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Player_Scripts
 {
@@ -82,8 +81,6 @@ namespace Player_Scripts
 			{
 				_camera.transform.Rotate(-_cameraRotation);
 			}
-
-			
 		}
 
 	}
