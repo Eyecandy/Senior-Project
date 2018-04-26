@@ -11,6 +11,8 @@
           <e p="PlayerShoot.cs" t="Include" />
           <e p="PlayerWeapon.cs" t="Include" />
         </e>
+        <e p="Player.cs" t="Include" />
+        <e p="PlayerManager.cs" t="Include" />
       </e>
       <e p="Library" t="ExcludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
