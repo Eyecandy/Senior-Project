@@ -84,9 +84,13 @@ namespace Player_Scripts
 
 		private void PerformCameraRotation()
 		{
-			if (_camera != null)
+			if ( _camera != null )
 			{
 				_camera.transform.Rotate(-_cameraRotation);
+			}
+			else
+			{
+				Debug.Log("PoV camera is null in Player Motor");
 			}
 		}
 		#endregion

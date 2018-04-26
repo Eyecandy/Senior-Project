@@ -3,11 +3,12 @@ using UnityEngine.Networking;
 
 namespace Player_Scripts
 {	
-	
+	[RequireComponent(typeof(Player))]
 	public class PlayerSetup : NetworkBehaviour {
 		[SerializeField] private Behaviour[] _componentsToDisable;
+		[SerializeField] private const string RemoteLayerName = "RemotePlayer";
+		private Camera _sceneCamera;
 		
-		Camera _sceneCamera;
 		/*
 		 * Checks is we are the local player
 		 * if we are not the local player we diable components
@@ -21,10 +22,8 @@ namespace Player_Scripts
 		{
 			if (!isLocalPlayer)
 			{
-				foreach (var component in _componentsToDisable)
-				{
-					component.enabled = false;
-				}
+				DisableComponents();
+				AssignRemoteLayer();
 			}
 			else
 			{    
@@ -34,11 +33,24 @@ namespace Player_Scripts
 					_sceneCamera.gameObject.SetActive(false);
 				}
 			}
+			
+			
 		}
+        
+		public override void OnStartClient()
+		{
+			base.OnStartClient();
+			var playerNetId =  GetComponent<NetworkBehaviour>().netId.ToString();
+			var player = GetComponent<Player>();
+			PlayerManager.RegisterPlayer(playerNetId, player);
+		}
+
 		/*
 		 * Called when an object is destroyed
 		 * In this case if a player is destroyed the scene camera is set to active
 		 * This will be helpful on disconnect.
+		 *
+		 * And we get the players name and we UnRegister the player
 		 */
 		private void OnDisable()
 		{
@@ -46,6 +58,32 @@ namespace Player_Scripts
 			{
 				_sceneCamera.gameObject.SetActive(true);
 			}
+			
+			PlayerManager.UnRegisterPlayer(transform.name);
 		}
+        /*
+         * Disable components on remote players
+         */
+		private void DisableComponents()
+		{
+			foreach (var component in _componentsToDisable)
+			{
+				component.enabled = false;
+			}
+		}
+		/*
+		 * Set the layer of the player to remote
+		 */
+		private void AssignRemoteLayer()
+		{
+			gameObject.layer = LayerMask.NameToLayer(RemoteLayerName);
+		}
+		
+		/*
+		 * Gives each player an unique idea
+		 */
+		
+		
+		
 	}
 }
