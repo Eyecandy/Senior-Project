@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 20872850916114684}
   - component: {fileID: 124609962519410928}
   - component: {fileID: 81499173357042256}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4249423178844082}
   - component: {fileID: 33826386486194284}
   - component: {fileID: 23818540545505222}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 33535891384393490}
   - component: {fileID: 65071929561724144}
   - component: {fileID: 23131120905543046}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gun Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4310766520851264}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,9 +95,11 @@ GameObject:
   - component: {fileID: 114557916318943234}
   - component: {fileID: 114973787966204370}
   - component: {fileID: 114175999833920898}
-  m_Layer: 0
+  - component: {fileID: 114937004049724626}
+  - component: {fileID: 114903890818480898}
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +112,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4244875825962924}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,6 +446,36 @@ MonoBehaviour:
   - {fileID: 114227427207606710}
   - {fileID: 20872850916114684}
   - {fileID: 81499173357042256}
+  - {fileID: 114937004049724626}
+--- !u!114 &114903890818480898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1884713395805176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb9a8f6ed3e148fba00bb0369563773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range: 100
+  Damage: 10
+--- !u!114 &114937004049724626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1884713395805176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45d4c4bfb0b964e4ebccdf2b05730554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 20872850916114684}
+  _playerWeapon: {fileID: 114903890818480898}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967039
 --- !u!114 &114973787966204370
 MonoBehaviour:
   m_ObjectHideFlags: 1

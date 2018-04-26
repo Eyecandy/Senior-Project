@@ -6,8 +6,9 @@ namespace Player_Scripts
 	
 	public class PlayerSetup : NetworkBehaviour {
 		[SerializeField] private Behaviour[] _componentsToDisable;
+		[SerializeField] private const string RemoteLayerName = "RemotePlayer";
+		private Camera _sceneCamera;
 		
-		Camera _sceneCamera;
 		/*
 		 * Checks is we are the local player
 		 * if we are not the local player we diable components
@@ -21,10 +22,8 @@ namespace Player_Scripts
 		{
 			if (!isLocalPlayer)
 			{
-				foreach (var component in _componentsToDisable)
-				{
-					component.enabled = false;
-				}
+				DisableComponents();
+				AssignRemoteLayer();
 			}
 			else
 			{    
@@ -34,7 +33,10 @@ namespace Player_Scripts
 					_sceneCamera.gameObject.SetActive(false);
 				}
 			}
+			RegisterPlayer();
+			
 		}
+		
 		/*
 		 * Called when an object is destroyed
 		 * In this case if a player is destroyed the scene camera is set to active
@@ -47,5 +49,33 @@ namespace Player_Scripts
 				_sceneCamera.gameObject.SetActive(true);
 			}
 		}
+        /*
+         * Disable components on remote players
+         */
+		private void DisableComponents()
+		{
+			foreach (var component in _componentsToDisable)
+			{
+				component.enabled = false;
+			}
+		}
+		/*
+		 * Set the layer of the player to remote
+		 */
+		private void AssignRemoteLayer()
+		{
+			gameObject.layer = LayerMask.NameToLayer(RemoteLayerName);
+		}
+		
+		/*
+		 * Gives each player an unique idea
+		 */
+		
+		private void RegisterPlayer()
+		{
+			var id = "Player" + GetComponent<NetworkBehaviour>().netId;
+			transform.name = id;
+		}
+		
 	}
 }
