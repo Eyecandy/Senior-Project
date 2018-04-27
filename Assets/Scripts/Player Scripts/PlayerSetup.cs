@@ -16,7 +16,8 @@ namespace Player_Scripts
 		 *
 		 * if we are the local player, we set the scene camera to inactive.
 		 * because we only want to deactive the scene camera for the local once.
-		 * 
+		 *
+		 * Calls Setup on Player script.
 		 */
 		private void Start()
 		{
@@ -33,6 +34,7 @@ namespace Player_Scripts
 					_sceneCamera.gameObject.SetActive(false);
 				}
 			}
+			GetComponent<Player>().Setup();
 			
 			
 		}
@@ -42,7 +44,7 @@ namespace Player_Scripts
 			base.OnStartClient();
 			var playerNetId =  GetComponent<NetworkBehaviour>().netId.ToString();
 			var player = GetComponent<Player>();
-			PlayerManager.RegisterPlayer(playerNetId, player);
+			GameManager.RegisterPlayer(playerNetId, player);
 		}
 
 		/*
@@ -58,11 +60,12 @@ namespace Player_Scripts
 			{
 				_sceneCamera.gameObject.SetActive(true);
 			}
-			
-			PlayerManager.UnRegisterPlayer(transform.name);
+			GameManager.UnRegisterPlayer(transform.name);
 		}
         /*
          * Disable components on remote players
+         * these component can be viewed in the player in unity.
+         * They are manually attached to the array.
          */
 		private void DisableComponents()
 		{

@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour {
+public class GameManager : MonoBehaviour {
     
     private const string PlayerPrefix = "Player";
     private static readonly Dictionary<string, Player> Players = new Dictionary<string, Player>();
     
     
-    
     public static void RegisterPlayer(string playerNetId,Player player) {
         var playerId = PlayerPrefix + playerNetId;
-        Debug.Log (playerId);
         Players.Add (playerId, player);
         player.transform.name = playerId;
     }

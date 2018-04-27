@@ -66,8 +66,8 @@ namespace Player_Scripts
         private void CmdPlayerShot(string playerId,int damage) {
 		
             Debug.Log (playerId + " has been shot");
-            var player = PlayerManager.GetPlayer(playerId);
-            player.TakeDamage(_playerWeapon.Damage);
+            var player = GameManager.GetPlayer(playerId);
+            player.RpcTakeDamage(_playerWeapon.Damage);
 
         }
         #endregion
