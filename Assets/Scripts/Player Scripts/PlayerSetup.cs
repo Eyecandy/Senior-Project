@@ -8,6 +8,10 @@ namespace Player_Scripts
 		[SerializeField] private Behaviour[] _componentsToDisable;
 		[SerializeField] private const string RemoteLayerName = "RemotePlayer";
 		private Camera _sceneCamera;
+		[SerializeField] private GameObject _graphics;
+		private const string DontDrawLayer = "DontDraw";
+		[SerializeField] private GameObject _playerUiPrefab;  //canvas + crosshair prefab
+		private GameObject _playerUiInstance; 
 		
 		/*
 		 * Checks is we are the local player
@@ -33,12 +37,29 @@ namespace Player_Scripts
 				{
 					_sceneCamera.gameObject.SetActive(false);
 				}
+				//Disable model of player in PoV camera. only done once
+				SetLayerRecursively(_graphics, LayerMask.NameToLayer(DontDrawLayer));
 			}
 			GetComponent<Player>().Setup();
 			
-			
+			//create player UI, like crosshair for example.
+			_playerUiInstance = Instantiate(_playerUiPrefab);
+			//to remove clone.
+			_playerUiInstance.name = transform.name + "GUI";
+
+
 		}
-        
+
+		private static void SetLayerRecursively(GameObject graphics, int layer)
+
+		{
+			graphics.layer = layer;
+			foreach (Transform child in graphics.transform)
+			{
+				SetLayerRecursively(child.gameObject , layer);
+			}
+		}
+
 		public override void OnStartClient()
 		{
 			base.OnStartClient();
@@ -60,6 +81,7 @@ namespace Player_Scripts
 			{
 				_sceneCamera.gameObject.SetActive(true);
 			}
+			Destroy(_playerUiInstance);
 			GameManager.UnRegisterPlayer(transform.name);
 		}
         /*
