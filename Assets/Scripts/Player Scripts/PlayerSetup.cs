@@ -5,24 +5,34 @@ namespace Player_Scripts
 {	
 	[RequireComponent(typeof(Player))]
 	public class PlayerSetup : NetworkBehaviour {
-		[SerializeField] private Behaviour[] _componentsToDisable;
+		
+		[SerializeField] private Behaviour[] _componentsToDisable; //the bevhaviors are manually placed in the script.
 		[SerializeField] private const string RemoteLayerName = "RemotePlayer";
-		private Camera _sceneCamera;
-		[SerializeField] private GameObject _graphics;
-		private const string DontDrawLayer = "DontDraw";
+		private Camera _povCamera; //our PoV Cam
+		[SerializeField] private GameObject _graphics; //all graphical components of player.
+		private const string DontDrawLayer = "DontDraw";   
 		[SerializeField] private GameObject _playerUiPrefab;  //canvas + crosshair prefab
-		private GameObject _playerUiInstance; 
+		private GameObject _playerUiInstance;   //manually placed in script.
+
+		#region Unity Functions
+
+		
+
 		
 		/*
 		 * Checks is we are the local player
 		 * if we are not the local player we diable components
 		 * components: controller, motor, camera and audiolistener
+		 * Obviously the player is always local to themselves, so this is to avoid a player
+		 * from controlling multiple players with ASWD or mouse
 		 *
 		 * if we are the local player, we set the scene camera to inactive.
-		 * because we only want to deactive the scene camera for the local once.
+		 * because we only want to deactive the scene camera for the local player once.
 		 *
 		 * Calls Setup on Player script.
 		 */
+		
+		
 		private void Start()
 		{
 			if (!isLocalPlayer)
@@ -32,10 +42,10 @@ namespace Player_Scripts
 			}
 			else
 			{    
-				_sceneCamera = Camera.main;
-				if (_sceneCamera != null)
+				_povCamera = Camera.main;
+				if (_povCamera != null)
 				{
-					_sceneCamera.gameObject.SetActive(false);
+					_povCamera.gameObject.SetActive(false);
 				}
 				//Disable model of player in PoV camera. only done once
 				SetLayerRecursively(_graphics, LayerMask.NameToLayer(DontDrawLayer));
@@ -50,16 +60,7 @@ namespace Player_Scripts
 
 		}
 
-		private static void SetLayerRecursively(GameObject graphics, int layer)
-
-		{
-			graphics.layer = layer;
-			foreach (Transform child in graphics.transform)
-			{
-				SetLayerRecursively(child.gameObject , layer);
-			}
-		}
-
+	
 		public override void OnStartClient()
 		{
 			base.OnStartClient();
@@ -77,13 +78,17 @@ namespace Player_Scripts
 		 */
 		private void OnDisable()
 		{
-			if (_sceneCamera != null)
+			if (_povCamera != null)
 			{
-				_sceneCamera.gameObject.SetActive(true);
+				_povCamera.gameObject.SetActive(true);
 			}
 			Destroy(_playerUiInstance);
 			GameManager.UnRegisterPlayer(transform.name);
 		}
+		#endregion
+		
+		
+		#region Functions called within class
         /*
          * Disable components on remote players
          * these component can be viewed in the player in unity.
@@ -102,13 +107,26 @@ namespace Player_Scripts
 		private void AssignRemoteLayer()
 		{
 			gameObject.layer = LayerMask.NameToLayer(RemoteLayerName);
+			//SetLayerRecursively(gameObject,LayerMask.NameToLayer(RemoteLayerName));
 		}
 		
+		
 		/*
-		 * Gives each player an unique idea
+		 * Called if we are local player
+		 * Make our pov camera not draw the our own player body.
+		 * as our body is marked with DontDraw layer.
+		 * And our pov camera has a cullingmask which exclude DontDraw.
 		 */
-		
-		
+		private static void SetLayerRecursively(GameObject graphics, int layer)
+
+		{
+			graphics.layer = layer;
+			foreach (Transform child in graphics.transform)
+			{
+				SetLayerRecursively(child.gameObject , layer);
+			}
+		}
+		#endregion
 		
 	}
 }

@@ -7,13 +7,17 @@ namespace Player_Scripts
     {
          
         [SerializeField] private Camera _camera;
-        [SerializeField] private PlayerWeapon _playerWeapon;
+        private PlayerWeapon _playerWeapon;
+        [SerializeField] private GameObject _weapon;
+         
         [SerializeField] private LayerMask _layerMask;
 
         #region Unity Functions
 
         private void Start()
         {
+            
+            _playerWeapon = _weapon.GetComponent<PlayerWeapon>();
             if (_camera != null) return;
             Debug.LogError ("No cam found in Player Shoot Script");
             enabled = false;
@@ -23,19 +27,19 @@ namespace Player_Scripts
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                Shoot();
+                FireWeapon();
             }
         }
         #endregion
         
-        #region private Functions
+        #region  Shooting with weapon
         /*
          * Shoot by using raycast, which is an argument which goes into Physics.RayCast Function.
          * And this function fills out information into the hit variable.
          * start of ray is camera transform position, then there is direction, fill out hit, mask
          * mask controls what we hit with layers.
        */
-        private void Shoot()
+        private void FireWeapon()
         {
             
             RaycastHit hit;
@@ -53,6 +57,7 @@ namespace Player_Scripts
                 
                 CmdPlayerShot (hit.collider.name, _playerWeapon.Damage);
             }
+
         }
        
         /*
@@ -67,7 +72,7 @@ namespace Player_Scripts
 		
             Debug.Log (playerId + " has been shot");
             var player = GameManager.GetPlayer(playerId);
-            player.RpcTakeDamage(_playerWeapon.Damage);
+            player.RpcPlayerIsShot(_playerWeapon.Damage);
 
         }
         #endregion

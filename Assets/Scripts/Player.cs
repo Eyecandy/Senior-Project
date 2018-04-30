@@ -12,25 +12,35 @@ public class Player : NetworkBehaviour
 	[SerializeField] private Behaviour[] _disabledOnDeath;
 	private bool[] _wasEnabled;
 
-	[SerializeField] private int _respawnTimer = 1;
-
-
+	[SerializeField] private int _respawnTimer = 3;
+	
+	/*
+	 * enables component on entering game.
+	 * 
+	 */
 	public void Setup()
 	{
 		
 		_wasEnabled = new bool[_disabledOnDeath.Length];
 		
-		_wasEnabled = new bool[_disabledOnDeath.Length];
+		
 		for (var i = 0; i < _wasEnabled.Length; i++) {
 			_wasEnabled [i] = _disabledOnDeath [i].enabled;
 		}
+		
+		
 		SetPlayerDefaults ();
 		
 	}
 	
+	/*
+	 * Tells all clients that some one has been shot and their current health.
+	 * If we don't do this the health of the player will only be local to the player that shot it.
+	 */
 	
 	[ClientRpc]
-	public void RpcTakeDamage(int amount)
+	public void RpcPlayerIsShot(int amount)
+	
 	{
 		if (_isDead) return;
 		if (_currentHealth - amount <= 0)
@@ -45,7 +55,7 @@ public class Player : NetworkBehaviour
 	
 	}
 	
-	
+	#region player lifecycle methods (local to this class)
 	private IEnumerator Respawn()
 	{
 		yield return new WaitForSeconds(_respawnTimer);
@@ -56,7 +66,9 @@ public class Player : NetworkBehaviour
 		transform.rotation = spawnPoint.rotation;
 		
 	}
-
+	/*
+	 *  Disable the components that was enabled on setup or respawn.
+	 */
 	private void ActionsOnDeath()
 	{
 		
@@ -78,7 +90,9 @@ public class Player : NetworkBehaviour
 		
 		
 	}
-
+	/*
+	 * Enables components on setup and on respawn, that previously were disabled.
+	 */
 	private void SetPlayerDefaults()
 	{
 		
@@ -98,5 +112,6 @@ public class Player : NetworkBehaviour
 		
 		
 	}
+	#endregion
 	
 }
