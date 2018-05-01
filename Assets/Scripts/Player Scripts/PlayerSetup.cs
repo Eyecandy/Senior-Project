@@ -13,7 +13,7 @@ namespace Player_Scripts
 		private const string DontDrawLayer = "DontDraw";   
 		[SerializeField] private GameObject _playerUiPrefab;  //canvas + crosshair prefab
 		private GameObject _playerUiInstance;   //manually placed in script.
-
+		[SerializeField] private GameObject _head;
 		#region Unity Functions
 
 		
@@ -41,15 +41,21 @@ namespace Player_Scripts
 				AssignRemoteLayer();
 			}
 			else
-			{    
+			{
+				
 				_povCamera = Camera.main;
 				if (_povCamera != null)
 				{
 					_povCamera.gameObject.SetActive(false);
 				}
 				//Disable model of player in PoV camera. only done once
+				
 				SetLayerRecursively(_graphics, LayerMask.NameToLayer(DontDrawLayer));
+				
 			}
+			
+			_head.transform.name = transform.name;
+			
 			GetComponent<Player>().Setup();
 			
 			//create player UI, like crosshair for example.
@@ -106,8 +112,8 @@ namespace Player_Scripts
 		 */
 		private void AssignRemoteLayer()
 		{
-			gameObject.layer = LayerMask.NameToLayer(RemoteLayerName);
-			//SetLayerRecursively(gameObject,LayerMask.NameToLayer(RemoteLayerName));
+			//gameObject.layer = LayerMask.NameToLayer(RemoteLayerName);
+			SetLayerRecursively(gameObject,LayerMask.NameToLayer(RemoteLayerName));
 		}
 		
 		

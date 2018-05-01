@@ -54,8 +54,15 @@ namespace Player_Scripts
             Debug.Log ("We hit: " + hit.collider.name + "with tag:  "+ hit.collider.tag);
             
             if (hit.collider.CompareTag("Player")) {
-                
+                Debug.Log("NONONONONO");
                 CmdPlayerShot (hit.collider.name, _playerWeapon.Damage);
+            }
+
+            if (hit.collider.CompareTag("PlayerHead"))
+            {
+               
+                var dmg = 2 * _playerWeapon.Damage;
+                CmdPlayerShot (hit.collider.name, dmg);
             }
 
         }
@@ -72,7 +79,7 @@ namespace Player_Scripts
 		
             Debug.Log (playerId + " has been shot");
             var player = GameManager.GetPlayer(playerId);
-            player.RpcPlayerIsShot(_playerWeapon.Damage);
+            player.RpcPlayerIsShot(damage);
 
         }
         #endregion

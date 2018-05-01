@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 33155487515007448}
   - component: {fileID: 135682544937891174}
   - component: {fileID: 23550572507518434}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: PlayerHead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 33609524842848502}
   - component: {fileID: 65584651920829762}
   - component: {fileID: 23305821143206350}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1333478427320978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.043, z: -0.244}
+  m_LocalPosition: {x: 0, y: -0.043, z: -0.122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4971367311414838}
@@ -267,7 +267,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1385399703846008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.398, z: 0.01}
+  m_LocalPosition: {x: -0.079, y: 0.47, z: -0.018}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4407432537738762}
@@ -738,6 +738,7 @@ MonoBehaviour:
   _graphics: {fileID: 1566451959559076}
   _playerUiPrefab: {fileID: 1633067340166190, guid: c8b0653e92dea4d98b1b943c2c538391,
     type: 2}
+  _head: {fileID: 1067417057784108}
 --- !u!114 &114969426364756256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -764,7 +765,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1067417057784108}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
