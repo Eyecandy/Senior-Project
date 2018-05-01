@@ -9,5 +9,19 @@ namespace Player_Scripts
 		public int Damage = 25;
 
 
+		 public ParticleSystem Muzzleflash;
+		[SerializeField] private GameObject _effectOnHit;
+		
+		
+
+
+		
+
+
+
+
+
+
+
 	}
 }

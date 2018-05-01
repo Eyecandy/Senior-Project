@@ -23,6 +23,7 @@ namespace Player_Scripts
 			MovementInput();
 			CameraRotationInput();
 			CameraRotation();
+			Menu();
 			
 		}
 		#endregion
@@ -65,6 +66,19 @@ namespace Player_Scripts
 			_motor.RotateCamera(rotation);
 
 		}
+		#endregion
+		
+		#region GUI
+
+		private static void Menu()
+		{
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				PlayerGUI.EnableNetworkManagerHud();
+			}
+
+		}
+
 		#endregion
 
 

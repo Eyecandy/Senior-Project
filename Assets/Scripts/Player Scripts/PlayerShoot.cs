@@ -39,8 +39,12 @@ namespace Player_Scripts
          * start of ray is camera transform position, then there is direction, fill out hit, mask
          * mask controls what we hit with layers.
        */
+        
+        
         private void FireWeapon()
         {
+            
+            
             
             RaycastHit hit;
             if (!Physics.Raycast(_camera.transform.position,
@@ -49,7 +53,8 @@ namespace Player_Scripts
                 _playerWeapon.Range,        //The range of the raycast 
                 _layerMask)                 //masks out things we should not be able to hit.
             ) return;                       
-            
+            //_playerWeapon.Muzzleflash.Play();
+            CmdWeaponFired();
             
             Debug.Log ("We hit: " + hit.collider.name + "with tag:  "+ hit.collider.tag);
             
@@ -76,12 +81,26 @@ namespace Player_Scripts
         
         [Command]
         private void CmdPlayerShot(string playerId,int damage) {
-		
+            
             Debug.Log (playerId + " has been shot");
             var player = GameManager.GetPlayer(playerId);
             player.RpcPlayerIsShot(damage);
 
         }
+
+        [Command]
+        private void CmdWeaponFired()
+        {
+            RpcDoEffect();
+        }
+
+
+        [ClientRpc]
+        void RpcDoEffect()
+        {
+            _playerWeapon.Muzzleflash.Play();
+        }
+
         #endregion
       
     }

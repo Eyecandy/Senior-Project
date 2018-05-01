@@ -17,8 +17,6 @@ namespace Player_Scripts
 		#region Unity Functions
 
 		
-
-		
 		/*
 		 * Checks is we are the local player
 		 * if we are not the local player we diable components
@@ -42,7 +40,6 @@ namespace Player_Scripts
 			}
 			else
 			{
-				
 				_povCamera = Camera.main;
 				if (_povCamera != null)
 				{
@@ -75,6 +72,8 @@ namespace Player_Scripts
 			GameManager.RegisterPlayer(playerNetId, player);
 		}
 
+		
+
 		/*
 		 * Called when an object is destroyed
 		 * In this case if a player is destroyed the scene camera is set to active
@@ -84,6 +83,8 @@ namespace Player_Scripts
 		 */
 		private void OnDisable()
 		{
+			
+			
 			if (_povCamera != null)
 			{
 				_povCamera.gameObject.SetActive(true);
