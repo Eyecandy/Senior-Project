@@ -7,13 +7,17 @@ namespace Player_Scripts
     {
          
         [SerializeField] private Camera _camera;
-        [SerializeField] private PlayerWeapon _playerWeapon;
+        private PlayerWeapon _playerWeapon;
+        [SerializeField] private GameObject _weapon;
+         
         [SerializeField] private LayerMask _layerMask;
 
         #region Unity Functions
 
         private void Start()
         {
+            
+            _playerWeapon = _weapon.GetComponent<PlayerWeapon>();
             if (_camera != null) return;
             Debug.LogError ("No cam found in Player Shoot Script");
             enabled = false;
@@ -23,19 +27,19 @@ namespace Player_Scripts
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                Shoot();
+                FireWeapon();
             }
         }
         #endregion
         
-        #region private Functions
+        #region  Shooting with weapon
         /*
          * Shoot by using raycast, which is an argument which goes into Physics.RayCast Function.
          * And this function fills out information into the hit variable.
          * start of ray is camera transform position, then there is direction, fill out hit, mask
          * mask controls what we hit with layers.
        */
-        private void Shoot()
+        private void FireWeapon()
         {
             
             RaycastHit hit;
@@ -50,9 +54,17 @@ namespace Player_Scripts
             Debug.Log ("We hit: " + hit.collider.name + "with tag:  "+ hit.collider.tag);
             
             if (hit.collider.CompareTag("Player")) {
-                
+                Debug.Log("NONONONONO");
                 CmdPlayerShot (hit.collider.name, _playerWeapon.Damage);
             }
+
+            if (hit.collider.CompareTag("PlayerHead"))
+            {
+               
+                var dmg = 2 * _playerWeapon.Damage;
+                CmdPlayerShot (hit.collider.name, dmg);
+            }
+
         }
        
         /*
@@ -66,8 +78,8 @@ namespace Player_Scripts
         private void CmdPlayerShot(string playerId,int damage) {
 		
             Debug.Log (playerId + " has been shot");
-            var player = PlayerManager.GetPlayer(playerId);
-            player.TakeDamage(_playerWeapon.Damage);
+            var player = GameManager.GetPlayer(playerId);
+            player.RpcPlayerIsShot(damage);
 
         }
         #endregion

@@ -57,7 +57,7 @@ namespace Player_Scripts
 		}
 		#endregion
 
-		#region Private Functions used in Fixed Update
+		#region Private Functions used in Fixed Update (Physics calculations)
 
 		/*
 		 * Performs movement on rigidbody, makes player walker
