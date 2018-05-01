@@ -11,17 +11,6 @@ namespace Player_Scripts
 
 		 public ParticleSystem Muzzleflash;
 		[SerializeField] private GameObject _effectOnHit;
-		
-		
-
-
-		
-
-
-
-
-
-
 
 	}
 }

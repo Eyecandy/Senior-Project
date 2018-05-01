@@ -44,7 +44,8 @@ namespace Player_Scripts
         private void FireWeapon()
         {
             
-            
+           
+             //CmdEffect(_playerWeapon);
             
             RaycastHit hit;
             if (!Physics.Raycast(_camera.transform.position,
@@ -52,10 +53,13 @@ namespace Player_Scripts
                 out hit,                    //Raycast which info is being filled into
                 _playerWeapon.Range,        //The range of the raycast 
                 _layerMask)                 //masks out things we should not be able to hit.
-            ) return;                       
-            //_playerWeapon.Muzzleflash.Play();
-            CmdWeaponFired();
-            
+            ) return;
+
+             
+            Debug.Log(_playerWeapon);
+            _playerWeapon.Muzzleflash.Play();
+
+           
             Debug.Log ("We hit: " + hit.collider.name + "with tag:  "+ hit.collider.tag);
             
             if (hit.collider.CompareTag("Player")) {
@@ -85,22 +89,11 @@ namespace Player_Scripts
             Debug.Log (playerId + " has been shot");
             var player = GameManager.GetPlayer(playerId);
             player.RpcPlayerIsShot(damage);
+            
 
         }
 
-        [Command]
-        private void CmdWeaponFired()
-        {
-            RpcDoEffect();
-        }
-
-
-        [ClientRpc]
-        void RpcDoEffect()
-        {
-            _playerWeapon.Muzzleflash.Play();
-        }
-
+   
         #endregion
       
     }

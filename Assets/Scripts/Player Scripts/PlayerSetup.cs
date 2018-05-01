@@ -46,8 +46,8 @@ namespace Player_Scripts
 					_povCamera.gameObject.SetActive(false);
 				}
 				//Disable model of player in PoV camera. only done once
-				
 				SetLayerRecursively(_graphics, LayerMask.NameToLayer(DontDrawLayer));
+				
 				
 			}
 			
