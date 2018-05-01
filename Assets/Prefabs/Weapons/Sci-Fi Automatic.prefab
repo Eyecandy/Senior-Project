@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002280012251840}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.399, y: -0.074, z: 0.66}
+  m_LocalPosition: {x: 0.399, y: 1.154, z: 0.66}
   m_LocalScale: {x: 100, y: 100, z: 110.2478}
   m_Children:
   - {fileID: 4031816679120394}
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 100
   Damage: 25
-  Muzzleflash: {fileID: 0}
+  Muzzleflash: {fileID: 198468654008863294}
   _effectOnHit: {fileID: 0}
 --- !u!198 &198468654008863294
 ParticleSystem:
@@ -3622,7 +3622,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 492187432
+  randomSeed: -1028176989
   InitialModule:
     serializedVersion: 3
     enabled: 1
