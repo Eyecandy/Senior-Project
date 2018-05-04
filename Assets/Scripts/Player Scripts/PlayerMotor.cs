@@ -17,15 +17,15 @@ namespace Player_Scripts
 		private void Start()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
-			
 		}
-
+		/*
+		 * Physics calculations.
+		 */
 		private void FixedUpdate()
 		{
 			PerformMovement();
 			PerformRotation();
 			PerformCameraRotation();
-			
 		}
 		#endregion
 
@@ -50,7 +50,9 @@ namespace Player_Scripts
 			_rotation = newRotation;
 		}
 
-
+		/*
+		 * Sets new camera rotation
+		 */
 		public void RotateCamera(Vector3 newCameraRotation)
 		{
 			_cameraRotation = newCameraRotation;
