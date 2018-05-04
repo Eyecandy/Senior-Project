@@ -2,44 +2,39 @@
 using UnityEngine.Networking;
 using Weapon;
 
+
 namespace Player_Scripts
 {
 	public class WeaponManager : NetworkBehaviour
 	{
 
-		[SerializeField] private PlayerWeapon _playerWeapon;
+		//[SerializeField] private PlayerWeapon _playerWeapon;
+		
+		[SerializeField] private GameObject _weaponPrefab;
 
 		[SerializeField] private GameObject _weaponHolder;
-		private WeaponGraphicalEffect _weaponGraphicsScript;
-
+		
 		[HideInInspector] public PlayerWeapon CurrentWeapon;
 
-		[HideInInspector] public WeaponGraphicalEffect WeaponGraphicalEffect;
-
-
+		[HideInInspector] public ParticleSystem WeaponEffectOnSHoot;
+		
+	
 		private void Start()
 		{
-			EquipWeapon(_playerWeapon);
-			
+			EquipWeapon(_weaponPrefab.GetComponent<PlayerWeapon>());
 		}
 
 		private void EquipWeapon(PlayerWeapon weapon)
 		{
 			CurrentWeapon = weapon;
 
-			var weaponInstance = Instantiate(CurrentWeapon.WeaponPrefab,
+			var weaponInstance = Instantiate(_weaponPrefab,
 				_weaponHolder.transform.position,
 				_weaponHolder.transform.rotation);
 			
 			weaponInstance.transform.SetParent(_weaponHolder.transform);
-			WeaponGraphicalEffect = WeaponGraphicalEffect = weaponInstance.GetComponent<WeaponGraphicalEffect>();
+			WeaponEffectOnSHoot = weaponInstance.GetComponent<PlayerWeapon>().MuzzleFlash;
 			
 		}
-		
-		
-
-		
-			
-		
 	}
 }

@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 
 public class PlayerGUI: MonoBehaviour
 {
-	
 	public void Start()
 	{
 		NetworkManager.singleton.GetComponent<NetworkManagerHUD>().enabled = false;

@@ -16,10 +16,6 @@ namespace Player_Scripts
 
         [SerializeField] private int _respawnTimer = 3;
 
-        
-        
-
-        
 
         /*
         * enables component on entering game.
@@ -29,13 +25,10 @@ namespace Player_Scripts
         {
             _wasEnabled = new bool[_disabledOnDeath.Length];
 
-
             for (var i = 0; i < _wasEnabled.Length; i++)
             {
                 _wasEnabled[i] = _disabledOnDeath[i].enabled;
             }
-
-
             SetPlayerDefaults();
         }
 
@@ -78,6 +71,7 @@ namespace Player_Scripts
         private void ActionsOnDeath()
         {
             _isDead = true;
+            
             Debug.Log("Died");
 
             foreach (var behaviour in _disabledOnDeath)

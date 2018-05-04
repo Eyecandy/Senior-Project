@@ -7,16 +7,23 @@ namespace Player_Scripts
 	public class PlayerSetup : NetworkBehaviour {
 		
 		[SerializeField] private Behaviour[] _componentsToDisable; //the bevhaviors are manually placed in the script.
+		
 		[SerializeField] private const string RemoteLayerName = "RemotePlayer";
+		
 		private Camera _povCamera; //our PoV Cam
+		
 		[SerializeField] private GameObject _graphics; //all graphical components of player.
+		
 		private const string DontDrawLayer = "DontDraw";   
+		
 		[SerializeField] private GameObject _playerUiPrefab;  //canvas + crosshair prefab
+		
 		private GameObject _playerUiInstance;   //manually placed in script.
-		[SerializeField] private GameObject _head;
+		
+		[SerializeField] private GameObject _head;  //head of player.
+		
 		#region Unity Functions
 
-		
 		/*
 		 * Checks is we are the local player
 		 * if we are not the local player we diable components
@@ -29,8 +36,6 @@ namespace Player_Scripts
 		 *
 		 * Calls Setup on Player script.
 		 */
-		
-		
 		private void Start()
 		{
 			if (!isLocalPlayer)
@@ -47,8 +52,6 @@ namespace Player_Scripts
 				}
 				//Disable model of player in PoV camera. only done once
 				SetLayerRecursively(_graphics, LayerMask.NameToLayer(DontDrawLayer));
-				
-				
 			}
 			
 			_head.transform.name = transform.name;
@@ -59,20 +62,19 @@ namespace Player_Scripts
 			_playerUiInstance = Instantiate(_playerUiPrefab);
 			//to remove clone.
 			_playerUiInstance.name = transform.name + "GUI";
-
-
 		}
 
-	
-		public override void OnStartClient()
+		
+		/*
+		 * Called when client connects by unity.
+		 */
+		public override void OnStartClient() 
 		{
 			base.OnStartClient();
 			var playerNetId =  GetComponent<NetworkBehaviour>().netId.ToString();
 			var player = GetComponent<Player>();
 			GameManager.RegisterPlayer(playerNetId, player);
 		}
-
-		
 
 		/*
 		 * Called when an object is destroyed
@@ -83,8 +85,6 @@ namespace Player_Scripts
 		 */
 		private void OnDisable()
 		{
-			
-			
 			if (_povCamera != null)
 			{
 				_povCamera.gameObject.SetActive(true);
@@ -108,15 +108,14 @@ namespace Player_Scripts
 				component.enabled = false;
 			}
 		}
+		
 		/*
 		 * Set the layer of the player to remote
 		 */
 		private void AssignRemoteLayer()
 		{
-			//gameObject.layer = LayerMask.NameToLayer(RemoteLayerName);
 			SetLayerRecursively(gameObject,LayerMask.NameToLayer(RemoteLayerName));
 		}
-		
 		
 		/*
 		 * Called if we are local player

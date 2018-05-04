@@ -2,6 +2,7 @@
 using UnityEngine.Networking;
 using Weapon;
 
+
 namespace Player_Scripts
 {   [RequireComponent(typeof(WeaponManager))]
     public class PlayerShoot : NetworkBehaviour
@@ -13,13 +14,10 @@ namespace Player_Scripts
         private WeaponManager _weaponManager;
         [SerializeField] private LayerMask _layerMask;
 
-        private WeaponGraphicalEffect _weaponGraphicalEffect;
-        
         #region Unity Functions
 
         private void Start()
         {
-
             _weaponManager = GetComponent<WeaponManager>();
             _weaponEquipped = _weaponManager.CurrentWeapon;
             
@@ -50,15 +48,14 @@ namespace Player_Scripts
          * mask controls what we hit with layers.
        */
 
-        [Client]
-        private void FireWeapon()
+        [Client] private void FireWeapon()
         {
-
-
             if (!isLocalPlayer) return;
-
+            
             CmdOnFireWeapon();
+            
             RaycastHit hit;
+            
             if (!Physics.Raycast(_camera.transform.position,
                     _camera.transform.forward, //starting point of ray
                     out hit, //Raycast which info is being filled into
@@ -67,19 +64,15 @@ namespace Player_Scripts
             ) return;
 
 
-            
-
             Debug.Log("We hit: " + hit.collider.name + "with tag:  " + hit.collider.tag);
 
             if (hit.collider.CompareTag("Player"))
             {
-               
                 CmdPlayerShot(hit.collider.name, _weaponEquipped.Damage);
             }
 
             if (hit.collider.CompareTag("PlayerHead"))
             {
-
                 var dmg = 2 * _weaponEquipped.Damage;
                 CmdPlayerShot(hit.collider.name, dmg);
             }
@@ -93,28 +86,27 @@ namespace Player_Scripts
          * The Server Is the host
 		 */
 
-        [Command]
-        private void CmdPlayerShot(string playerId, int damage)
+        [Command] private void CmdPlayerShot(string playerId, int damage)
         {
-
             Debug.Log(playerId + " has been shot");
             var player = GameManager.GetPlayer(playerId);
             player.RpcPlayerIsShot(damage);
-
-
         }
 
-        [Command]
-        void CmdOnFireWeapon()
+        /*
+         * Informs server when any player fired their weapon
+         */
+        [Command] private void CmdOnFireWeapon()
         {
-            RpcDisplayEffect();
-            
+            RpcDisplayMuzzleFlash();
         }
+        /*
+         * Displays muzzleflash across all clients
+         */
         [ClientRpc]
-        void RpcDisplayEffect()
+        private void RpcDisplayMuzzleFlash()
         {    
-            
-            _weaponManager.WeaponGraphicalEffect.MuzzleFlash.Play();
+           _weaponManager.WeaponEffectOnSHoot.Play();
         }
 
 

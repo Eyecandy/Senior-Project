@@ -61,7 +61,6 @@ GameObject:
   - component: {fileID: 114125371625818832}
   - component: {fileID: 114478405984320240}
   - component: {fileID: 114315035421036520}
-  - component: {fileID: 114160735248558502}
   - component: {fileID: 114858738474794970}
   - component: {fileID: 153917022073609694}
   - component: {fileID: 114309428814311734}
@@ -221,7 +220,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1333478427320978}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.292, y: -0.31, z: 0.363}
+  m_LocalPosition: {x: 0.57, y: -0.26, z: 0.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4628881524941012}
@@ -471,10 +470,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3eeffdccc3064038a742aa78ead556b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerWeapon: {fileID: 114160735248558502}
+  _weaponPrefab: {fileID: 1002280012251840, guid: a07c7c7a2c5f84cfebb0a68d590ebaea,
+    type: 2}
   _weaponHolder: {fileID: 1333478427320978}
   CurrentWeapon: {fileID: 0}
-  WeaponGraphicalEffect: {fileID: 0}
+  WeaponEffectOnSHoot: {fileID: 0}
 --- !u!114 &114125371625818832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -496,21 +496,6 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 10
   m_InterpolateMovement: 1
---- !u!114 &114160735248558502
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1100914866961326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cb9a8f6ed3e148fba00bb0369563773, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Range: 100
-  Damage: 10
-  WeaponPrefab: {fileID: 1002280012251840, guid: a07c7c7a2c5f84cfebb0a68d590ebaea,
-    type: 2}
 --- !u!114 &114309428814311734
 MonoBehaviour:
   m_ObjectHideFlags: 1
