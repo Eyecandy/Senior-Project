@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using Player_Scripts;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
@@ -12,19 +13,22 @@ public class GameManager : MonoBehaviour {
     private static readonly Dictionary<string, Player> Players = new Dictionary<string, Player>();
     
     
-    public static void RegisterPlayer(string playerNetId,Player player) {
+    public static void RegisterPlayer(string playerNetId,Player player) 
+    {
         var playerId = PlayerPrefix + playerNetId;
         Players.Add (playerId, player);
         player.transform.name = playerId;
     }
     
     
-    public static void UnRegisterPlayer(string netId) {
+    public static void UnRegisterPlayer(string netId) 
+    {
         var playerId = PlayerPrefix + netId;
         Players.Remove (playerId);
     }
     
-    public static Player GetPlayer(string playerId) {
+    public static Player GetPlayer(string playerId) 
+    {
         return Players [playerId];
     }
 

@@ -16,13 +16,14 @@ namespace Player_Scripts
 		private void Start() {
 			_motor = GetComponent<PlayerMotor> ();
 		}
-
+		
 		
 		private void Update()
 		{
 			MovementInput();
 			CameraRotationInput();
 			CameraRotation();
+			Menu();
 			
 		}
 		#endregion
@@ -40,7 +41,6 @@ namespace Player_Scripts
 			var yMove = Input.GetAxis("Vertical");
 			var moveHorizontal = transform.right * xMove;  
 			var moveVertical = transform.forward * yMove; 
-			
 			var velocity = (moveHorizontal + moveVertical).normalized* _speed; 
 			_motor.Move(velocity);
 		}
@@ -53,7 +53,6 @@ namespace Player_Scripts
 			var rotationAroundY = Input.GetAxis ("Mouse X");
 			var rotation = new Vector3 (0f, rotationAroundY, 0f) * _lookSensitivity;
 			_motor.Rotate(rotation);
-			
 		}
 		/*
 		 * Applies Input to tilt camera up and down.
@@ -63,7 +62,19 @@ namespace Player_Scripts
 			var cameraRotationAroundX = Input.GetAxis ("Mouse Y");
 			var rotation = new Vector3 (cameraRotationAroundX, 0f, 0f) * _lookSensitivity;
 			_motor.RotateCamera(rotation);
-
+		}
+		#endregion
+		
+		#region GUI
+		/*
+		 * Controls GUI.
+		 */
+		private static void Menu()
+		{
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				PlayerGUI.EnableNetworkManagerHud();
+			}
 		}
 		#endregion
 

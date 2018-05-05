@@ -3,29 +3,35 @@
 namespace Player_Scripts
 {
 	[RequireComponent(typeof(Rigidbody))]
-	
+	[RequireComponent(typeof(WeaponManager))]
 	public class PlayerMotor : MonoBehaviour
 	{
+		
+		
 		[SerializeField] private Camera _camera;
 		private Rigidbody _rigidbody;
 		private Vector3 _velocity = Vector3.zero;
 		private Vector3 _rotation = Vector3.zero;
 		private Vector3 _cameraRotation = Vector3.zero;
+		private WeaponManager _weaponManager;
+		
 		
 		#region Unity InBuilt Functions
 		
 		private void Start()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
-			
+			_weaponManager = GetComponent<WeaponManager>();
+			Debug.Log(_weaponManager + "WEAPON MANAGER");
 		}
-
+		/*
+		 * Physics calculations.
+		 */
 		private void FixedUpdate()
 		{
 			PerformMovement();
 			PerformRotation();
 			PerformCameraRotation();
-			
 		}
 		#endregion
 
@@ -38,6 +44,8 @@ namespace Player_Scripts
 		public void Move(Vector3 newVelocity)
 		{
 			_velocity = newVelocity;
+			Debug.Log(newVelocity + "new vel");
+			_weaponManager.SetMoving(newVelocity != Vector3.zero);
 			
 		}
 		
@@ -50,7 +58,9 @@ namespace Player_Scripts
 			_rotation = newRotation;
 		}
 
-
+		/*
+		 * Sets new camera rotation
+		 */
 		public void RotateCamera(Vector3 newCameraRotation)
 		{
 			_cameraRotation = newCameraRotation;
