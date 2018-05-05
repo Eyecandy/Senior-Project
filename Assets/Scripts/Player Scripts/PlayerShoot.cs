@@ -2,6 +2,8 @@
 using UnityEngine.Networking;
 using Weapon;
 
+    
+
 
 namespace Player_Scripts
 {   [RequireComponent(typeof(WeaponManager))]
@@ -48,12 +50,19 @@ namespace Player_Scripts
          * mask controls what we hit with layers.
        */
 
+        
+
+
         [Client] private void FireWeapon()
         {
             if (!isLocalPlayer) return;
             
             CmdOnFireWeapon();
+
+           
             
+           
+      
             RaycastHit hit;
             
             if (!Physics.Raycast(_camera.transform.position,
@@ -63,7 +72,7 @@ namespace Player_Scripts
                     _layerMask) //masks out things we should not be able to hit.
             ) return;
 
-
+            
             Debug.Log("We hit: " + hit.collider.name + "with tag:  " + hit.collider.tag);
 
             if (hit.collider.CompareTag("Player"))
@@ -105,8 +114,12 @@ namespace Player_Scripts
          */
         [ClientRpc]
         private void RpcDisplayMuzzleFlash()
-        {    
-           _weaponManager.WeaponEffectOnSHoot.Play();
+        {
+
+           
+            _weaponManager.Animator.SetTrigger("Fire");
+            _weaponManager.WeaponEffectOnSHoot.Play();
+            
         }
 
 

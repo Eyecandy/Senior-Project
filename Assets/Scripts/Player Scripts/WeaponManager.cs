@@ -8,15 +8,17 @@ namespace Player_Scripts
 	public class WeaponManager : NetworkBehaviour
 	{
 
-		//[SerializeField] private PlayerWeapon _playerWeapon;
 		
 		[SerializeField] private GameObject _weaponPrefab;
 
 		[SerializeField] private GameObject _weaponHolder;
-		
+
 		[HideInInspector] public PlayerWeapon CurrentWeapon;
 
 		[HideInInspector] public ParticleSystem WeaponEffectOnSHoot;
+
+		[HideInInspector] public Animator Animator;
+		
 		
 	
 		private void Start()
@@ -34,7 +36,13 @@ namespace Player_Scripts
 			
 			weaponInstance.transform.SetParent(_weaponHolder.transform);
 			WeaponEffectOnSHoot = weaponInstance.GetComponent<PlayerWeapon>().MuzzleFlash;
-			
+			Animator = weaponInstance.GetComponent<PlayerWeapon>().Animator;
+
+
+
+
+
+
 		}
 	}
 }
