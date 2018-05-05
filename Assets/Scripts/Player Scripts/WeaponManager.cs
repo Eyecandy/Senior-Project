@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Networking;
 using Weapon;
 
@@ -38,11 +39,12 @@ namespace Player_Scripts
 			WeaponEffectOnSHoot = weaponInstance.GetComponent<PlayerWeapon>().MuzzleFlash;
 			Animator = weaponInstance.GetComponent<PlayerWeapon>().Animator;
 
+		}
 
-
-
-
-
+		public void SetMoving(bool isMoving)
+		{
+			Animator.SetBool("IsWalking",isMoving);
+			
 		}
 	}
 }
