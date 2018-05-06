@@ -14,7 +14,7 @@ public class BallMotor : NetworkBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		GameObject spawner = GameObject.FindGameObjectWithTag("Spawner");
-		BallManager manager = spawner.GetComponent<BallManager>();
+		BallSpawner manager = spawner.GetComponent<BallSpawner>();
 		int ballNumber = Int32.Parse(this.name.Split('-')[1]);
 		startPosition = manager.positions[ballNumber];
 	}
