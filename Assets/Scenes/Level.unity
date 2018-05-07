@@ -636,6 +636,11 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
+--- !u!4 &162263069 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4376893432220196, guid: 6e293863661cc41caa73d954b85b7b41,
+    type: 2}
+  m_PrefabInternal: {fileID: 1758929945}
 --- !u!1 &216541197
 GameObject:
   m_ObjectHideFlags: 0
@@ -4381,10 +4386,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a864caa62f14586bd37b01f28e8c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 1649247462525756, guid: fd969927d237347589487b1d23a60f94, type: 2}
-  numberOfBalls: 2
-  plane: {fileID: 4376893432220196, guid: 6e293863661cc41caa73d954b85b7b41, type: 2}
-  positions: []
+  _ballPrefab: {fileID: 1649247462525756, guid: fd969927d237347589487b1d23a60f94,
+    type: 2}
+  _numberOfBalls: 1
+  _plane: {fileID: 162263069}
+  Positions: []
 --- !u!4 &1812152617
 Transform:
   m_ObjectHideFlags: 0
