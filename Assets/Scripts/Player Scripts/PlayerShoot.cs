@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using OffensiveSpecialAbilities;
+using SpecialAbility.OffensiveSpecialAbilities;
+using UnityEngine;
 using UnityEngine.Networking;
 using Weapon;
 
@@ -16,10 +18,14 @@ namespace Player_Scripts
         private WeaponManager _weaponManager;
         [SerializeField] private LayerMask _layerMask;
 
+        [SerializeField] private PushAbility _pushAbility;
+
         #region Unity Functions
 
         private void Start()
         {
+            _pushAbility = GetComponent<PushAbility>();
+            
             _weaponManager = GetComponent<WeaponManager>();
             _weaponEquipped = _weaponManager.CurrentWeapon;
             
@@ -37,6 +43,14 @@ namespace Player_Scripts
             {
                 FireWeapon();
             }
+
+            if (Input.GetButton("Fire2"))
+            {
+                Debug.Log("Fire2");
+                UseOffensiveAbility();
+            }
+
+
         }
 
         #endregion
@@ -71,6 +85,7 @@ namespace Player_Scripts
                     _weaponEquipped.Range, //The range of the raycast 
                     _layerMask) //masks out things we should not be able to hit.
             ) return;
+            
 
             
             Debug.Log("We hit: " + hit.collider.name + "with tag:  " + hit.collider.tag);
@@ -121,6 +136,20 @@ namespace Player_Scripts
             _weaponManager.WeaponEffectOnSHoot.Play();
             
         }
+
+
+        #endregion
+
+        #region OffensiveSpecialAbility
+
+        private void UseOffensiveAbility()
+        {
+            Debug.Log("UseOffensiveAbility");
+            _pushAbility.Use();
+            
+        }
+
+
 
 
         #endregion

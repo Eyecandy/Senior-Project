@@ -22,7 +22,6 @@ namespace Player_Scripts
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_weaponManager = GetComponent<WeaponManager>();
-			Debug.Log(_weaponManager + "WEAPON MANAGER");
 		}
 		/*
 		 * Physics calculations.
@@ -44,7 +43,6 @@ namespace Player_Scripts
 		public void Move(Vector3 newVelocity)
 		{
 			_velocity = newVelocity;
-			Debug.Log(newVelocity + "new vel");
 			_weaponManager.SetMoving(newVelocity != Vector3.zero);
 			
 		}

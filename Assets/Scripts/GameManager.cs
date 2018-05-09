@@ -16,8 +16,16 @@ public class GameManager : MonoBehaviour {
     public static void RegisterPlayer(string playerNetId,Player player) 
     {
         var playerId = PlayerPrefix + playerNetId;
-        Players.Add (playerId, player);
-        player.transform.name = playerId;
+        if (Players.ContainsKey(playerId))
+        {
+            Players[playerId] = player;
+            player.transform.name = playerId;
+        }
+        else
+        {
+            player.transform.name = playerId;
+            Players.Add (playerId, player);
+        }
     }
     
     

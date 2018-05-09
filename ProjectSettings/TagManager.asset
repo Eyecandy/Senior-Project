@@ -5,8 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerHead
+  - Fire
   - Spawner
-  - Pick Up
+  - Ball
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - LocalPlayer
   - RemotePlayer
   - DontDraw
-  - 
+  - Ball
   - 
   - 
   - 

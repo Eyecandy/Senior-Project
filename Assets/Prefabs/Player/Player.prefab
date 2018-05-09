@@ -65,6 +65,8 @@ GameObject:
   - component: {fileID: 153917022073609694}
   - component: {fileID: 114309428814311734}
   - component: {fileID: 114123006287579764}
+  - component: {fileID: 114274393410434702}
+  - component: {fileID: 114157789308241898}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -497,6 +499,37 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 10
   m_InterpolateMovement: 1
+--- !u!114 &114157789308241898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100914866961326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f0284e9532434896840712f5a69999e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 20179397343931178}
+  OffensiveSpecialAbility: {fileID: 0}
+  DefensiveSpecialAbility: {fileID: 0}
+--- !u!114 &114274393410434702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100914866961326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00fb195661c2148c09bf8d5640dcffb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 20179397343931178}
+  _range: 100
+  _pushForce: 400
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &114309428814311734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -523,6 +556,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 4294966015
+  _pushAbility: {fileID: 0}
 --- !u!114 &114385097629258698
 MonoBehaviour:
   m_ObjectHideFlags: 1
