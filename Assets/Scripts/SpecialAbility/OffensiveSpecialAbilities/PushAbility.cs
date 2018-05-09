@@ -1,5 +1,4 @@
-﻿using OffensiveSpecialAbilities;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SpecialAbility.OffensiveSpecialAbilities
 {
@@ -10,7 +9,7 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 		[SerializeField] private float _range = 100f;
 		[SerializeField] private float _pushForce = 400f;
 		[SerializeField] private LayerMask _layerMask;
-		
+	
 		public void Use()
 		{
 			PerformPush();
@@ -18,7 +17,6 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 
 		private void PerformPush()
 		{
-			
 			RaycastHit pushRaycastHit;
 			if (!Physics.Raycast(_camera.transform.position,
 					_camera.transform.forward,    //starting point of ray
@@ -26,8 +24,8 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 					_range,                       //The range of the raycast 
 					_layerMask)                   //masks out things we should not be able to hit.
 			) return;
+			
 			var ballRigidBody = pushRaycastHit.collider.attachedRigidbody;
-
 			ballRigidBody.AddForce( _camera.transform.forward * _pushForce );
 		}
 		

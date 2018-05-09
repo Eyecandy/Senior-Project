@@ -1,6 +1,6 @@
 ﻿using System.Net.Configuration;
-using OffensiveSpecialAbilities;
 using SpecialAbility.DeffensiveSpecialAbilities;
+using SpecialAbility.OffensiveSpecialAbilities;
 using UnityEngine;
 
 namespace Player_Scripts

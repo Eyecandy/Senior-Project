@@ -1,5 +1,4 @@
-﻿using OffensiveSpecialAbilities;
-using SpecialAbility.OffensiveSpecialAbilities;
+﻿using SpecialAbility.OffensiveSpecialAbilities;
 using UnityEngine;
 using UnityEngine.Networking;
 using Weapon;
@@ -24,6 +23,7 @@ namespace Player_Scripts
 
         private void Start()
         {
+            
             _pushAbility = GetComponent<PushAbility>();
             
             _weaponManager = GetComponent<WeaponManager>();
@@ -46,8 +46,7 @@ namespace Player_Scripts
 
             if (Input.GetButton("Fire2"))
             {
-                Debug.Log("Fire2");
-                UseOffensiveAbility();
+                UseOffensiveSpecial();
             }
 
 
@@ -65,18 +64,14 @@ namespace Player_Scripts
        */
 
         
-
+        
 
         [Client] private void FireWeapon()
         {
             if (!isLocalPlayer) return;
             
             CmdOnFireWeapon();
-
-           
             
-           
-      
             RaycastHit hit;
             
             if (!Physics.Raycast(_camera.transform.position,
@@ -87,7 +82,6 @@ namespace Player_Scripts
             ) return;
             
 
-            
             Debug.Log("We hit: " + hit.collider.name + "with tag:  " + hit.collider.tag);
 
             if (hit.collider.CompareTag("Player"))
@@ -130,8 +124,6 @@ namespace Player_Scripts
         [ClientRpc]
         private void RpcDisplayMuzzleFlash()
         {
-
-           
             _weaponManager.Animator.SetTrigger("Fire");
             _weaponManager.WeaponEffectOnSHoot.Play();
             
@@ -142,15 +134,17 @@ namespace Player_Scripts
 
         #region OffensiveSpecialAbility
 
-        private void UseOffensiveAbility()
+
+       [Client] private void UseOffensiveSpecial()
+       {
+           if (!isLocalPlayer) return;
+           CmdUseOffensiveAbility();
+       }
+
+        [Command] private void CmdUseOffensiveAbility()
         {
-            Debug.Log("UseOffensiveAbility");
-            _pushAbility.Use();
-            
+            _pushAbility.Use();            
         }
-
-
-
 
         #endregion
       

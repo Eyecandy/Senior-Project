@@ -1,18 +1,9 @@
-﻿
+﻿using UnityEngine;
 
-
-using UnityEngine;
-
-namespace OffensiveSpecialAbilities
+namespace SpecialAbility.OffensiveSpecialAbilities
 {
-	public abstract  class OffensiveSpecialAbility:MonoBehaviour
+	public abstract class OffensiveSpecialAbility:MonoBehaviour
 	{
-		
-
-		void Use()
-		{
-		}
-
-
+		void Use(){}
 	}
 }

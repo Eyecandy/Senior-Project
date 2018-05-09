@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33686159274247204}
   - component: {fileID: 65400224473175062}
   - component: {fileID: 23909986422137324}
-  - component: {fileID: 114793441948437004}
   m_Layer: 0
   m_Name: Push
   m_TagString: Untagged
@@ -96,20 +95,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114793441948437004
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1539119524470792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00fb195661c2148c09bf8d5640dcffb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
-  _range: 100
-  _pushForce: 400
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 2048
