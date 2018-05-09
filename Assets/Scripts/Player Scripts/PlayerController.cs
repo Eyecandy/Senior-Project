@@ -65,6 +65,8 @@ namespace Player_Scripts
 		}
 		#endregion
 		
+		
+		
 		#region GUI
 		/*
 		 * Controls GUI.

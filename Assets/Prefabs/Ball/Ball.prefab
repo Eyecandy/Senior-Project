@@ -26,9 +26,9 @@ GameObject:
   - component: {fileID: 54132560365606910}
   - component: {fileID: 114820031315720962}
   - component: {fileID: 114043101626618756}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,7 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a52a8a9858c4175813c8abfa05613e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrust: 2
+  _thrust: 5
+  StartPosition: {x: 0, y: 0, z: 0}
 --- !u!135 &135089098152856954
 SphereCollider:
   m_ObjectHideFlags: 1
