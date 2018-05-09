@@ -8,6 +8,7 @@ TagManager:
   - Fire
   - Spawner
   - Ball
+  - Pick Up
   layers:
   - Default
   - TransparentFX
