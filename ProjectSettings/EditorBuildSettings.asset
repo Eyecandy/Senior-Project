@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DevScene.unity
     guid: 17b3af79ac3cf417f82ba33ae54845ba
+  - enabled: 0
+    path: Assets/Smooth Sync Example/SmoothSyncExample.unity
+    guid: 6e7ba113379f16442b88da8b8fa0dd17
