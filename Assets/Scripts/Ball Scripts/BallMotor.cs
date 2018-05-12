@@ -2,21 +2,24 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Networking;
+using Smooth;
 
 namespace Ball_Scripts
 {
 	public class BallMotor : NetworkBehaviour
 	{
+		SmoothSync smoothSync;
 
 		private Rigidbody _rb;
 		private float _time;
 		[SerializeField] private float _thrust;
-		public Vector3 StartPosition;
+		public Vector3 StartPosition = Vector3.zero;
 
 		// Use this for initialization
 		void Start ()
 		{
 			_rb = GetComponent<Rigidbody>();
+			smoothSync = GetComponent<SmoothSync>();
 		}
 		
 		
@@ -27,7 +30,12 @@ namespace Ball_Scripts
 		void FixedUpdate () {
 			if (this.transform.position.y < -1)
 			{
-				this.transform.position = StartPosition;
+				//this.transform.position = StartPosition;
+				Debug.Log("Respawn Ball " + StartPosition + " " + transform.rotation);
+				//Network timestamp
+				int timestamp = NetworkTransport.GetNetworkTimestamp();
+				// Teleport owned object
+				smoothSync.teleport(timestamp, StartPosition, transform.rotation);
 				_rb.velocity = Vector3.zero;
 			}
 			
