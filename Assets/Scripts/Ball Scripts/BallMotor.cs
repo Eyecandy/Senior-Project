@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 //using Smooth;
@@ -25,7 +25,11 @@ namespace Ball_Scripts
 			this.name = BallName;
 
 		}
+		
+		
 	
+		
+		
 		// Update is called once per frame
 		void FixedUpdate () {
 			if (this.transform.position.y < -1)
@@ -37,7 +41,13 @@ namespace Ball_Scripts
 				}
 //				Debug.Log("Respawn Ball " + StartPosition + " " + transform.rotation);
 			}
-			_rb.AddForce(new Vector3(0,0,-1) * _thrust);
+			
+			_time += Time.deltaTime;
+			if (Math.Abs(_time % 2.5) < 1)
+			{
+				_rb.AddForce(new Vector3(0,0,-1) * _thrust, ForceMode.VelocityChange);
+			}
+
 		}
 		
 		private IEnumerator Respawn()
