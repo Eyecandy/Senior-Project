@@ -7,14 +7,25 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 
 		[SerializeField] private Camera _camera;
 		[SerializeField] private float _range = 100f;
-		[SerializeField] private float _pushForce = 400f;
+		[SerializeField] private float _pushForce = 100f;
 		[SerializeField] private LayerMask _layerMask;
-	
-		public void Use()
+		
+		/*
+		 * Interface Function from OffensiveSpecialAbility
+		 */
+		public override void Use()
 		{
 			PerformPush();
 		}
 
+		public override void SetCamera(Camera playerPovCamera)
+		{
+			_camera = playerPovCamera;
+		}
+
+		/*
+		 * Performs push
+		 */
 		private void PerformPush()
 		{
 			RaycastHit pushRaycastHit;
@@ -26,9 +37,10 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 			) return;
 			
 			var ballRigidBody = pushRaycastHit.collider.attachedRigidbody;
-			ballRigidBody.AddForce( _camera.transform.forward * _pushForce );
+			ballRigidBody.AddForce( _camera.transform.forward * _pushForce ,ForceMode.VelocityChange);
 		}
-		
+
+
 		
 	}
 }

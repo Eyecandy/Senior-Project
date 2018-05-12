@@ -2,8 +2,12 @@
 
 namespace SpecialAbility.OffensiveSpecialAbilities
 {
-	public abstract class OffensiveSpecialAbility:MonoBehaviour
+	public abstract class OffensiveSpecialAbility : MonoBehaviour, IOffensiveSpecialAbility
+
 	{
-		void Use(){}
+		public abstract void Use();
+
+		public abstract void SetCamera(Camera camera);
+
 	}
 }

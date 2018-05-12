@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Runtime.CompilerServices;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Ball_Scripts
@@ -7,6 +9,7 @@ namespace Ball_Scripts
 	{
 
 		private Rigidbody _rb;
+		private float _time;
 		[SerializeField] private float _thrust;
 		public Vector3 StartPosition;
 
@@ -15,7 +18,11 @@ namespace Ball_Scripts
 		{
 			_rb = GetComponent<Rigidbody>();
 		}
+		
+		
 	
+		
+		
 		// Update is called once per frame
 		void FixedUpdate () {
 			if (this.transform.position.y < -1)
@@ -23,7 +30,14 @@ namespace Ball_Scripts
 				this.transform.position = StartPosition;
 				_rb.velocity = Vector3.zero;
 			}
-			_rb.AddForce(new Vector3(0,0,-1) * _thrust);
+			
+			_time += Time.deltaTime;
+			if (Math.Abs(_time % 2.5) < 1)
+			{
+				_rb.AddForce(new Vector3(0,0,-1) * _thrust, ForceMode.VelocityChange);
+			}
+
+			
 		}
 	}
 }
