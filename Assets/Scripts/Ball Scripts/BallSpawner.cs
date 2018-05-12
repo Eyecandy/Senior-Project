@@ -30,7 +30,7 @@ namespace Ball_Scripts
                 GameObject ball = Instantiate(_ballPrefab, Positions[i], Quaternion.identity);
                 BallMotor ballMotor = ball.GetComponent<BallMotor>();
                 ballMotor.StartPosition = Positions[i];
-                ball.name = "Ball-"+i.ToString();
+                ballMotor.SetBallName("Ball-"+i.ToString());
                 _corner = _corner - spanVector3;
                 NetworkServer.Spawn(ball);
             }
