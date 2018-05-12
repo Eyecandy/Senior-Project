@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpecialAbility.OffensiveSpecialAbilities;
+using UnityEngine;
 using UnityEngine.Networking;
 using Weapon;
 
@@ -16,10 +17,15 @@ namespace Player_Scripts
         private WeaponManager _weaponManager;
         [SerializeField] private LayerMask _layerMask;
 
+        [SerializeField] private PushAbility _pushAbility;
+
         #region Unity Functions
 
         private void Start()
         {
+            
+            _pushAbility = GetComponent<PushAbility>();
+            
             _weaponManager = GetComponent<WeaponManager>();
             _weaponEquipped = _weaponManager.CurrentWeapon;
             
@@ -37,6 +43,13 @@ namespace Player_Scripts
             {
                 FireWeapon();
             }
+
+            if (Input.GetButton("Fire2"))
+            {
+                UseOffensiveSpecial();
+            }
+
+
         }
 
         #endregion
@@ -51,18 +64,14 @@ namespace Player_Scripts
        */
 
         
-
+        
 
         [Client] private void FireWeapon()
         {
             if (!isLocalPlayer) return;
             
             CmdOnFireWeapon();
-
-           
             
-           
-      
             RaycastHit hit;
             
             if (!Physics.Raycast(_camera.transform.position,
@@ -71,8 +80,8 @@ namespace Player_Scripts
                     _weaponEquipped.Range, //The range of the raycast 
                     _layerMask) //masks out things we should not be able to hit.
             ) return;
-
             
+
             Debug.Log("We hit: " + hit.collider.name + "with tag:  " + hit.collider.tag);
 
             if (hit.collider.CompareTag("Player"))
@@ -115,13 +124,27 @@ namespace Player_Scripts
         [ClientRpc]
         private void RpcDisplayMuzzleFlash()
         {
-
-           
             _weaponManager.Animator.SetTrigger("Fire");
             _weaponManager.WeaponEffectOnSHoot.Play();
             
         }
 
+
+        #endregion
+
+        #region OffensiveSpecialAbility
+
+
+       [Client] private void UseOffensiveSpecial()
+       {
+           if (!isLocalPlayer) return;
+           CmdUseOffensiveAbility();
+       }
+
+        [Command] private void CmdUseOffensiveAbility()
+        {
+            _pushAbility.Use();            
+        }
 
         #endregion
       

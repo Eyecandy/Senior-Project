@@ -9,10 +9,12 @@ namespace Player_Scripts
 		
 		
 		[SerializeField] private Camera _camera;
+		[SerializeField] private float _cameraRotationLimit = 85f;
 		private Rigidbody _rigidbody;
 		private Vector3 _velocity = Vector3.zero;
 		private Vector3 _rotation = Vector3.zero;
-		private Vector3 _cameraRotation = Vector3.zero;
+		private float _cameraRotation = 0f;
+		private float _currentCameraRotation = 0f;
 		private WeaponManager _weaponManager;
 		
 		
@@ -22,7 +24,6 @@ namespace Player_Scripts
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_weaponManager = GetComponent<WeaponManager>();
-			Debug.Log(_weaponManager + "WEAPON MANAGER");
 		}
 		/*
 		 * Physics calculations.
@@ -44,7 +45,6 @@ namespace Player_Scripts
 		public void Move(Vector3 newVelocity)
 		{
 			_velocity = newVelocity;
-			Debug.Log(newVelocity + "new vel");
 			_weaponManager.SetMoving(newVelocity != Vector3.zero);
 			
 		}
@@ -61,7 +61,7 @@ namespace Player_Scripts
 		/*
 		 * Sets new camera rotation
 		 */
-		public void RotateCamera(Vector3 newCameraRotation)
+		public void RotateCamera(float newCameraRotation)
 		{
 			_cameraRotation = newCameraRotation;
 		}
@@ -71,7 +71,7 @@ namespace Player_Scripts
 
 		/*
 		 * Performs movement on rigidbody, makes player walker
-		 * if it has velocity. i.e keyboard is pressed (w,A,S,D)
+		 * if it has velocity. i.e keyboard is pressed (W,A,S,D)
 		 */
 		private void PerformMovement()
 		{
@@ -81,8 +81,8 @@ namespace Player_Scripts
 			}
 		}
 		/*
-		 * Performs rotation on rigidbody
-		 * if it has a new rotation, i.e the mouse moved 
+		 * Performs rotation on rigidbody around X axis(left and right)
+		 * if it has a new rotation, i.e the mouse moved
 		 */
 		private void PerformRotation()
 		{
@@ -92,11 +92,18 @@ namespace Player_Scripts
 			}
 		}
 
+		/*
+		 * Performs camera rotation around Y axis(up and down)
+		 */
 		private void PerformCameraRotation()
 		{
 			if ( _camera != null )
 			{
-				_camera.transform.Rotate(-_cameraRotation);
+				_currentCameraRotation -= _cameraRotation;
+				_currentCameraRotation = Mathf.Clamp(_currentCameraRotation, -_cameraRotationLimit, _cameraRotationLimit);
+				
+				//Apply to camera
+				_camera.transform.localEulerAngles = new Vector3(_currentCameraRotation,0f,0f);
 			}
 			else
 			{

@@ -21,8 +21,8 @@ namespace Player_Scripts
 		private void Update()
 		{
 			MovementInput();
-			CameraRotationInput();
-			CameraRotation();
+			HorizontalCameraRotation();
+			VerticalCameraRotation();
 			Menu();
 			
 		}
@@ -48,7 +48,7 @@ namespace Player_Scripts
 		 * Applies Input to enable player to turn around.
 		 * We are turning around the Y axis based on the mouse positiion of X.
 		 */
-		private void CameraRotationInput()
+		private void HorizontalCameraRotation()
 		{
 			var rotationAroundY = Input.GetAxis ("Mouse X");
 			var rotation = new Vector3 (0f, rotationAroundY, 0f) * _lookSensitivity;
@@ -57,13 +57,15 @@ namespace Player_Scripts
 		/*
 		 * Applies Input to tilt camera up and down.
 		 */
-		private void CameraRotation()
+		private void VerticalCameraRotation()
 		{
 			var cameraRotationAroundX = Input.GetAxis ("Mouse Y");
-			var rotation = new Vector3 (cameraRotationAroundX, 0f, 0f) * _lookSensitivity;
+			var rotation = cameraRotationAroundX * _lookSensitivity;
 			_motor.RotateCamera(rotation);
 		}
 		#endregion
+		
+		
 		
 		#region GUI
 		/*
@@ -74,6 +76,16 @@ namespace Player_Scripts
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
 				PlayerGUI.EnableNetworkManagerHud();
+			}
+		}
+		#endregion
+		
+		#region Pickup Trigger
+		void OnTriggerEnter(Collider other) 
+		{
+			if (other.gameObject.CompareTag ("Pick Up"))
+			{
+				other.gameObject.SetActive (false);
 			}
 		}
 		#endregion
