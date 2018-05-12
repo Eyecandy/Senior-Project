@@ -27,9 +27,6 @@ namespace Ball_Scripts
 		}
 		
 		
-	
-		
-		
 		// Update is called once per frame
 		void FixedUpdate () {
 			if (this.transform.position.y < -1)
@@ -41,12 +38,7 @@ namespace Ball_Scripts
 				}
 //				Debug.Log("Respawn Ball " + StartPosition + " " + transform.rotation);
 			}
-			
-			_time += Time.deltaTime;
-			if (Math.Abs(_time % 2.5) < 1)
-			{
-				_rb.AddForce(new Vector3(0,0,-1) * _thrust, ForceMode.VelocityChange);
-			}
+			_rb.AddForce(new Vector3(0,0,-1) * _thrust);
 
 		}
 		
