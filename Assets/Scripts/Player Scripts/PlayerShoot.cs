@@ -125,7 +125,8 @@ namespace Player_Scripts
         {
             _weaponManager.Animator.SetTrigger("Fire");
             _weaponManager.WeaponEffectOnSHoot.Play();
-            
+            _weaponManager.AudioSource.Play();
+
         }
 
         #endregion

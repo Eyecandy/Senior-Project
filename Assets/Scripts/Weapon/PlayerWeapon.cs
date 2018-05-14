@@ -3,6 +3,7 @@
 namespace Weapon
 {	[System.Serializable]
 	[RequireComponent(typeof(Animator))]
+	[RequireComponent(typeof(AudioSource))]
 	public class PlayerWeapon:MonoBehaviour
 	{
 		public float Range = 100f;
@@ -12,9 +13,13 @@ namespace Weapon
 		
 		public ParticleSystem MuzzleFlash;
 
+		[HideInInspector] public AudioSource AudioSource;
+		
+
 		private void Start()
 		{
 			Animator = GetComponent<Animator>();
+			AudioSource = GetComponent<AudioSource>();
 		}
 	}
 }

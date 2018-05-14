@@ -19,6 +19,9 @@ namespace Player_Scripts
 		[HideInInspector] public ParticleSystem WeaponEffectOnSHoot;
 
 		[HideInInspector] public Animator Animator;
+
+
+		[HideInInspector] public AudioSource AudioSource;
 		
 		
 	
@@ -38,6 +41,7 @@ namespace Player_Scripts
 			weaponInstance.transform.SetParent(_weaponHolder.transform);
 			WeaponEffectOnSHoot = weaponInstance.GetComponent<PlayerWeapon>().MuzzleFlash;
 			Animator = weaponInstance.GetComponent<PlayerWeapon>().Animator;
+			AudioSource = weaponInstance.GetComponent<AudioSource>();
 
 		}
 
