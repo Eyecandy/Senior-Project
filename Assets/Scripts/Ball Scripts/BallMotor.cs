@@ -45,7 +45,6 @@ namespace Ball_Scripts
 		private IEnumerator Respawn()
 		{
 			yield return new WaitForSeconds(1.25f);
-			Debug.Log("Respawned");
 			_rb.position = StartPosition;
 			_rb.velocity = Vector3.zero;
 			_renderer.enabled = true;

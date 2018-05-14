@@ -133,10 +133,13 @@ namespace Player_Scripts
 
         #region OffensiveSpecialAbility
 
-
-       [Client] private void UseOffensiveSpecial()
-       {
-           if (!isLocalPlayer) return;
+        /*
+         * 
+         */
+        [Client]private void UseOffensiveSpecial()
+        {
+            if (!isLocalPlayer) return;
+            if (_specialAbilityManager.OffensiveSpecialAbility == null) return;
            
            CmdUseOffensiveAbility();
        }
@@ -144,6 +147,7 @@ namespace Player_Scripts
         [Command] private void CmdUseOffensiveAbility()
         {
             _specialAbilityManager.OffensiveSpecialAbility.Use();
+            
 
         }
 

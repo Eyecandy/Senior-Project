@@ -20,6 +20,7 @@ namespace Weapon
 		{
 			Animator = GetComponent<Animator>();
 			AudioSource = GetComponent<AudioSource>();
+			
 		}
 	}
 }

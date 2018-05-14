@@ -10,8 +10,10 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 		[SerializeField] private float _pushForce = 100f;
 		[SerializeField] private LayerMask _layerMask;
 		
+		
+
 		/*
-		 * Interface Function from OffensiveSpecialAbility
+		 * Interface Function from OffensiveSpecialAbility (overwritten abstract method)
 		 */
 		public override void Use()
 		{
@@ -29,7 +31,7 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 		private void PerformPush()
 		{
 			RaycastHit pushRaycastHit;
-			if (!Physics.Raycast(_camera.transform.position,
+			if (!Physics.SphereCast(_camera.transform.position,1f,
 					_camera.transform.forward,    //starting point of ray
 					out pushRaycastHit,           //Raycast which info is being filled into
 					_range,                       //The range of the raycast 
@@ -40,7 +42,7 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 			ballRigidBody.AddForce( _camera.transform.forward * _pushForce ,ForceMode.VelocityChange);
 		}
 
-
 		
+	
 	}
 }
