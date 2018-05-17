@@ -17,15 +17,15 @@ namespace Player_Scripts
         private WeaponManager _weaponManager;
         [SerializeField] private LayerMask _layerMask;
 
-        [SerializeField] private PushAbility _pushAbility;
+        //[SerializeField] private PushAbility _pushAbility;
+        [SerializeField] private SpecialAbilityManager _specialAbilityManager;
+        
 
         #region Unity Functions
 
         private void Start()
         {
-            
-            _pushAbility = GetComponent<PushAbility>();
-            
+            _specialAbilityManager = GetComponent<SpecialAbilityManager>();
             _weaponManager = GetComponent<WeaponManager>();
             _weaponEquipped = _weaponManager.CurrentWeapon;
             
@@ -44,8 +44,9 @@ namespace Player_Scripts
                 FireWeapon();
             }
 
-            if (Input.GetButton("Fire2"))
+            if (Input.GetButtonDown("Fire2"))
             {
+                
                 UseOffensiveSpecial();
             }
 
@@ -64,8 +65,6 @@ namespace Player_Scripts
        */
 
         
-        
-
         [Client] private void FireWeapon()
         {
             if (!isLocalPlayer) return;
@@ -126,24 +125,30 @@ namespace Player_Scripts
         {
             _weaponManager.Animator.SetTrigger("Fire");
             _weaponManager.WeaponEffectOnSHoot.Play();
-            
-        }
+            _weaponManager.AudioSource.Play();
 
+        }
 
         #endregion
 
         #region OffensiveSpecialAbility
 
-
-       [Client] private void UseOffensiveSpecial()
-       {
-           if (!isLocalPlayer) return;
+        /*
+         * 
+         */
+        [Client]private void UseOffensiveSpecial()
+        {
+            if (!isLocalPlayer) return;
+            if (_specialAbilityManager.OffensiveSpecialAbility == null) return;
+           
            CmdUseOffensiveAbility();
        }
 
         [Command] private void CmdUseOffensiveAbility()
         {
-            _pushAbility.Use();            
+            _specialAbilityManager.OffensiveSpecialAbility.Use();
+            
+
         }
 
         #endregion

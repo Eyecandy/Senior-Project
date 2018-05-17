@@ -1,37 +1,60 @@
-﻿using UnityEngine;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
-using Smooth;
+//using Smooth;
 
 namespace Ball_Scripts
 {
 	public class BallMotor : NetworkBehaviour
 	{
-		SmoothSync smoothSync;
+//		SmoothSync _smoothSync;
 
 		private Rigidbody _rb;
+		private MeshRenderer _renderer;
+		private SphereCollider _collider;
 		[SerializeField] private float _thrust;
-		public Vector3 StartPosition = Vector3.zero;
+		[SyncVar] public string BallName;
+		[SyncVar] public Vector3 StartPosition;
 
 		// Use this for initialization
 		void Start ()
 		{
 			_rb = GetComponent<Rigidbody>();
-			smoothSync = GetComponent<SmoothSync>();
+//			_smoothSync = GetComponent<SmoothSync>();
+			_renderer = GetComponent<MeshRenderer>();
+			this.name = BallName;
+
 		}
-	
+		
+		
 		// Update is called once per frame
 		void FixedUpdate () {
 			if (this.transform.position.y < -1)
 			{
-				//this.transform.position = StartPosition;
-				Debug.Log("Respawn Ball " + StartPosition + " " + transform.rotation);
-				//Network timestamp
-				int timestamp = NetworkTransport.GetNetworkTimestamp();
-				// Teleport owned object
-				smoothSync.teleport(timestamp, StartPosition, transform.rotation);
-				_rb.velocity = Vector3.zero;
+				if (GetComponent<NetworkIdentity>().isServer && GetComponent<NetworkIdentity>().isClient)
+				{
+					_renderer.enabled = false;
+					StartCoroutine(Respawn());
+				}
+//				Debug.Log("Respawn Ball " + StartPosition + " " + transform.rotation);
 			}
 			_rb.AddForce(new Vector3(0,0,-1) * _thrust);
+
 		}
+		
+		private IEnumerator Respawn()
+		{
+			yield return new WaitForSeconds(1.25f);
+			_rb.position = StartPosition;
+			_rb.velocity = Vector3.zero;
+			_renderer.enabled = true;
+		}
+
+		public void SetBallName(string ballName)
+		{
+			BallName = ballName;
+		}
+		
+		
 	}
 }

@@ -2,8 +2,18 @@
 
 namespace SpecialAbility.OffensiveSpecialAbilities
 {
-	public abstract class OffensiveSpecialAbility:MonoBehaviour
+	/*
+	 * Abstract class so we can use polymorphism
+	 * It implements the offensive special abilty interface
+	 * Every offensive ability will extend this class
+	 */
+	public abstract class OffensiveSpecialAbility : MonoBehaviour, IOffensiveSpecialAbility
+
 	{
-		void Use(){}
+		public abstract void Use();
+
+		public abstract void SetCamera(Camera camera);
+
+
 	}
 }

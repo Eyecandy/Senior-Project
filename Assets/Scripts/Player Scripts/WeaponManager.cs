@@ -19,14 +19,24 @@ namespace Player_Scripts
 		[HideInInspector] public ParticleSystem WeaponEffectOnSHoot;
 
 		[HideInInspector] public Animator Animator;
+
+		[HideInInspector] public AudioSource AudioSource;
 		
 		
-	
+		/*
+		 * Gets the prefab of the weapon
+		 */
 		private void Start()
 		{
 			EquipWeapon(_weaponPrefab.GetComponent<PlayerWeapon>());
 		}
-
+		/*
+		 * Instansiate an instance of the weapon prefab.
+		 * And sets animator and audio source and playerweapon.
+		 * so we can use this information in the playershoot script.
+		 * We set the parent to the pov camera attached to the player.
+		 * 
+		 */
 		private void EquipWeapon(PlayerWeapon weapon)
 		{
 			CurrentWeapon = weapon;
@@ -37,7 +47,8 @@ namespace Player_Scripts
 			
 			weaponInstance.transform.SetParent(_weaponHolder.transform);
 			WeaponEffectOnSHoot = weaponInstance.GetComponent<PlayerWeapon>().MuzzleFlash;
-			Animator = weaponInstance.GetComponent<PlayerWeapon>().Animator;
+			Animator = weaponInstance.GetComponent<Animator>();
+			AudioSource = weaponInstance.GetComponent<AudioSource>();
 
 		}
 
