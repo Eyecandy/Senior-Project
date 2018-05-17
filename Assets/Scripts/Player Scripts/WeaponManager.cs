@@ -33,10 +33,6 @@ namespace Player_Scripts
 		[HideInInspector] public LineRenderer LazerRenderer;
 		
 
-		
-
-
-		
 		/*
 		 * Gets the prefab of the weapon
 		 */
@@ -71,7 +67,6 @@ namespace Player_Scripts
 			LazerRenderer = weaponInstance.GetComponent<PlayerWeapon>().LazerRenderer;
 			Glow = weaponInstance.GetComponent<PlayerWeapon>().LazerGlow;
 			
-	
 		}
 
 		public void SetMoving(bool isMoving)
@@ -79,5 +74,36 @@ namespace Player_Scripts
 			Animator.SetBool("IsWalking",isMoving);
 			
 		}
+
+		public void ChangeColor(int isPush)
+		{
+			if (isPush != 1)
+			{
+				BackwardLight.color = Color.magenta;
+				ForwardLight.color = Color.magenta;
+				LazerRenderer.startColor = Color.magenta;
+				LazerRenderer.endColor = Color.magenta;
+				#pragma warning disable 618
+				Glow.startColor = Color.magenta;
+				#pragma warning restore 618
+			
+			
+			
+
+
+			}
+			else
+			{
+				BackwardLight.color = Color.green;
+				ForwardLight.color = Color.green;
+				LazerRenderer.startColor = Color.green;
+				LazerRenderer.endColor = Color.green;
+				#pragma warning disable 618
+				Glow.startColor = Color.green;
+				#pragma warning restore 618
+			}
+
+		}
+
 	}
 }

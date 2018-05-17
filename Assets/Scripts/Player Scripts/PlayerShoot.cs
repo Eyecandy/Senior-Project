@@ -20,6 +20,9 @@ namespace Player_Scripts
         private GameObject _gunBarrelEnd;
 
         private float _timeToWaitForDisablingAnimation = 0.25f;
+
+
+        private int _isPush = 1;
         
         
 
@@ -60,7 +63,13 @@ namespace Player_Scripts
             if (Input.GetButtonDown("Fire2"))
             {
                 
-                UseOffensiveSpecial();
+                UseOffensiveSpecial(_isPush);
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                _isPush *= -1;
+                _weaponManager.ChangeColor(_isPush);
             }
 
 
@@ -154,18 +163,18 @@ namespace Player_Scripts
         /*
          * 
          */
-        [Client]private void UseOffensiveSpecial()
+        [Client]private void UseOffensiveSpecial(int isPush)
         {
             if (!isLocalPlayer) return;
             if (_specialAbilityManager.OffensiveSpecialAbility == null) return;
             EnableSpecialOffensiveEffects();
             _weaponManager.ForwardLight.enabled = true;
-           CmdUseOffensiveAbility();
+           CmdUseOffensiveAbility(isPush);
        }
 
-        [Command] private void CmdUseOffensiveAbility()
+        [Command] private void CmdUseOffensiveAbility(int isPush)
         {
-            _specialAbilityManager.OffensiveSpecialAbility.Use();
+            _specialAbilityManager.OffensiveSpecialAbility.Use(isPush);
         }
 
         private void EnableSpecialOffensiveEffects()

@@ -10,7 +10,7 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 	public abstract class OffensiveSpecialAbility : MonoBehaviour, IOffensiveSpecialAbility
 
 	{
-		public abstract void Use();
+		public abstract void Use(int isPush);
 
 		public abstract void SetCamera(Camera camera);
 
