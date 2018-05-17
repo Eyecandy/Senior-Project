@@ -511,6 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 20179397343931178}
+  SpecialAbilityAnimatorManager: {fileID: 0}
   OffensiveSpecialAbility: {fileID: 0}
 --- !u!114 &114309428814311734
 MonoBehaviour:

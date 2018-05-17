@@ -1,4 +1,4 @@
-﻿using SpecialAbility.OffensiveSpecialAbilities;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using Weapon;
@@ -17,11 +17,23 @@ namespace Player_Scripts
         private WeaponManager _weaponManager;
         [SerializeField] private LayerMask _layerMask;
 
+        private GameObject _gunBarrelEnd;
+
+        private float _timeToWaitForDisablingAnimation = 0.25f;
+        
+        
+
         //[SerializeField] private PushAbility _pushAbility;
         [SerializeField] private SpecialAbilityManager _specialAbilityManager;
         
 
         #region Unity Functions
+        
+        /*
+         * Get the special Ability Manager attached to player
+         * Get the WeaponManager attached to the player
+         * Get the currentWeapon
+         */
 
         private void Start()
         {
@@ -29,6 +41,7 @@ namespace Player_Scripts
             _weaponManager = GetComponent<WeaponManager>();
             _weaponEquipped = _weaponManager.CurrentWeapon;
             
+ 
             if (_camera != null) return;
             Debug.LogError("No cam found in Player Shoot Script");
             enabled = false;
@@ -43,7 +56,7 @@ namespace Player_Scripts
             {
                 FireWeapon();
             }
-
+            
             if (Input.GetButtonDown("Fire2"))
             {
                 
@@ -70,8 +83,10 @@ namespace Player_Scripts
             if (!isLocalPlayer) return;
             
             CmdOnFireWeapon();
-            
+           
             RaycastHit hit;
+
+            System.Diagnostics.Debug.Assert(_weaponEquipped != null, "_weaponEquipped != null");
             
             if (!Physics.Raycast(_camera.transform.position,
                     _camera.transform.forward, //starting point of ray
@@ -108,6 +123,7 @@ namespace Player_Scripts
             Debug.Log(playerId + " has been shot");
             var player = GameManager.GetPlayer(playerId);
             player.RpcPlayerIsShot(damage);
+            
         }
 
         /*
@@ -123,10 +139,12 @@ namespace Player_Scripts
         [ClientRpc]
         private void RpcDisplayMuzzleFlash()
         {
+            
             _weaponManager.Animator.SetTrigger("Fire");
+            _weaponManager.WeaponEffectOnSHoot.Stop();
             _weaponManager.WeaponEffectOnSHoot.Play();
+            
             _weaponManager.AudioSource.Play();
-
         }
 
         #endregion
@@ -140,15 +158,41 @@ namespace Player_Scripts
         {
             if (!isLocalPlayer) return;
             if (_specialAbilityManager.OffensiveSpecialAbility == null) return;
-           
+            EnableSpecialOffensiveEffects();
+            _weaponManager.ForwardLight.enabled = true;
            CmdUseOffensiveAbility();
        }
 
         [Command] private void CmdUseOffensiveAbility()
         {
             _specialAbilityManager.OffensiveSpecialAbility.Use();
-            
+        }
 
+        private void EnableSpecialOffensiveEffects()
+        {
+            _weaponManager.ForwardLight.enabled = true;
+            _weaponManager.BackwardLight.enabled = true;
+            _weaponManager.LazerRenderer.enabled = true;
+            _weaponManager.Glow.Play();
+            StartCoroutine(DisableAnimationForSpecialEffect());
+
+        }
+
+       
+
+
+        private IEnumerator DisableAnimationForSpecialEffect()
+        {
+ 
+            yield return new WaitForSeconds(_timeToWaitForDisablingAnimation);
+            
+            _weaponManager.ForwardLight.enabled = false;
+            _weaponManager.BackwardLight.enabled = false;
+            _weaponManager.LazerRenderer.enabled = false;
+            _weaponManager.Glow.Stop();
+
+            
+            
         }
 
         #endregion
