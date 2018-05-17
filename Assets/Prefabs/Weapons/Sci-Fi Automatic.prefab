@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Range: 100
-  Damage: 25
+  Damage: 10
   Animator: {fileID: 95884048066425616}
   MuzzleFlash: {fileID: 198715577679902496}
   BackwardLight: {fileID: 108859599448599008}

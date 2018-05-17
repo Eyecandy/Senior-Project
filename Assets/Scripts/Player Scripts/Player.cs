@@ -6,23 +6,28 @@ namespace Player_Scripts
 {
     public class Player : NetworkBehaviour
     {
-        [SerializeField] private int _maxHealth = 100;
-        [SyncVar] private int _currentHealth;
+        [SyncVar] public float WalkingSpeedPercentage = 100f;
+       private float _maxWalkingSpeed = 100f;
 
         [SyncVar] private bool _isDead = false;
 
         [SerializeField] private Behaviour[] _disabledOnDeath;
         private bool[] _wasEnabled;
 
-        [SerializeField] private int _respawnTimer = 3;
+        [SerializeField] private int _respawnTimer = 100;
+
+        public GameObject Graphics;
 
 
         /*
         * enables component on entering game.
         * 
         */
-        public void Setup()
+        public void Setup(Camera poVCamera)
         {
+           
+            
+            
             _wasEnabled = new bool[_disabledOnDeath.Length];
 
             for (var i = 0; i < _wasEnabled.Length; i++)
@@ -42,14 +47,16 @@ namespace Player_Scripts
 
         {
             if (_isDead) return;
-            if (_currentHealth - amount <= 0)
+            var percentageReduced = (WalkingSpeedPercentage * amount / 100f);
+            if (WalkingSpeedPercentage -  percentageReduced<= 0)
             {
+                Debug.LogError("PLAYER DIED FROM SHOTS, THIS SHOULD BE IMPOSSIBLE, KILLING PLAYER THO");
                 ActionsOnDeath();
             }
             else
             {
-                _currentHealth -= amount;
-                Debug.Log(transform.name + "has " + _currentHealth);
+                WalkingSpeedPercentage= WalkingSpeedPercentage - percentageReduced;
+                Debug.Log(transform.name + "has walking speed percentage " + WalkingSpeedPercentage);
             }
         }
 
@@ -59,6 +66,7 @@ namespace Player_Scripts
         {
             yield return new WaitForSeconds(_respawnTimer);
             Debug.Log("Respawned");
+            
             SetPlayerDefaults();
             var spawnPoint = NetworkManager.singleton.GetStartPosition();
             transform.position = spawnPoint.position;
@@ -70,8 +78,9 @@ namespace Player_Scripts
      */
         private void ActionsOnDeath()
         {
-            _isDead = true;
             
+            _isDead = true;
+            Graphics.SetActive(false) ;
             Debug.Log("Died");
 
             foreach (var behaviour in _disabledOnDeath)
@@ -85,6 +94,7 @@ namespace Player_Scripts
             {
                 collder.enabled = false;
             }
+            
 
             StartCoroutine(Respawn());
         }
@@ -94,10 +104,13 @@ namespace Player_Scripts
      */
         private void SetPlayerDefaults()
         {
-            Debug.Log("SetDefaults");
-            _isDead = false;
 
-            _currentHealth = _maxHealth;
+            Debug.Log("SetDefaults");
+            Graphics.SetActive(true) ;
+            _isDead = false;
+            
+
+            WalkingSpeedPercentage = _maxWalkingSpeed;
 
             for (var i = 0; i < _disabledOnDeath.Length; i++)
             {
@@ -110,6 +123,14 @@ namespace Player_Scripts
                 collder.enabled = true;
             }
         }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (!other.transform.CompareTag("Ball")) return;
+            ActionsOnDeath();
+        }
+
+        
 
         #endregion
     }

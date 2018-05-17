@@ -7,7 +7,7 @@ namespace Player_Scripts
 	
 	public class PlayerController : MonoBehaviour
 	{	
-		[SerializeField] private float _speed = 5f;
+		[SerializeField] private float _speed = 0.15f;
 		[SerializeField] private float _lookSensitivity = 5f;
 		private PlayerMotor _motor;
 
