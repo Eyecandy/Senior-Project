@@ -67,7 +67,10 @@ namespace Ball_Scripts
 		[ClientRpc]
 		void RpcAddForce()
 		{
-			_rb.AddForce(new Vector3(0,0,-1) * _thrust);
+			if (_rb != null)
+			{
+				_rb.AddForce(new Vector3(0,0,-1) * _thrust);
+			}
 		}
 		
 		private IEnumerator Respawn()
