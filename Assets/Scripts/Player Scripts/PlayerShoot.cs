@@ -174,6 +174,12 @@ namespace Player_Scripts
 
         [Command] private void CmdUseOffensiveAbility(int isPush)
         {
+            RpcUseOffecsiveAbility(isPush);
+        }
+
+        [ClientRpc]
+        private void RpcUseOffecsiveAbility(int isPush)
+        {
             _specialAbilityManager.OffensiveSpecialAbility.Use(isPush);
         }
 

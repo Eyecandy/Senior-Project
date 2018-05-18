@@ -24,22 +24,49 @@ namespace Ball_Scripts
 			_smoothSync = GetComponent<SmoothSync>();
 			_renderer = GetComponent<MeshRenderer>();
 			this.name = BallName;
-			if (!GetComponent<NetworkIdentity>().isServer)
-			{
-				this.enabled = false;
-			}
-
+//			if (!GetComponent<NetworkIdentity>().isServer)
+//			{
+//				this.enabled = false;
+//			}
 		}
 		
 		
 		// Update is called once per frame
-		void FixedUpdate () {
-			if (this.transform.position.y < -1)
+		void FixedUpdate ()
+		{
+			if (GetComponent<NetworkIdentity>().isServer)
 			{
-				_renderer.enabled = false;
-				StartCoroutine(Respawn());
+				CmdAddForce();
+				if (this.transform.position.y < -1)
+				{
+					_renderer.enabled = false;
+					CmdRespawn();
 //				Debug.Log("Respawn Ball " + StartPosition + " " + transform.rotation);
+				}
 			}
+		}
+
+		[Command]
+		void CmdRespawn()
+		{
+			RpcRespawnOnAllClients();
+		}
+
+		[ClientRpc]
+		void RpcRespawnOnAllClients()
+		{
+			StartCoroutine(Respawn());
+		}
+		
+		[Command]
+		void CmdAddForce()
+		{
+			RpcAddForce();
+		}
+
+		[ClientRpc]
+		void RpcAddForce()
+		{
 			_rb.AddForce(new Vector3(0,0,-1) * _thrust);
 		}
 		
