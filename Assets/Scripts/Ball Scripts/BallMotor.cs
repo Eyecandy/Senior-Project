@@ -23,6 +23,10 @@ namespace Ball_Scripts
 //			_smoothSync = GetComponent<SmoothSync>();
 			_renderer = GetComponent<MeshRenderer>();
 			this.name = BallName;
+			if (!GetComponent<NetworkIdentity>().isServer)
+			{
+				this.enabled = false;
+			}
 
 		}
 		
@@ -31,15 +35,11 @@ namespace Ball_Scripts
 		void FixedUpdate () {
 			if (this.transform.position.y < -1)
 			{
-				if (GetComponent<NetworkIdentity>().isServer && GetComponent<NetworkIdentity>().isClient)
-				{
-					_renderer.enabled = false;
-					StartCoroutine(Respawn());
-				}
+				_renderer.enabled = false;
+				StartCoroutine(Respawn());
 //				Debug.Log("Respawn Ball " + StartPosition + " " + transform.rotation);
 			}
 			_rb.AddForce(new Vector3(0,0,-1) * _thrust);
-
 		}
 		
 		private IEnumerator Respawn()
