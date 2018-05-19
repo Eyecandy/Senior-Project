@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Ball_Scripts;
+using UnityEngine;
 
 namespace SpecialAbility.OffensiveSpecialAbilities
 {
@@ -37,6 +38,8 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 					_range,                       //The range of the raycast 
 					_layerMask)                   //masks out things we should not be able to hit.
 			) return;
+
+			
 			
 			var ballRigidBody = pushRaycastHit.collider.attachedRigidbody;
 			ballRigidBody.AddForce( _camera.transform.forward * _pushForce * isPush ,ForceMode.VelocityChange);

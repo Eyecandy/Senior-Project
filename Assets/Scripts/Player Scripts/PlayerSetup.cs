@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Ball_Scripts;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Player_Scripts
@@ -47,6 +48,8 @@ namespace Player_Scripts
 			}
 			else
 			{
+				
+				
 				_povCamera = Camera.main;
 				if (_povCamera != null)
 				{
@@ -77,6 +80,18 @@ namespace Player_Scripts
 			var playerNetId =  GetComponent<NetworkBehaviour>().netId.ToString();
 			var player = GetComponent<Player>();
 			GameManager.RegisterPlayer(playerNetId, player);
+			var arrayOfBalls = GameObject.FindGameObjectsWithTag("Ball");
+			Debug.Log(arrayOfBalls.Length);
+			foreach (var ball in arrayOfBalls)
+			{
+				var ballName = ball.GetComponent<BallMotor>().BallName;
+				Debug.Log(ballName);
+				var ballMotor = ball.GetComponent<BallMotor>();
+				GameManager.RegisterBallMotor(ballName,ballMotor);
+			}
+			
+			
+			
 		}
 
 		/*

@@ -543,6 +543,9 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 4294966015
+  _specialAbilityLayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
   _specialAbilityManager: {fileID: 0}
 --- !u!114 &114385097629258698
 MonoBehaviour:

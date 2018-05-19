@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Ball_Scripts;
 using UnityEngine;
 using UnityEngine.Networking;
 using Weapon;
@@ -21,6 +22,7 @@ namespace Player_Scripts
 
         private float _timeToWaitForDisablingAnimation = 0.25f;
 
+        [SerializeField]private LayerMask _specialAbilityLayerMask;
 
         private int _isPush = 1;
         
@@ -66,7 +68,7 @@ namespace Player_Scripts
                 UseOffensiveSpecial(_isPush);
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 _isPush *= -1;
                 _weaponManager.ChangeColor(_isPush);
@@ -152,7 +154,6 @@ namespace Player_Scripts
             _weaponManager.Animator.SetTrigger("Fire");
             _weaponManager.WeaponEffectOnSHoot.Stop();
             _weaponManager.WeaponEffectOnSHoot.Play();
-            
             _weaponManager.AudioSource.Play();
         }
 
@@ -163,25 +164,43 @@ namespace Player_Scripts
         /*
          * 
          */
-        [Client]private void UseOffensiveSpecial(int isPush)
+        [Client] private void UseOffensiveSpecial(int isPush)
         {
             if (!isLocalPlayer) return;
             if (_specialAbilityManager.OffensiveSpecialAbility == null) return;
-            EnableSpecialOffensiveEffects();
-            _weaponManager.ForwardLight.enabled = true;
-           CmdUseOffensiveAbility(isPush);
-       }
 
-        [Command] private void CmdUseOffensiveAbility(int isPush)
+            EnableSpecialOffensiveEffects();
+            
+            RaycastHit pushRaycastHit;
+            if (!Physics.Raycast(_camera.transform.position,
+                    _camera.transform.forward, //starting point of ray
+                    out pushRaycastHit,       //Raycast which info is being filled into
+                    _weaponEquipped.Range,   //The range of the raycast 
+                    _specialAbilityLayerMask)              //masks out things we should not be able to hit.
+            ) return;
+            
+            
+            CmdUseOffensiveAbility(isPush,pushRaycastHit.collider.transform.name);
+            
+    
+       }
+        
+        
+
+        
+        [Command] private void CmdUseOffensiveAbility(int isPush,string ballName)
         {
-            RpcUseOffecsiveAbility(isPush);
+            RpcUseOffecsiveAbility(isPush,ballName);
         }
 
         [ClientRpc]
-        private void RpcUseOffecsiveAbility(int isPush)
+        private void RpcUseOffecsiveAbility(int isPush,string ballName)
         {
-            _specialAbilityManager.OffensiveSpecialAbility.Use(isPush);
+            var ballMotor = GameManager.GetBallMotor(ballName);
+            ballMotor._rb.AddForce( _camera.transform.forward * 100 * isPush ,ForceMode.VelocityChange);
+
         }
+       
 
         private void EnableSpecialOffensiveEffects()
         {
@@ -194,7 +213,6 @@ namespace Player_Scripts
         }
 
        
-
 
         private IEnumerator DisableAnimationForSpecialEffect()
         {

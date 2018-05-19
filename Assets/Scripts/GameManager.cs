@@ -1,5 +1,7 @@
 ﻿
 using System.Collections.Generic;
+using System.Linq;
+using Ball_Scripts;
 using Player_Scripts;
 using UnityEngine;
 
@@ -10,35 +12,73 @@ public class GameManager : MonoBehaviour {
      * This is fast way of finding out if a plyer is online or not.
      */
     private const string PlayerPrefix = "Player";
-    private static readonly Dictionary<string, Player> Players = new Dictionary<string, Player>();
+         private static readonly Dictionary<string, Player> Players = new Dictionary<string, Player>();
+         
+         
+         public static void RegisterPlayer(string playerNetId,Player player) 
+         {
+             var playerId = PlayerPrefix + playerNetId;
+             if (Players.ContainsKey(playerId))
+             {
+                 Players[playerId] = player;
+                 player.transform.name = playerId;
+             }
+             else
+             {
+                 player.transform.name = playerId;
+                 Players.Add (playerId, player);
+             }
+         }
+         
+         
+         public static void UnRegisterPlayer(string netId) 
+         {
+             var playerId = PlayerPrefix + netId;
+             Players.Remove (playerId);
+         }
+         
+         public static Player GetPlayer(string playerId) 
+         {
+             return Players [playerId];
+         }
     
     
-    public static void RegisterPlayer(string playerNetId,Player player) 
+    private static readonly Dictionary<string, BallMotor> BallMotors  = new Dictionary<string, BallMotor>();
+         
+         
+    public static void RegisterBallMotor(string ballNetId, BallMotor ballMotor) 
     {
-        var playerId = PlayerPrefix + playerNetId;
-        if (Players.ContainsKey(playerId))
+       
+        if (BallMotors.ContainsKey(ballNetId))
         {
-            Players[playerId] = player;
-            player.transform.name = playerId;
+            BallMotors[ballNetId] = ballMotor;
+            ballMotor.transform.name = ballNetId;
         }
         else
         {
-            player.transform.name = playerId;
-            Players.Add (playerId, player);
+            ballMotor.transform.name = ballNetId;
+            BallMotors.Add (ballNetId, ballMotor);
         }
     }
-    
-    
-    public static void UnRegisterPlayer(string netId) 
+         
+         
+    public static void UnRegisterBallMotor(string ballNetId) 
     {
-        var playerId = PlayerPrefix + netId;
-        Players.Remove (playerId);
+        
+        BallMotors.Remove (ballNetId);
     }
-    
-    public static Player GetPlayer(string playerId) 
+         
+    public static BallMotor GetBallMotor(string ballNetId)
     {
-        return Players [playerId];
+        return BallMotors[ballNetId];
     }
 
- 
+    public static Dictionary<string, BallMotor> BallMotorsDictionary
+    {
+   
+        
+        get { return BallMotors; }
+    }
+    
+    
 }

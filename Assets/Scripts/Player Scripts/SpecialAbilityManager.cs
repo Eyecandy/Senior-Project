@@ -20,6 +20,8 @@ namespace Player_Scripts
 		
 		public OffensiveSpecialAbility OffensiveSpecialAbility; //Should be tagged as offensive.
 
+		
+
 		 //public DefensiveSpecialAbility DefensiveSpecialAbility; //Should be tagged as defensive.
 
 	
