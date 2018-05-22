@@ -7,26 +7,27 @@ namespace Player_Scripts
     public class Player : NetworkBehaviour
     {
         [SyncVar] public float WalkingSpeedPercentage = 100f;
-       private float _maxWalkingSpeed = 100f;
+        [SerializeField] private float _maxWalkingSpeed = 100f;
 
         [SyncVar] private bool _isDead = false;
 
         [SerializeField] private Behaviour[] _disabledOnDeath;
         private bool[] _wasEnabled;
+        [SerializeField] private float _speedGainBackTime; 
 
-        [SerializeField] private int _respawnTimer = 100;
+        [SerializeField] private int _respawnTimer; 
+        
 
         public GameObject Graphics;
+
+        [SerializeField] private int _minimumSpeedThreshold;
 
 
         /*
         * enables component on entering game.
-        * 
         */
-        public void Setup(Camera poVCamera)
+        public void Setup()
         {
-           
-            
             
             _wasEnabled = new bool[_disabledOnDeath.Length];
 
@@ -48,15 +49,30 @@ namespace Player_Scripts
         {
             if (_isDead) return;
             var percentageReduced = (WalkingSpeedPercentage * amount / 100f);
-            if (WalkingSpeedPercentage -  percentageReduced<= 0)
-            {
-                Debug.LogError("PLAYER DIED FROM SHOTS, THIS SHOULD BE IMPOSSIBLE, KILLING PLAYER THO");
-                ActionsOnDeath();
-            }
-            else
-            {
-                WalkingSpeedPercentage= WalkingSpeedPercentage - percentageReduced;
+            
+            if (WalkingSpeedPercentage > _minimumSpeedThreshold)
+                {
+                   WalkingSpeedPercentage -= percentageReduced;
+                   StartCoroutine(GainSpeedBack(percentageReduced));
+                   
+                }
+                
                 Debug.Log(transform.name + "has walking speed percentage " + WalkingSpeedPercentage);
+            
+        }
+        
+        /*
+         * Coroutine on enumerator started when player shot and his walkingspeed is above the minimum threshold
+         * Player will gain back the speed lost afte a period of time (_speedGainBackTime variable decides the time).
+         * 
+         */
+        private IEnumerator GainSpeedBack(float gainSpeedBack)
+        {
+            yield return new WaitForSeconds(_speedGainBackTime);
+            WalkingSpeedPercentage += gainSpeedBack;
+            if (WalkingSpeedPercentage > 100)
+            {
+                WalkingSpeedPercentage = 100;
             }
         }
 

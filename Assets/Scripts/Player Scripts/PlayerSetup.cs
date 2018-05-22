@@ -24,7 +24,6 @@ namespace Player_Scripts
 		[SerializeField] private GameObject _head;  //head of player.
 		
 		
-		
 		#region Unity Functions
 
 		/*
@@ -48,8 +47,6 @@ namespace Player_Scripts
 			}
 			else
 			{
-				
-				
 				_povCamera = Camera.main;
 				if (_povCamera != null)
 				{
@@ -61,7 +58,7 @@ namespace Player_Scripts
 			
 			_head.transform.name = transform.name;
 			
-			GetComponent<Player>().Setup(_povCamera);
+			GetComponent<Player>().Setup();
 			
 			
 			//create player UI, like crosshair for example.
@@ -89,9 +86,6 @@ namespace Player_Scripts
 				var ballMotor = ball.GetComponent<BallMotor>();
 				GameManager.RegisterBallMotor(ballName,ballMotor);
 			}
-			
-			
-			
 		}
 
 		/*

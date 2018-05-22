@@ -184,13 +184,17 @@ namespace Player_Scripts
        }
         
         
-
-        
+        /*
+         * Tell server that a player found a ball to use offensive abilty on and forward it to clients
+         */
         [Command] private void CmdUseOffensiveAbility(int isPush,string ballName)
         {
             RpcUseOffecsiveAbility(isPush,ballName);
         }
 
+         /*
+          * Tell all clients that a ball has been pushed of pulled (offensive ability)
+          */
         [ClientRpc]
         private void RpcUseOffecsiveAbility(int isPush,string ballName)
         {
@@ -199,13 +203,17 @@ namespace Player_Scripts
             ballMotor._rb.AddForce( _camera.transform.forward * 100 * isPush ,ForceMode.VelocityChange);
 
         }
-
+        /*
+         * Tell server to enable Laser Animation on all Clients
+         */
         [Command] private void CmdEnableOffensiveEffects()
         {
             RpcEnableSpecialOffensiveEffects();
         }
 
-
+         /*
+          * Enable effect on all clients.
+          */
         [ClientRpc] private void RpcEnableSpecialOffensiveEffects()
         {
             
@@ -217,12 +225,16 @@ namespace Player_Scripts
             StartCoroutine(DisableAnimationForSpecialEffect());
 
         }
-
+        /*
+         * Tell Server to forward to all clients that a particular player has changed laser ray 
+         */
         [Command] private void CmdChangeColorOfLaser()
         {
             RpcChangeColorOfLaser();
         }
-
+        /*
+         * Tell all clients that a player has changed color of laser ray
+         */
         [ClientRpc]
         private void RpcChangeColorOfLaser()
         {
