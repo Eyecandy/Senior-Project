@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Ball_Scripts;
 using UnityEngine;
 using UnityEngine.Networking;
 using Weapon;
@@ -46,6 +45,7 @@ namespace Player_Scripts
             _weaponManager = GetComponent<WeaponManager>();
             _weaponEquipped = _weaponManager.CurrentWeapon;
             
+            
  
             if (_camera != null) return;
             Debug.LogError("No cam found in Player Shoot Script");
@@ -70,8 +70,8 @@ namespace Player_Scripts
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                _isPush *= -1;
-                _weaponManager.ChangeColor(_isPush);
+                CmdChangeColorOfLaser();
+             
             }
 
 
@@ -155,6 +155,7 @@ namespace Player_Scripts
             _weaponManager.WeaponEffectOnSHoot.Stop();
             _weaponManager.WeaponEffectOnSHoot.Play();
             _weaponManager.AudioSource.Play();
+            
         }
 
         #endregion
@@ -169,7 +170,7 @@ namespace Player_Scripts
             if (!isLocalPlayer) return;
             if (_specialAbilityManager.OffensiveSpecialAbility == null) return;
 
-            EnableSpecialOffensiveEffects();
+            CmdEnableOffensiveEffects();
             
             RaycastHit pushRaycastHit;
             if (!Physics.Raycast(_camera.transform.position,
@@ -179,10 +180,7 @@ namespace Player_Scripts
                     _specialAbilityLayerMask)              //masks out things we should not be able to hit.
             ) return;
             
-            
             CmdUseOffensiveAbility(isPush,pushRaycastHit.collider.transform.name);
-            
-    
        }
         
         
@@ -197,22 +195,45 @@ namespace Player_Scripts
         private void RpcUseOffecsiveAbility(int isPush,string ballName)
         {
             var ballMotor = GameManager.GetBallMotor(ballName);
+           
             ballMotor._rb.AddForce( _camera.transform.forward * 100 * isPush ,ForceMode.VelocityChange);
 
         }
-       
 
-        private void EnableSpecialOffensiveEffects()
+        [Command] private void CmdEnableOffensiveEffects()
         {
+            RpcEnableSpecialOffensiveEffects();
+        }
+
+
+        [ClientRpc] private void RpcEnableSpecialOffensiveEffects()
+        {
+            
             _weaponManager.ForwardLight.enabled = true;
             _weaponManager.BackwardLight.enabled = true;
             _weaponManager.LazerRenderer.enabled = true;
+            _weaponManager.AudioSourceSpecialAbility.Play();
             _weaponManager.Glow.Play();
             StartCoroutine(DisableAnimationForSpecialEffect());
 
         }
 
-       
+        [Command] private void CmdChangeColorOfLaser()
+        {
+            RpcChangeColorOfLaser();
+        }
+
+        [ClientRpc]
+        private void RpcChangeColorOfLaser()
+        {
+            _isPush *= -1;
+            _weaponManager.ChangeColor(_isPush);
+        }
+
+
+
+
+
 
         private IEnumerator DisableAnimationForSpecialEffect()
         {
@@ -222,9 +243,9 @@ namespace Player_Scripts
             _weaponManager.ForwardLight.enabled = false;
             _weaponManager.BackwardLight.enabled = false;
             _weaponManager.LazerRenderer.enabled = false;
+            _weaponManager.AudioSourceSpecialAbility.Stop();
             _weaponManager.Glow.Stop();
 
-            
             
         }
 

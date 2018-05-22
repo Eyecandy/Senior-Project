@@ -24,11 +24,15 @@ namespace Weapon
 		public ParticleSystem LazerGlow;
 			
 			
-
 		[HideInInspector] public AudioSource AudioSource;
 
 		[HideInInspector] public GameObject SpecialAbilityAnimatorManagerGameObject;
 
+	     public AudioSource SpecialAbilityAudioSource;
+		
+		
+		
+		
 
 		private void Start()
 		{

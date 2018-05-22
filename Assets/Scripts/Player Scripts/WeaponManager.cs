@@ -31,6 +31,8 @@ namespace Player_Scripts
 		[HideInInspector] public ParticleSystem Glow;
 
 		[HideInInspector] public LineRenderer LazerRenderer;
+
+		[HideInInspector] public AudioSource AudioSourceSpecialAbility;
 		
 
 		/*
@@ -66,7 +68,8 @@ namespace Player_Scripts
 			ForwardLight = weaponInstance.GetComponent<PlayerWeapon>().ForwardLight;
 			LazerRenderer = weaponInstance.GetComponent<PlayerWeapon>().LazerRenderer;
 			Glow = weaponInstance.GetComponent<PlayerWeapon>().LazerGlow;
-			
+			AudioSourceSpecialAbility = weaponInstance.GetComponent<PlayerWeapon>().SpecialAbilityAudioSource;
+
 		}
 
 		public void SetMoving(bool isMoving)

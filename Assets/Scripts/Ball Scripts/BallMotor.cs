@@ -8,7 +8,7 @@ namespace Ball_Scripts
 {
 	public class BallMotor : NetworkBehaviour
 	{
-		SmoothSync _smoothSync;
+		
 
 		public Rigidbody _rb;
 		private MeshRenderer _renderer;
@@ -23,7 +23,6 @@ namespace Ball_Scripts
 		void Start()
 		{
 			_rb = GetComponent<Rigidbody>();
-			_smoothSync = GetComponent<SmoothSync>();
 			_renderer = GetComponent<MeshRenderer>();
 			this.name = BallName;
 //			if (!GetComponent<NetworkIdentity>().isServer)
