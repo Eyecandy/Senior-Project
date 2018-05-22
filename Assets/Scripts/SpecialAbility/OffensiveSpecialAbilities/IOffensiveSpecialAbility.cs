@@ -8,10 +8,12 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 	public interface IOffensiveSpecialAbility
 	
 	{
-		void Use();
+		void Use(int isPush);
 
 
 		void SetCamera(Camera camera);
+		
+		
 
 
 

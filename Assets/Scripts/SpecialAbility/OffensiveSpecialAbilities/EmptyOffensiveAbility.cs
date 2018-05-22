@@ -9,7 +9,7 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 		 * Place holder for offensive ability, so we never have to check if it is null before
 		 * perfoming an action.
 		 */
-		public override void Use()
+		public override void Use(int isPush)
 		{
 			Debug.Log("No Ability Currently Active");
 		}

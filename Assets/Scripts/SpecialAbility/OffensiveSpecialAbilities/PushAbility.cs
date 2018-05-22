@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Ball_Scripts;
+using UnityEngine;
 
 namespace SpecialAbility.OffensiveSpecialAbilities
 {
@@ -15,9 +16,9 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 		/*
 		 * Interface Function from OffensiveSpecialAbility (overwritten abstract method)
 		 */
-		public override void Use()
+		public override void Use(int isPush)
 		{
-			PerformPush();
+			PerformPush(isPush);
 		}
 
 		public override void SetCamera(Camera playerPovCamera)
@@ -28,7 +29,7 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 		/*
 		 * Performs push
 		 */
-		private void PerformPush()
+		private void PerformPush(int isPush)
 		{
 			RaycastHit pushRaycastHit;
 			if (!Physics.SphereCast(_camera.transform.position,1f,
@@ -37,12 +38,13 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 					_range,                       //The range of the raycast 
 					_layerMask)                   //masks out things we should not be able to hit.
 			) return;
+
+			
 			
 			var ballRigidBody = pushRaycastHit.collider.attachedRigidbody;
-			ballRigidBody.AddForce( _camera.transform.forward * _pushForce ,ForceMode.VelocityChange);
+			ballRigidBody.AddForce( _camera.transform.forward * _pushForce * isPush ,ForceMode.VelocityChange);
 		}
 
-		
 	
 	}
 }

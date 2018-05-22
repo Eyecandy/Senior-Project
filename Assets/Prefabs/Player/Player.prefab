@@ -478,6 +478,10 @@ MonoBehaviour:
   WeaponEffectOnSHoot: {fileID: 0}
   Animator: {fileID: 0}
   AudioSource: {fileID: 0}
+  BackwardLight: {fileID: 0}
+  ForwardLight: {fileID: 0}
+  Glow: {fileID: 0}
+  LazerRenderer: {fileID: 0}
 --- !u!114 &114125371625818832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -511,6 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 20179397343931178}
+  SpecialAbilityAnimatorManager: {fileID: 0}
   OffensiveSpecialAbility: {fileID: 0}
 --- !u!114 &114309428814311734
 MonoBehaviour:
@@ -538,6 +543,9 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 4294966015
+  _specialAbilityLayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
   _specialAbilityManager: {fileID: 0}
 --- !u!114 &114385097629258698
 MonoBehaviour:
@@ -601,7 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a762016e2035649e383bfe0d178b96d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 15
+  _speed: 0.15
   _lookSensitivity: 5
 --- !u!114 &114858738474794970
 MonoBehaviour:
@@ -614,11 +622,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced3ff6babc46418db6b9114678211f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  WalkingSpeedPercentage: 100
   _disabledOnDeath:
   - {fileID: 114315035421036520}
   - {fileID: 114654718342406112}
-  _respawnTimer: 1
+  _respawnTimer: 5
+  Graphics: {fileID: 1566451959559076}
 --- !u!114 &114966857615800552
 MonoBehaviour:
   m_ObjectHideFlags: 1

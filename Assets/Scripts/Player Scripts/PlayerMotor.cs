@@ -4,6 +4,7 @@ namespace Player_Scripts
 {
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(WeaponManager))]
+	[RequireComponent(typeof(Player))]
 	public class PlayerMotor : MonoBehaviour
 	{
 		
@@ -16,6 +17,7 @@ namespace Player_Scripts
 		private float _cameraRotation = 0f;
 		private float _currentCameraRotation = 0f;
 		private WeaponManager _weaponManager;
+		private Player _player;
 		
 		
 		#region Unity InBuilt Functions
@@ -24,6 +26,7 @@ namespace Player_Scripts
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_weaponManager = GetComponent<WeaponManager>();
+			_player = GetComponent<Player>();
 		}
 		/*
 		 * Physics calculations.
@@ -77,7 +80,8 @@ namespace Player_Scripts
 		{
 			if ( _velocity != Vector3.zero )
 			{
-				_rigidbody.MovePosition(_rigidbody.position + _velocity * Time.deltaTime) ;
+				 
+				_rigidbody.MovePosition(_rigidbody.position + _velocity * _player.WalkingSpeedPercentage *Time.deltaTime) ;
 			}
 		}
 		/*
