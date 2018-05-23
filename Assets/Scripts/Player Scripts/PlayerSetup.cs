@@ -11,7 +11,7 @@ namespace Player_Scripts
 		
 		[SerializeField] private const string RemoteLayerName = "RemotePlayer";
 		
-		public Camera _povCamera; //our PoV Cam
+		private Camera _povCamera; //our PoV Cam
 		
 		[SerializeField] private GameObject _graphics; //all graphical components of player.
 		
@@ -20,6 +20,10 @@ namespace Player_Scripts
 		[SerializeField] private GameObject _playerUiPrefab;  //canvas + crosshair prefab
 		
 		private GameObject _playerUiInstance;   //manually placed in script.
+
+
+		
+		
 		
 		[SerializeField] private GameObject _head;  //head of player.
 		
@@ -44,6 +48,7 @@ namespace Player_Scripts
 			{	
 				DisableComponents();
 				AssignRemoteLayer();
+				
 			}
 			else
 			{
@@ -65,6 +70,9 @@ namespace Player_Scripts
 			_playerUiInstance = Instantiate(_playerUiPrefab);
 			//to remove clone.
 			_playerUiInstance.name = transform.name + "GUI";
+
+			GetComponent<PlayerGUI>().HitMarker = _playerUiInstance.GetComponent<Images>().HitMarker;
+
 		}
 
 		

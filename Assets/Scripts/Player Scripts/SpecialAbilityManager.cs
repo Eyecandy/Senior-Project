@@ -14,7 +14,7 @@ namespace Player_Scripts
 		[SerializeField] private Camera _camera;
 		
 
-		public SpecialAbilityAnimatorManager SpecialAbilityAnimatorManager;
+		
 		
 		private EmptyOffensiveAbility _emptyOffensive;
 		

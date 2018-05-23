@@ -155,7 +155,6 @@ GameObject:
   - component: {fileID: 114624235739724742}
   - component: {fileID: 95884048066425616}
   - component: {fileID: 82767874360625466}
-  - component: {fileID: 114072544481407420}
   m_Layer: 0
   m_Name: Sci-Fi Automatic
   m_TagString: Untagged
@@ -592,17 +591,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114072544481407420
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1987082836798804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82351ec0073844c2e8fb1a4bdaf3b19c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114624235739724742
 MonoBehaviour:
   m_ObjectHideFlags: 1

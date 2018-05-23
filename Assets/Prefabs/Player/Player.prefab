@@ -510,7 +510,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 20179397343931178}
-  SpecialAbilityAnimatorManager: {fileID: 0}
   OffensiveSpecialAbility: {fileID: 0}
 --- !u!114 &114309428814311734
 MonoBehaviour:
@@ -523,6 +522,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c912227770d4bfda0ccc3c6d8d6010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitMarker: {fileID: 0}
+  _hitMarkerTimer: 0.15
 --- !u!114 &114315035421036520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -541,7 +542,6 @@ MonoBehaviour:
   _specialAbilityLayerMask:
     serializedVersion: 2
     m_Bits: 2048
-  _specialAbilityManager: {fileID: 0}
 --- !u!114 &114385097629258698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -643,7 +643,6 @@ MonoBehaviour:
   - {fileID: 114654718342406112}
   - {fileID: 20179397343931178}
   - {fileID: 81658594263658034}
-  _povCamera: {fileID: 0}
   _graphics: {fileID: 1566451959559076}
   _playerUiPrefab: {fileID: 1633067340166190, guid: c8b0653e92dea4d98b1b943c2c538391,
     type: 2}

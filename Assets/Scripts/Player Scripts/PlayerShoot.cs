@@ -8,27 +8,26 @@ using Weapon;
 
 namespace Player_Scripts
 {   [RequireComponent(typeof(WeaponManager))]
+    [RequireComponent(typeof(PlayerGUI))]
     public class PlayerShoot : NetworkBehaviour
     {
-
         [SerializeField] private Camera _camera;
+        
         private PlayerWeapon _weaponEquipped;
 
         private WeaponManager _weaponManager;
+        
         [SerializeField] private LayerMask _layerMask;
 
         private GameObject _gunBarrelEnd;
 
         private float _timeToWaitForDisablingAnimation = 0.25f;
 
-        [SerializeField]private LayerMask _specialAbilityLayerMask;
+        [SerializeField] private LayerMask _specialAbilityLayerMask;
 
         private int _isPush = 1;
-
         
-
-        
-        [SerializeField] private SpecialAbilityManager _specialAbilityManager;
+        private SpecialAbilityManager _specialAbilityManager;
         
 
         #region Unity Functions
@@ -93,9 +92,8 @@ namespace Player_Scripts
             if (!isLocalPlayer) return;
             
             CmdOnFireWeapon();
-           
             RaycastHit hit;
-
+            
             System.Diagnostics.Debug.Assert(_weaponEquipped != null, "_weaponEquipped != null");
             
             if (!Physics.Raycast(_camera.transform.position,
@@ -105,21 +103,30 @@ namespace Player_Scripts
                     _layerMask) //masks out things we should not be able to hit.
             ) return;
             
+            
+            
 
             Debug.Log("We hit: " + hit.collider.name + "with tag:  " + hit.collider.tag);
 
             if (hit.collider.CompareTag("Player"))
             {
                 CmdPlayerShot(hit.collider.name, _weaponEquipped.Damage);
+                GetComponent<PlayerGUI>().SetHitMarker();
+                
+
             }
 
             if (hit.collider.CompareTag("PlayerHead"))
             {
                 var dmg = 2 * _weaponEquipped.Damage;
                 CmdPlayerShot(hit.collider.name, dmg);
+                GetComponent<PlayerGUI>().SetHitMarker();
+                
             }
 
         }
+
+       
 
         /*
 		 * Sends out information to server regarding who has been shot and their health

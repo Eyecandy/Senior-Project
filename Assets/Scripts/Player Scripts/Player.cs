@@ -7,20 +7,21 @@ namespace Player_Scripts
     public class Player : NetworkBehaviour
     {
         [SyncVar] public float WalkingSpeedPercentage = 100f;
+        
         [SerializeField] private float _maxWalkingSpeed = 100f;
 
         [SyncVar] private bool _isDead; 
 
         [SerializeField] private Behaviour[] _disabledOnDeath; //behaviors to disable on death
+       
         private bool[] _wasEnabled;
+        
         [SerializeField] private float _speedGainBackTime; //time it takes to get back speed lost
 
-        [SerializeField] private int _respawnTimer; //time until respawn from point of death
+        [SerializeField] private int _respawnTimer;        //time until respawn from point of death
 
         [SerializeField] private GameObject _povCam;
        
-       
-        
         public GameObject Graphics; //For disabling graphics on death
 
         [SerializeField] private int _minimumSpeedThreshold; //movementSpeed can not go below this threshold 
@@ -31,8 +32,6 @@ namespace Player_Scripts
         */
         public void Setup()
         {
-            
-            
             _wasEnabled = new bool[_disabledOnDeath.Length];
 
             for (var i = 0; i < _wasEnabled.Length; i++)
@@ -58,11 +57,8 @@ namespace Player_Scripts
                 {
                    WalkingSpeedPercentage -= percentageReduced;
                    StartCoroutine(GainSpeedBack(percentageReduced));
-                   
                 }
-                
                 Debug.Log(transform.name + "has walking speed percentage " + WalkingSpeedPercentage);
-            
         }
         
         /*
