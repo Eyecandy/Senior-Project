@@ -433,8 +433,8 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1100914866961326}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 10
+  m_Mass: 2
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -624,8 +624,7 @@ MonoBehaviour:
   - {fileID: 114654718342406112}
   _speedGainBackTime: 25
   _respawnTimer: 5
-  _sceneCamera: {fileID: 0}
-  _povCamera: {fileID: 20179397343931178}
+  _povCam: {fileID: 1385399703846008}
   Graphics: {fileID: 1566451959559076}
   _minimumSpeedThreshold: 2
 --- !u!114 &114966857615800552
@@ -644,6 +643,7 @@ MonoBehaviour:
   - {fileID: 114654718342406112}
   - {fileID: 20179397343931178}
   - {fileID: 81658594263658034}
+  _povCamera: {fileID: 0}
   _graphics: {fileID: 1566451959559076}
   _playerUiPrefab: {fileID: 1633067340166190, guid: c8b0653e92dea4d98b1b943c2c538391,
     type: 2}

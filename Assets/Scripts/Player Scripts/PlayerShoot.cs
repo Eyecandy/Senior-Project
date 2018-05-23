@@ -28,8 +28,6 @@ namespace Player_Scripts
         
 
         
-
- 
         [SerializeField] private SpecialAbilityManager _specialAbilityManager;
         
 

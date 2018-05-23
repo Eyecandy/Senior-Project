@@ -11,7 +11,7 @@ namespace Player_Scripts
 		
 		[SerializeField] private const string RemoteLayerName = "RemotePlayer";
 		
-		private Camera _povCamera; //our PoV Cam
+		public Camera _povCamera; //our PoV Cam
 		
 		[SerializeField] private GameObject _graphics; //all graphical components of player.
 		

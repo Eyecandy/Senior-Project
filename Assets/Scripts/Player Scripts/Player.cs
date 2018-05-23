@@ -16,9 +16,10 @@ namespace Player_Scripts
         [SerializeField] private float _speedGainBackTime; //time it takes to get back speed lost
 
         [SerializeField] private int _respawnTimer; //time until respawn from point of death
-        
-        
-      
+
+        [SerializeField] private GameObject _povCam;
+       
+       
         
         public GameObject Graphics; //For disabling graphics on death
 
@@ -30,6 +31,7 @@ namespace Player_Scripts
         */
         public void Setup()
         {
+            
             
             _wasEnabled = new bool[_disabledOnDeath.Length];
 
@@ -117,7 +119,17 @@ namespace Player_Scripts
             {
                 collder.enabled = false;
             }
-    
+
+            
+            if (isLocalPlayer)
+            {
+
+
+               _povCam.SetActive(false);
+               
+               GameManager.Singleton.ScenerCamera.SetActive(true);
+               
+            }
 
             StartCoroutine(Respawn());
         }
@@ -129,6 +141,13 @@ namespace Player_Scripts
         {
 
             Debug.Log("SetDefaults");
+            if (isLocalPlayer && _povCam != null)
+            {
+
+                _povCam.SetActive(true);
+                GameManager.Singleton.ScenerCamera.SetActive(false);
+            }
+            
             Graphics.SetActive(true) ;
             _isDead = false;
             var weaponInstance = GetComponent<WeaponManager>().WeaponInstance;
@@ -157,7 +176,7 @@ namespace Player_Scripts
             ActionsOnDeath();
         }
 
-        
+
 
         #endregion
     }
