@@ -23,7 +23,7 @@ namespace Player_Scripts
 			MovementInput();
 			HorizontalCameraRotation();
 			VerticalCameraRotation();
-			Menu();
+			
 			
 		}
 		#endregion
@@ -67,18 +67,7 @@ namespace Player_Scripts
 		
 		
 		
-		#region GUI
-		/*
-		 * Controls GUI.
-		 */
-		private static void Menu()
-		{
-			if (Input.GetKeyDown(KeyCode.Escape))
-			{
-				PlayerGUI.EnableNetworkManagerHud();
-			}
-		}
-		#endregion
+		
 		
 		
 

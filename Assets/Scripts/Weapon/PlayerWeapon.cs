@@ -30,9 +30,6 @@ namespace Weapon
 
 	     public AudioSource SpecialAbilityAudioSource;
 		
-		
-		
-		
 
 		private void Start()
 		{

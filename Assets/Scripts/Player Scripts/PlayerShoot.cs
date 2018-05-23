@@ -24,10 +24,12 @@ namespace Player_Scripts
         [SerializeField]private LayerMask _specialAbilityLayerMask;
 
         private int _isPush = 1;
-        
+
         
 
-        //[SerializeField] private PushAbility _pushAbility;
+        
+
+ 
         [SerializeField] private SpecialAbilityManager _specialAbilityManager;
         
 
@@ -43,9 +45,7 @@ namespace Player_Scripts
         {
             _specialAbilityManager = GetComponent<SpecialAbilityManager>();
             _weaponManager = GetComponent<WeaponManager>();
-            _weaponEquipped = _weaponManager.CurrentWeapon;
-            
-            
+            _weaponEquipped = _weaponManager.PlayerWeaponEquipped;
  
             if (_camera != null) return;
             Debug.LogError("No cam found in Player Shoot Script");
@@ -54,7 +54,7 @@ namespace Player_Scripts
 
         private void Update()
         {
-            _weaponEquipped = _weaponManager.CurrentWeapon;
+            //_weaponEquipped = _weaponManager.PlayerWeaponEquipped;
             
             
             if (Input.GetButtonDown("Fire1"))
@@ -70,6 +70,7 @@ namespace Player_Scripts
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                if (!isLocalPlayer) return;
                 CmdChangeColorOfLaser();
              
             }
@@ -152,9 +153,10 @@ namespace Player_Scripts
         {
             
             _weaponManager.Animator.SetTrigger("Fire");
-            _weaponManager.WeaponEffectOnSHoot.Stop();
-            _weaponManager.WeaponEffectOnSHoot.Play();
-            _weaponManager.AudioSource.Play();
+            _weaponEquipped.MuzzleFlash.Stop();
+            _weaponEquipped.MuzzleFlash.Play();
+            _weaponEquipped.AudioSource.Play();
+           
             
         }
 
@@ -217,11 +219,11 @@ namespace Player_Scripts
         [ClientRpc] private void RpcEnableSpecialOffensiveEffects()
         {
             
-            _weaponManager.ForwardLight.enabled = true;
-            _weaponManager.BackwardLight.enabled = true;
-            _weaponManager.LazerRenderer.enabled = true;
-            _weaponManager.AudioSourceSpecialAbility.Play();
-            _weaponManager.Glow.Play();
+            _weaponEquipped.ForwardLight.enabled = true;
+            _weaponEquipped.BackwardLight.enabled = true;
+            _weaponEquipped.LazerRenderer.enabled = true;
+            _weaponEquipped.SpecialAbilityAudioSource.Play();
+            _weaponEquipped.LazerGlow.Play();
             StartCoroutine(DisableAnimationForSpecialEffect());
 
         }
@@ -249,13 +251,13 @@ namespace Player_Scripts
  
             yield return new WaitForSeconds(_timeToWaitForDisablingAnimation);
             
-            _weaponManager.ForwardLight.enabled = false;
-            _weaponManager.BackwardLight.enabled = false;
-            _weaponManager.LazerRenderer.enabled = false;
-            _weaponManager.AudioSourceSpecialAbility.Stop();
-            _weaponManager.Glow.Stop();
-
+            _weaponEquipped.ForwardLight.enabled = false;
+            _weaponEquipped.BackwardLight.enabled = false;
+            _weaponEquipped.LazerRenderer.enabled = false;
+            _weaponEquipped.SpecialAbilityAudioSource.Stop();
+            _weaponEquipped.LazerGlow.Stop();
             
+
         }
 
         #endregion

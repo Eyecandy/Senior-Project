@@ -13,11 +13,25 @@ public class PlayerGUI: MonoBehaviour
 		Cursor.visible = false;
 	}
 
-	public static void EnableNetworkManagerHud()
+	private void Update()
+	{
+		Menu();
+	}
+	
+	private static void Menu()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			EnableNetworkManagerHud();
+		}
+	}
+	
+	private static void EnableNetworkManagerHud()
 	{
 		_isActive = !_isActive;
 		if (_isActive)
 		{
+			
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
 		}
@@ -28,6 +42,10 @@ public class PlayerGUI: MonoBehaviour
 		}
 
 	}
+	
+	
+	
+	
 
 
 

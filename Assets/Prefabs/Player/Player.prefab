@@ -474,15 +474,9 @@ MonoBehaviour:
   _weaponPrefab: {fileID: 1987082836798804, guid: a07c7c7a2c5f84cfebb0a68d590ebaea,
     type: 2}
   _weaponHolder: {fileID: 1333478427320978}
-  CurrentWeapon: {fileID: 0}
-  WeaponEffectOnSHoot: {fileID: 0}
+  PlayerWeaponEquipped: {fileID: 0}
   Animator: {fileID: 0}
-  AudioSource: {fileID: 0}
-  BackwardLight: {fileID: 0}
-  ForwardLight: {fileID: 0}
-  Glow: {fileID: 0}
-  LazerRenderer: {fileID: 0}
-  AudioSourceSpecialAbility: {fileID: 0}
+  WeaponInstance: {fileID: 0}
 --- !u!114 &114125371625818832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -630,6 +624,8 @@ MonoBehaviour:
   - {fileID: 114654718342406112}
   _speedGainBackTime: 25
   _respawnTimer: 5
+  _sceneCamera: {fileID: 0}
+  _povCamera: {fileID: 20179397343931178}
   Graphics: {fileID: 1566451959559076}
   _minimumSpeedThreshold: 2
 --- !u!114 &114966857615800552

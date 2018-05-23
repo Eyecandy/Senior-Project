@@ -9,18 +9,20 @@ namespace Player_Scripts
         [SyncVar] public float WalkingSpeedPercentage = 100f;
         [SerializeField] private float _maxWalkingSpeed = 100f;
 
-        [SyncVar] private bool _isDead = false;
+        [SyncVar] private bool _isDead; 
 
-        [SerializeField] private Behaviour[] _disabledOnDeath;
+        [SerializeField] private Behaviour[] _disabledOnDeath; //behaviors to disable on death
         private bool[] _wasEnabled;
-        [SerializeField] private float _speedGainBackTime; 
+        [SerializeField] private float _speedGainBackTime; //time it takes to get back speed lost
 
-        [SerializeField] private int _respawnTimer; 
+        [SerializeField] private int _respawnTimer; //time until respawn from point of death
         
+        
+      
+        
+        public GameObject Graphics; //For disabling graphics on death
 
-        public GameObject Graphics;
-
-        [SerializeField] private int _minimumSpeedThreshold;
+        [SerializeField] private int _minimumSpeedThreshold; //movementSpeed can not go below this threshold 
 
 
         /*
@@ -98,6 +100,11 @@ namespace Player_Scripts
             _isDead = true;
             Graphics.SetActive(false) ;
             Debug.Log("Died");
+            var weaponInstance = GetComponent<WeaponManager>().WeaponInstance;
+            if (weaponInstance != null)
+            {
+                weaponInstance.SetActive(false);
+            }
 
             foreach (var behaviour in _disabledOnDeath)
             {
@@ -110,7 +117,7 @@ namespace Player_Scripts
             {
                 collder.enabled = false;
             }
-            
+    
 
             StartCoroutine(Respawn());
         }
@@ -124,7 +131,11 @@ namespace Player_Scripts
             Debug.Log("SetDefaults");
             Graphics.SetActive(true) ;
             _isDead = false;
-            
+            var weaponInstance = GetComponent<WeaponManager>().WeaponInstance;
+            if (weaponInstance != null)
+            {
+                weaponInstance.SetActive(true);
+            }
 
             WalkingSpeedPercentage = _maxWalkingSpeed;
 

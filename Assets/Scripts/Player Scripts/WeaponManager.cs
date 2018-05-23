@@ -15,33 +15,19 @@ namespace Player_Scripts
 
 		[SerializeField] private GameObject _weaponHolder;
 
-		[HideInInspector] public PlayerWeapon CurrentWeapon;
-
-		[HideInInspector] public ParticleSystem WeaponEffectOnSHoot;
-
+		[HideInInspector] public PlayerWeapon PlayerWeaponEquipped;
+		
 		[HideInInspector] public Animator Animator;
 
-		[HideInInspector] public AudioSource AudioSource;
-
-
-		[HideInInspector] public Light BackwardLight;
-
-		[HideInInspector] public Light ForwardLight;
-
-		[HideInInspector] public ParticleSystem Glow;
-
-		[HideInInspector] public LineRenderer LazerRenderer;
-
-		[HideInInspector] public AudioSource AudioSourceSpecialAbility;
-		
+		[HideInInspector] public GameObject WeaponInstance;
 
 		/*
 		 * Gets the prefab of the weapon
 		 */
-		private void Start()
+		private void Awake()
 		{
 			
-			EquipWeapon(_weaponPrefab.GetComponent<PlayerWeapon>());
+			EquipWeapon();
 
 		}
 		/*
@@ -51,24 +37,19 @@ namespace Player_Scripts
 		 * We set the parent to the pov camera attached to the player.
 		 * 
 		 */
-		private void EquipWeapon(PlayerWeapon weapon)
+		private void EquipWeapon()
 		{
-			CurrentWeapon = weapon;
+			
 
 			var weaponInstance = Instantiate(_weaponPrefab,
 				_weaponHolder.transform.position,
 				_weaponHolder.transform.rotation);
-			
+
+			WeaponInstance = weaponInstance;
 			weaponInstance.transform.SetParent(_weaponHolder.transform);
-			WeaponEffectOnSHoot = weaponInstance.GetComponent<PlayerWeapon>().MuzzleFlash;
-			Animator = weaponInstance.GetComponent<Animator>();
-			AudioSource = weaponInstance.GetComponent<AudioSource>();
+			PlayerWeaponEquipped = weaponInstance.GetComponent<PlayerWeapon>();
 			
-			BackwardLight = weaponInstance.GetComponent<PlayerWeapon>().BackwardLight;
-			ForwardLight = weaponInstance.GetComponent<PlayerWeapon>().ForwardLight;
-			LazerRenderer = weaponInstance.GetComponent<PlayerWeapon>().LazerRenderer;
-			Glow = weaponInstance.GetComponent<PlayerWeapon>().LazerGlow;
-			AudioSourceSpecialAbility = weaponInstance.GetComponent<PlayerWeapon>().SpecialAbilityAudioSource;
+			Animator = PlayerWeaponEquipped.Animator;
 
 		}
 
@@ -82,27 +63,23 @@ namespace Player_Scripts
 		{
 			if (isPush != 1)
 			{
-				BackwardLight.color = Color.magenta;
-				ForwardLight.color = Color.magenta;
-				LazerRenderer.startColor = Color.magenta;
-				LazerRenderer.endColor = Color.magenta;
+				PlayerWeaponEquipped.BackwardLight.color = Color.magenta;
+				PlayerWeaponEquipped.ForwardLight.color = Color.magenta;
+				PlayerWeaponEquipped.LazerRenderer.startColor = Color.magenta;
+				PlayerWeaponEquipped.LazerRenderer.endColor = Color.magenta;
 				#pragma warning disable 618
-				Glow.startColor = Color.magenta;
+				PlayerWeaponEquipped.LazerGlow.startColor = Color.magenta;
 				#pragma warning restore 618
-			
-			
-			
-
 
 			}
 			else
 			{
-				BackwardLight.color = Color.green;
-				ForwardLight.color = Color.green;
-				LazerRenderer.startColor = Color.green;
-				LazerRenderer.endColor = Color.green;
+				PlayerWeaponEquipped.BackwardLight.color = Color.green;
+				PlayerWeaponEquipped.ForwardLight.color = Color.green;
+				PlayerWeaponEquipped.LazerRenderer.startColor = Color.green;
+				PlayerWeaponEquipped.LazerRenderer.endColor = Color.green;
 				#pragma warning disable 618
-				Glow.startColor = Color.green;
+				PlayerWeaponEquipped.LazerGlow.startColor = Color.green;
 				#pragma warning restore 618
 			}
 

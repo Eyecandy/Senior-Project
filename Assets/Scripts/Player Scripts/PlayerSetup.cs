@@ -41,7 +41,7 @@ namespace Player_Scripts
 		private void Start()
 		{
 			if (!isLocalPlayer)
-			{
+			{	
 				DisableComponents();
 				AssignRemoteLayer();
 			}
@@ -78,7 +78,6 @@ namespace Player_Scripts
 			var player = GetComponent<Player>();
 			GameManager.RegisterPlayer(playerNetId, player);
 			var arrayOfBalls = GameObject.FindGameObjectsWithTag("Ball");
-			Debug.Log(arrayOfBalls.Length);
 			foreach (var ball in arrayOfBalls)
 			{
 				var ballName = ball.GetComponent<BallMotor>().BallName;
@@ -103,6 +102,7 @@ namespace Player_Scripts
 			}
 			Destroy(_playerUiInstance);
 			GameManager.UnRegisterPlayer(transform.name);
+			
 		}
 		#endregion
 		
@@ -119,6 +119,7 @@ namespace Player_Scripts
 			{
 				component.enabled = false;
 			}
+			
 		}
 		
 		/*
