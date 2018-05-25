@@ -13,6 +13,7 @@ namespace Weapon
 		
 		[HideInInspector] public Animator Animator;
 		
+		//MuzzleFlash
 		public ParticleSystem MuzzleFlash;
 
 		public Light BackwardLight;
@@ -22,7 +23,6 @@ namespace Weapon
 		public LineRenderer LazerRenderer;
 
 		public ParticleSystem LazerGlow;
-			
 			
 		[HideInInspector] public AudioSource AudioSource;
 

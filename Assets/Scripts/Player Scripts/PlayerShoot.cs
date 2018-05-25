@@ -13,23 +13,24 @@ namespace Player_Scripts
     {
         [SerializeField] private Camera _camera;
         
+        [SerializeField] private LayerMask _layerMask;
+        
+        [SerializeField] private LayerMask _specialAbilityLayerMask;
+        
+        //current weapon equipped
         private PlayerWeapon _weaponEquipped;
 
         private WeaponManager _weaponManager;
-        
-        [SerializeField] private LayerMask _layerMask;
 
         private GameObject _gunBarrelEnd;
 
         private float _timeToWaitForDisablingAnimation = 0.25f;
 
-        [SerializeField] private LayerMask _specialAbilityLayerMask;
-
         private int _isPush = 1;
         
         private SpecialAbilityManager _specialAbilityManager;
         
-
+        
         #region Unity Functions
         
         /*
@@ -42,7 +43,6 @@ namespace Player_Scripts
         {
             _specialAbilityManager = GetComponent<SpecialAbilityManager>();
             _weaponManager = GetComponent<WeaponManager>();
-            _weaponEquipped = _weaponManager.PlayerWeaponEquipped;
  
             if (_camera != null) return;
             Debug.LogError("No cam found in Player Shoot Script");
@@ -51,7 +51,7 @@ namespace Player_Scripts
 
         private void Update()
         {
-            //_weaponEquipped = _weaponManager.PlayerWeaponEquipped;
+            _weaponEquipped = _weaponManager.PlayerWeaponEquipped;
             
             
             if (Input.GetButtonDown("Fire1"))
@@ -157,7 +157,7 @@ namespace Player_Scripts
         private void RpcDisplayMuzzleFlash()
         {
             
-            _weaponManager.Animator.SetTrigger("Fire");
+            _weaponManager.WeaponAnimator.SetTrigger("Fire");
             _weaponEquipped.MuzzleFlash.Stop();
             _weaponEquipped.MuzzleFlash.Play();
             _weaponEquipped.AudioSource.Play();
@@ -230,7 +230,6 @@ namespace Player_Scripts
             _weaponEquipped.SpecialAbilityAudioSource.Play();
             _weaponEquipped.LazerGlow.Play();
             StartCoroutine(DisableAnimationForSpecialEffect());
-
         }
         /*
          * Tell Server to forward to all clients that a particular player has changed laser ray 
@@ -261,10 +260,8 @@ namespace Player_Scripts
             _weaponEquipped.LazerRenderer.enabled = false;
             _weaponEquipped.SpecialAbilityAudioSource.Stop();
             _weaponEquipped.LazerGlow.Stop();
-            
 
         }
-
         #endregion
       
     }

@@ -65,12 +65,5 @@ namespace Player_Scripts
 		}
 		#endregion
 		
-		
-		
-		
-		
-		
-
-
 	}
 }

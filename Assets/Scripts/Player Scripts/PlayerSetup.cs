@@ -20,16 +20,11 @@ namespace Player_Scripts
 		[SerializeField] private GameObject _playerUiPrefab;  //canvas + crosshair prefab
 		
 		private GameObject _playerUiInstance;   //manually placed in script.
-
-
-		
-		
 		
 		[SerializeField] private GameObject _head;  //head of player.
 		
 		
 		#region Unity Functions
-
 		/*
 		 * Checks is we are the local player
 		 * if we are not the local player we diable components

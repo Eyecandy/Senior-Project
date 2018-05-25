@@ -14,22 +14,23 @@ namespace Player_Scripts
 		[SerializeField] private GameObject _weaponPrefab;
 
 		[SerializeField] private GameObject _weaponHolder;
+		
+		[SerializeField] private string _weaponLayerName = "Weapon";
 
 		[HideInInspector] public PlayerWeapon PlayerWeaponEquipped;
 		
-		[HideInInspector] public Animator Animator;
+		[HideInInspector] public Animator WeaponAnimator;
 
 		[HideInInspector] public GameObject WeaponInstance;
 
 		/*
 		 * Gets the prefab of the weapon
 		 */
-		private void Awake()
+		private void Start()
 		{
-			
 			EquipWeapon();
-
 		}
+		
 		/*
 		 * Instansiate an instance of the weapon prefab.
 		 * And sets animator and audio source and playerweapon.
@@ -39,26 +40,34 @@ namespace Player_Scripts
 		 */
 		private void EquipWeapon()
 		{
-			
-
+			// Instantiate Weapon in WeaponHolder position
 			var weaponInstance = Instantiate(_weaponPrefab,
 				_weaponHolder.transform.position,
 				_weaponHolder.transform.rotation);
-
+			
 			WeaponInstance = weaponInstance;
 			weaponInstance.transform.SetParent(_weaponHolder.transform);
 			PlayerWeaponEquipped = weaponInstance.GetComponent<PlayerWeapon>();
-			
-			Animator = PlayerWeaponEquipped.Animator;
+			Debug.Log("isLocalPlayer: " + isLocalPlayer);
+			if (isLocalPlayer)
+			{
+				Debug.Log("Set weapon layer");
+				//Set WeaponLayerName to Weapon
+				WeaponInstance.layer = LayerMask.NameToLayer(_weaponLayerName);
+				//Set Child of Weapon Layer to "Weapon" so that Muzzle Flash is aligned with the  FOV.
+				Util.SetLayerRecursively(WeaponInstance,LayerMask.NameToLayer(_weaponLayerName));
+			}
+			WeaponAnimator = PlayerWeaponEquipped.Animator;
 
 		}
 
+		// Animate weapon if player is moving
 		public void SetMoving(bool isMoving)
 		{
-			Animator.SetBool("IsWalking",isMoving);
-			
+			WeaponAnimator.SetBool("IsWalking",isMoving);
 		}
 
+		//Change color depending on push/pull
 		public void ChangeColor(int isPush)
 		{
 			if (isPush != 1)
