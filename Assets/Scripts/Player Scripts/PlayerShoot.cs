@@ -202,8 +202,7 @@ namespace Player_Scripts
          /*
           * Tell all clients that a ball has been pushed of pulled (offensive ability)
           */
-        [ClientRpc]
-        private void RpcUseOffecsiveAbility(int isPush,string ballName)
+        [ClientRpc] private void RpcUseOffecsiveAbility(int isPush,string ballName)
         {
             var ballMotor = GameManager.GetBallMotor(ballName);
            
@@ -226,7 +225,10 @@ namespace Player_Scripts
             
             _weaponEquipped.ForwardLight.enabled = true;
             _weaponEquipped.BackwardLight.enabled = true;
-            _weaponEquipped.LazerRenderer.enabled = true;
+             var laserRenderer = _weaponEquipped.LazerRenderer;
+            laserRenderer.enabled = true;
+          
+
             _weaponEquipped.SpecialAbilityAudioSource.Play();
             _weaponEquipped.LazerGlow.Play();
             StartCoroutine(DisableAnimationForSpecialEffect());
@@ -247,6 +249,8 @@ namespace Player_Scripts
             _isPush *= -1;
             _weaponManager.ChangeColor(_isPush);
         }
+
+       
 
 
 

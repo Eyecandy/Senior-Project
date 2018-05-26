@@ -8,7 +8,7 @@ namespace Weapon
 	public class PlayerWeapon:MonoBehaviour
 	{
 		
-		public float Range = 100f;
+		public float Range = 50f;
 		public int Damage = 25;
 		
 		[HideInInspector] public Animator Animator;
