@@ -14,34 +14,23 @@ namespace Player_Scripts
 		[SerializeField] private GameObject _weaponPrefab;
 
 		[SerializeField] private GameObject _weaponHolder;
-
-		[HideInInspector] public PlayerWeapon CurrentWeapon;
-
-		[HideInInspector] public ParticleSystem WeaponEffectOnSHoot;
-
-		[HideInInspector] public Animator Animator;
-
-		[HideInInspector] public AudioSource AudioSource;
-
-
-		[HideInInspector] public Light BackwardLight;
-
-		[HideInInspector] public Light ForwardLight;
-
-		[HideInInspector] public ParticleSystem Glow;
-
-		[HideInInspector] public LineRenderer LazerRenderer;
 		
+		[SerializeField] private string _weaponLayerName = "Weapon";
+
+		[HideInInspector] public PlayerWeapon PlayerWeaponEquipped;
+		
+		[HideInInspector] public Animator WeaponAnimator;
+
+		[HideInInspector] public GameObject WeaponInstance;
 
 		/*
 		 * Gets the prefab of the weapon
 		 */
 		private void Start()
 		{
-			
-			EquipWeapon(_weaponPrefab.GetComponent<PlayerWeapon>());
-
+			EquipWeapon();
 		}
+		
 		/*
 		 * Instansiate an instance of the weapon prefab.
 		 * And sets animator and audio source and playerweapon.
@@ -49,57 +38,57 @@ namespace Player_Scripts
 		 * We set the parent to the pov camera attached to the player.
 		 * 
 		 */
-		private void EquipWeapon(PlayerWeapon weapon)
+		private void EquipWeapon()
 		{
-			CurrentWeapon = weapon;
-
+			// Instantiate Weapon in WeaponHolder position
 			var weaponInstance = Instantiate(_weaponPrefab,
 				_weaponHolder.transform.position,
 				_weaponHolder.transform.rotation);
 			
+			WeaponInstance = weaponInstance;
 			weaponInstance.transform.SetParent(_weaponHolder.transform);
-			WeaponEffectOnSHoot = weaponInstance.GetComponent<PlayerWeapon>().MuzzleFlash;
-			Animator = weaponInstance.GetComponent<Animator>();
-			AudioSource = weaponInstance.GetComponent<AudioSource>();
-			
-			BackwardLight = weaponInstance.GetComponent<PlayerWeapon>().BackwardLight;
-			ForwardLight = weaponInstance.GetComponent<PlayerWeapon>().ForwardLight;
-			LazerRenderer = weaponInstance.GetComponent<PlayerWeapon>().LazerRenderer;
-			Glow = weaponInstance.GetComponent<PlayerWeapon>().LazerGlow;
-			
+			PlayerWeaponEquipped = weaponInstance.GetComponent<PlayerWeapon>();
+			Debug.Log("isLocalPlayer: " + isLocalPlayer);
+			if (isLocalPlayer)
+			{
+				Debug.Log("Set weapon layer");
+				//Set WeaponLayerName to Weapon
+				WeaponInstance.layer = LayerMask.NameToLayer(_weaponLayerName);
+				//Set Child of Weapon Layer to "Weapon" so that Muzzle Flash is aligned with the  FOV.
+				Util.SetLayerRecursively(WeaponInstance,LayerMask.NameToLayer(_weaponLayerName));
+			}
+			WeaponAnimator = PlayerWeaponEquipped.Animator;
+
 		}
 
+		// Animate weapon if player is moving
 		public void SetMoving(bool isMoving)
 		{
-			Animator.SetBool("IsWalking",isMoving);
-			
+			WeaponAnimator.SetBool("IsWalking",isMoving);
 		}
 
+		//Change color depending on push/pull
 		public void ChangeColor(int isPush)
 		{
 			if (isPush != 1)
 			{
-				BackwardLight.color = Color.magenta;
-				ForwardLight.color = Color.magenta;
-				LazerRenderer.startColor = Color.magenta;
-				LazerRenderer.endColor = Color.magenta;
+				PlayerWeaponEquipped.BackwardLight.color = Color.magenta;
+				PlayerWeaponEquipped.ForwardLight.color = Color.magenta;
+				PlayerWeaponEquipped.LazerRenderer.startColor = Color.magenta;
+				PlayerWeaponEquipped.LazerRenderer.endColor = Color.magenta;
 				#pragma warning disable 618
-				Glow.startColor = Color.magenta;
+				PlayerWeaponEquipped.LazerGlow.startColor = Color.magenta;
 				#pragma warning restore 618
-			
-			
-			
-
 
 			}
 			else
 			{
-				BackwardLight.color = Color.green;
-				ForwardLight.color = Color.green;
-				LazerRenderer.startColor = Color.green;
-				LazerRenderer.endColor = Color.green;
+				PlayerWeaponEquipped.BackwardLight.color = Color.green;
+				PlayerWeaponEquipped.ForwardLight.color = Color.green;
+				PlayerWeaponEquipped.LazerRenderer.startColor = Color.green;
+				PlayerWeaponEquipped.LazerRenderer.endColor = Color.green;
 				#pragma warning disable 618
-				Glow.startColor = Color.green;
+				PlayerWeaponEquipped.LazerGlow.startColor = Color.green;
 				#pragma warning restore 618
 			}
 

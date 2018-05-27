@@ -69,6 +69,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4366649482994924}
+  - component: {fileID: 82424487016104572}
   m_Layer: 0
   m_Name: SpecialAbilityEffect
   m_TagString: Untagged
@@ -154,7 +155,6 @@ GameObject:
   - component: {fileID: 114624235739724742}
   - component: {fileID: 95884048066425616}
   - component: {fileID: 82767874360625466}
-  - component: {fileID: 114072544481407420}
   m_Layer: 0
   m_Name: Sci-Fi Automatic
   m_TagString: Untagged
@@ -169,7 +169,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813658563115822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.000534, y: -0.003264, z: 0.000625}
+  m_LocalPosition: {x: 0.00002, y: -0.00458, z: 0.00098}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4799897229484768}
@@ -213,13 +213,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1080798212406842}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.008726202, y: -0.007757539, z: -0.000067698464, w: 0.9999318}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4366649482994924}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1, y: -0.889, z: 0}
 --- !u!4 &4627117356014646
 Transform:
   m_ObjectHideFlags: 1
@@ -253,13 +253,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1717262981043008}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00011, y: 0, z: -0.00027}
+  m_LocalRotation: {x: -0, y: 0.018202271, z: -0, w: 0.99983436}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4366649482994924}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 2.0860002, z: 0}
 --- !u!4 &4799897229484768
 Transform:
   m_ObjectHideFlags: 1
@@ -342,6 +342,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00049704703, y: 0.004600704, z: 0.0029479824}
   m_Center: {x: 0, y: -0.000740548, z: -0.00030853553}
+--- !u!82 &82424487016104572
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1742255871223686}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a1a3178f0271f49c5a12bc0c347e6e52, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.71
+  m_Pitch: 0.63
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 123
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.98
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!82 &82767874360625466
 AudioSource:
   m_ObjectHideFlags: 1
@@ -354,7 +434,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
-  m_Pitch: 1
+  m_Pitch: 1.26
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -363,7 +443,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: -0.05
+  Pan2D: -0.01
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -403,7 +483,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0.53333336
+      value: 0.48333332
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -415,7 +495,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0.531
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -448,7 +528,7 @@ Light:
   m_Enabled: 0
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 0.034005463, g: 0.44117647, b: 0.01946366, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.006896496, a: 1}
   m_Intensity: 10
   m_Range: 1
   m_SpotAngle: 110
@@ -484,7 +564,7 @@ Light:
   m_Enabled: 0
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 0.034005463, g: 0.44117647, b: 0.01946366, a: 1}
+  m_Color: {r: 0.034482718, g: 1, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 1
   m_SpotAngle: 110
@@ -511,17 +591,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114072544481407420
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1987082836798804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82351ec0073844c2e8fb1a4bdaf3b19c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114624235739724742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -543,6 +612,7 @@ MonoBehaviour:
   LazerGlow: {fileID: 198626185202131974}
   AudioSource: {fileID: 0}
   SpecialAbilityAnimatorManagerGameObject: {fileID: 0}
+  SpecialAbilityAudioSource: {fileID: 82424487016104572}
 --- !u!120 &120608812319475478
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -579,7 +649,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: -0.05, y: 0.02, z: 1}
+  - {x: -0.06, y: 0.012, z: 1}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 0.05
@@ -597,12 +667,12 @@ LineRenderer:
       m_RotationOrder: 0
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.280439, g: 0.97794116, b: 0.32081187, a: 0.64705884}
-      key1: {r: 0.40115842, g: 0.18017948, b: 0.981581, a: 0.70980394}
+      key0: {r: 0, g: 1, b: 0.08965516, a: 1}
+      key1: {r: 0.40115842, g: 0.18017948, b: 0.981581, a: 1}
       key2: {r: 0.019607844, g: 0.08627451, b: 0.6862745, a: 1}
       key3: {r: 0.3519904, g: 0.07492843, b: 0.9794548, a: 0.7765105}
       key4: {r: 0.6470623, g: 0.7065713, b: 0.9922146, a: 1}
-      key5: {r: 1, g: 1, b: 1, a: 0}
+      key5: {r: 1, g: 0, b: 1, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 193
@@ -641,7 +711,7 @@ ParticleSystem:
   lengthInSec: 1
   simulationSpeed: 3
   stopAction: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -698,7 +768,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.75
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -739,7 +809,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 25
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -781,7 +851,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.019873805, g: 0.47794116, b: 0.0035142766, a: 1}
+      maxColor: {r: 0, g: 1, b: 0.048275948, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1203,7 +1273,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2

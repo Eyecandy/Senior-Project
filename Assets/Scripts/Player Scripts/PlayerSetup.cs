@@ -24,9 +24,7 @@ namespace Player_Scripts
 		[SerializeField] private GameObject _head;  //head of player.
 		
 		
-		
 		#region Unity Functions
-
 		/*
 		 * Checks is we are the local player
 		 * if we are not the local player we diable components
@@ -42,14 +40,13 @@ namespace Player_Scripts
 		private void Start()
 		{
 			if (!isLocalPlayer)
-			{
+			{	
 				DisableComponents();
 				AssignRemoteLayer();
+				
 			}
 			else
 			{
-				
-				
 				_povCamera = Camera.main;
 				if (_povCamera != null)
 				{
@@ -61,13 +58,16 @@ namespace Player_Scripts
 			
 			_head.transform.name = transform.name;
 			
-			GetComponent<Player>().Setup(_povCamera);
+			GetComponent<Player>().Setup();
 			
 			
 			//create player UI, like crosshair for example.
 			_playerUiInstance = Instantiate(_playerUiPrefab);
 			//to remove clone.
 			_playerUiInstance.name = transform.name + "GUI";
+
+			GetComponent<PlayerGUI>().HitMarker = _playerUiInstance.GetComponent<Images>().HitMarker;
+
 		}
 
 		
@@ -81,7 +81,6 @@ namespace Player_Scripts
 			var player = GetComponent<Player>();
 			GameManager.RegisterPlayer(playerNetId, player);
 			var arrayOfBalls = GameObject.FindGameObjectsWithTag("Ball");
-			Debug.Log(arrayOfBalls.Length);
 			foreach (var ball in arrayOfBalls)
 			{
 				var ballName = ball.GetComponent<BallMotor>().BallName;
@@ -89,9 +88,6 @@ namespace Player_Scripts
 				var ballMotor = ball.GetComponent<BallMotor>();
 				GameManager.RegisterBallMotor(ballName,ballMotor);
 			}
-			
-			
-			
 		}
 
 		/*
@@ -109,6 +105,7 @@ namespace Player_Scripts
 			}
 			Destroy(_playerUiInstance);
 			GameManager.UnRegisterPlayer(transform.name);
+			
 		}
 		#endregion
 		
@@ -125,6 +122,7 @@ namespace Player_Scripts
 			{
 				component.enabled = false;
 			}
+			
 		}
 		
 		/*

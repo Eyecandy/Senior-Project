@@ -12,10 +12,27 @@ public class GameManager : MonoBehaviour {
      * This is fast way of finding out if a plyer is online or not.
      */
     private const string PlayerPrefix = "Player";
-         private static readonly Dictionary<string, Player> Players = new Dictionary<string, Player>();
-         
-         
-         public static void RegisterPlayer(string playerNetId,Player player) 
+    private static readonly Dictionary<string, Player> Players = new Dictionary<string, Player>();
+
+    public GameObject ScenerCamera;
+    public static GameManager Singleton;
+
+    private void Awake()
+    {
+        if (Singleton == null)
+        {
+            Singleton = this;
+        }
+        
+    }
+
+    public void SetSceneCamera(bool active)
+    {
+        ScenerCamera.SetActive(active);
+    }
+
+
+    public static void RegisterPlayer(string playerNetId,Player player) 
          {
              var playerId = PlayerPrefix + playerNetId;
              if (Players.ContainsKey(playerId))
@@ -79,6 +96,9 @@ public class GameManager : MonoBehaviour {
         
         get { return BallMotors; }
     }
+    
+    
+    
     
     
 }

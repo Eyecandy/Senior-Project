@@ -8,11 +8,12 @@ namespace Weapon
 	public class PlayerWeapon:MonoBehaviour
 	{
 		
-		public float Range = 100f;
+		public float Range = 50f;
 		public int Damage = 25;
 		
 		[HideInInspector] public Animator Animator;
 		
+		//MuzzleFlash
 		public ParticleSystem MuzzleFlash;
 
 		public Light BackwardLight;
@@ -23,12 +24,12 @@ namespace Weapon
 
 		public ParticleSystem LazerGlow;
 			
-			
-
 		[HideInInspector] public AudioSource AudioSource;
 
 		[HideInInspector] public GameObject SpecialAbilityAnimatorManagerGameObject;
 
+	     public AudioSource SpecialAbilityAudioSource;
+		
 
 		private void Start()
 		{

@@ -40,7 +40,6 @@ namespace SpecialAbility.OffensiveSpecialAbilities
 			) return;
 
 			
-			
 			var ballRigidBody = pushRaycastHit.collider.attachedRigidbody;
 			ballRigidBody.AddForce( _camera.transform.forward * _pushForce * isPush ,ForceMode.VelocityChange);
 		}

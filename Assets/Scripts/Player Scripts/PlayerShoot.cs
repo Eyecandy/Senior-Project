@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Ball_Scripts;
 using UnityEngine;
 using UnityEngine.Networking;
 using Weapon;
@@ -9,29 +8,29 @@ using Weapon;
 
 namespace Player_Scripts
 {   [RequireComponent(typeof(WeaponManager))]
+    [RequireComponent(typeof(PlayerGUI))]
     public class PlayerShoot : NetworkBehaviour
     {
-
         [SerializeField] private Camera _camera;
+        
+        [SerializeField] private LayerMask _layerMask;
+        
+        [SerializeField] private LayerMask _specialAbilityLayerMask;
+        
+        //current weapon equipped
         private PlayerWeapon _weaponEquipped;
 
         private WeaponManager _weaponManager;
-        [SerializeField] private LayerMask _layerMask;
 
         private GameObject _gunBarrelEnd;
 
         private float _timeToWaitForDisablingAnimation = 0.25f;
 
-        [SerializeField]private LayerMask _specialAbilityLayerMask;
-
         private int _isPush = 1;
         
+        private SpecialAbilityManager _specialAbilityManager;
         
-
-        //[SerializeField] private PushAbility _pushAbility;
-        [SerializeField] private SpecialAbilityManager _specialAbilityManager;
         
-
         #region Unity Functions
         
         /*
@@ -44,8 +43,6 @@ namespace Player_Scripts
         {
             _specialAbilityManager = GetComponent<SpecialAbilityManager>();
             _weaponManager = GetComponent<WeaponManager>();
-            _weaponEquipped = _weaponManager.CurrentWeapon;
-            
  
             if (_camera != null) return;
             Debug.LogError("No cam found in Player Shoot Script");
@@ -54,7 +51,7 @@ namespace Player_Scripts
 
         private void Update()
         {
-            _weaponEquipped = _weaponManager.CurrentWeapon;
+            _weaponEquipped = _weaponManager.PlayerWeaponEquipped;
             
             
             if (Input.GetButtonDown("Fire1"))
@@ -70,8 +67,9 @@ namespace Player_Scripts
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                _isPush *= -1;
-                _weaponManager.ChangeColor(_isPush);
+                if (!isLocalPlayer) return;
+                CmdChangeColorOfLaser();
+             
             }
 
 
@@ -94,9 +92,8 @@ namespace Player_Scripts
             if (!isLocalPlayer) return;
             
             CmdOnFireWeapon();
-           
             RaycastHit hit;
-
+            
             System.Diagnostics.Debug.Assert(_weaponEquipped != null, "_weaponEquipped != null");
             
             if (!Physics.Raycast(_camera.transform.position,
@@ -106,21 +103,30 @@ namespace Player_Scripts
                     _layerMask) //masks out things we should not be able to hit.
             ) return;
             
+            
+            
 
             Debug.Log("We hit: " + hit.collider.name + "with tag:  " + hit.collider.tag);
 
             if (hit.collider.CompareTag("Player"))
             {
                 CmdPlayerShot(hit.collider.name, _weaponEquipped.Damage);
+                GetComponent<PlayerGUI>().SetHitMarker();
+                
+
             }
 
             if (hit.collider.CompareTag("PlayerHead"))
             {
                 var dmg = 2 * _weaponEquipped.Damage;
                 CmdPlayerShot(hit.collider.name, dmg);
+                GetComponent<PlayerGUI>().SetHitMarker();
+                
             }
 
         }
+
+       
 
         /*
 		 * Sends out information to server regarding who has been shot and their health
@@ -151,10 +157,12 @@ namespace Player_Scripts
         private void RpcDisplayMuzzleFlash()
         {
             
-            _weaponManager.Animator.SetTrigger("Fire");
-            _weaponManager.WeaponEffectOnSHoot.Stop();
-            _weaponManager.WeaponEffectOnSHoot.Play();
-            _weaponManager.AudioSource.Play();
+            _weaponManager.WeaponAnimator.SetTrigger("Fire");
+            _weaponEquipped.MuzzleFlash.Stop();
+            _weaponEquipped.MuzzleFlash.Play();
+            _weaponEquipped.AudioSource.Play();
+           
+            
         }
 
         #endregion
@@ -169,7 +177,7 @@ namespace Player_Scripts
             if (!isLocalPlayer) return;
             if (_specialAbilityManager.OffensiveSpecialAbility == null) return;
 
-            EnableSpecialOffensiveEffects();
+            CmdEnableOffensiveEffects();
             
             RaycastHit pushRaycastHit;
             if (!Physics.Raycast(_camera.transform.position,
@@ -179,55 +187,85 @@ namespace Player_Scripts
                     _specialAbilityLayerMask)              //masks out things we should not be able to hit.
             ) return;
             
-            
             CmdUseOffensiveAbility(isPush,pushRaycastHit.collider.transform.name);
-            
-    
        }
         
         
-
-        
+        /*
+         * Tell server that a player found a ball to use offensive abilty on and forward it to clients
+         */
         [Command] private void CmdUseOffensiveAbility(int isPush,string ballName)
         {
             RpcUseOffecsiveAbility(isPush,ballName);
         }
 
-        [ClientRpc]
-        private void RpcUseOffecsiveAbility(int isPush,string ballName)
+         /*
+          * Tell all clients that a ball has been pushed of pulled (offensive ability)
+          */
+        [ClientRpc] private void RpcUseOffecsiveAbility(int isPush,string ballName)
         {
             var ballMotor = GameManager.GetBallMotor(ballName);
+           
             ballMotor._rb.AddForce( _camera.transform.forward * 100 * isPush ,ForceMode.VelocityChange);
 
         }
-       
-
-        private void EnableSpecialOffensiveEffects()
+        /*
+         * Tell server to enable Laser Animation on all Clients
+         */
+        [Command] private void CmdEnableOffensiveEffects()
         {
-            _weaponManager.ForwardLight.enabled = true;
-            _weaponManager.BackwardLight.enabled = true;
-            _weaponManager.LazerRenderer.enabled = true;
-            _weaponManager.Glow.Play();
-            StartCoroutine(DisableAnimationForSpecialEffect());
+            RpcEnableSpecialOffensiveEffects();
+        }
 
+         /*
+          * Enable effect on all clients.
+          */
+        [ClientRpc] private void RpcEnableSpecialOffensiveEffects()
+        {
+            
+            _weaponEquipped.ForwardLight.enabled = true;
+            _weaponEquipped.BackwardLight.enabled = true;
+             var laserRenderer = _weaponEquipped.LazerRenderer;
+            laserRenderer.enabled = true;
+          
+
+            _weaponEquipped.SpecialAbilityAudioSource.Play();
+            _weaponEquipped.LazerGlow.Play();
+            StartCoroutine(DisableAnimationForSpecialEffect());
+        }
+        /*
+         * Tell Server to forward to all clients that a particular player has changed laser ray 
+         */
+        [Command] private void CmdChangeColorOfLaser()
+        {
+            RpcChangeColorOfLaser();
+        }
+        /*
+         * Tell all clients that a player has changed color of laser ray
+         */
+        [ClientRpc]
+        private void RpcChangeColorOfLaser()
+        {
+            _isPush *= -1;
+            _weaponManager.ChangeColor(_isPush);
         }
 
        
+
+
 
         private IEnumerator DisableAnimationForSpecialEffect()
         {
  
             yield return new WaitForSeconds(_timeToWaitForDisablingAnimation);
             
-            _weaponManager.ForwardLight.enabled = false;
-            _weaponManager.BackwardLight.enabled = false;
-            _weaponManager.LazerRenderer.enabled = false;
-            _weaponManager.Glow.Stop();
+            _weaponEquipped.ForwardLight.enabled = false;
+            _weaponEquipped.BackwardLight.enabled = false;
+            _weaponEquipped.LazerRenderer.enabled = false;
+            _weaponEquipped.SpecialAbilityAudioSource.Stop();
+            _weaponEquipped.LazerGlow.Stop();
 
-            
-            
         }
-
         #endregion
       
     }
