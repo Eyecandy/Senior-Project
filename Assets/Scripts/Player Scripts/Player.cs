@@ -34,6 +34,7 @@ namespace Player_Scripts
         public GameObject Graphics; //For disabling graphics on death
         
         private bool _initialSetup = true;
+        
 
         /*
         * Enables component on entering game.
@@ -145,8 +146,11 @@ namespace Player_Scripts
             {
                 collder.enabled = false;
             }
+            
+            
 
-            //Spawn a death effect at players location
+            //Spawn a death effect at players location + sound
+            GetComponent<AudioSource>().Play();
             GameObject deathEffectGfx =  Instantiate(_deathEffect, transform.position, Quaternion.identity);
             Destroy(deathEffectGfx,3f);
             
@@ -200,6 +204,7 @@ namespace Player_Scripts
             }
             
             //Create Spawn effect
+            
             GameObject spawnEffectGfx =  Instantiate(_spawnEffect, transform.position, Quaternion.identity);
             Destroy(spawnEffectGfx,3f);
         }
