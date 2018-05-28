@@ -17,11 +17,11 @@ namespace Player_Scripts
 
         [SerializeField] private Behaviour[] _disabledOnDeath; //behaviors to disable on death
         
+        [SerializeField] private GameObject[] _disableGameObjectsOnDeath;
+        
         [SerializeField] private float _speedGainBackTime; //time it takes to get back speed lost
 
         [SerializeField] private int _respawnTimer;        //time until respawn from point of death
-
-        [SerializeField] private GameObject _povCam;
         
         [SerializeField] private GameObject _spawnEffect;  //Death particle system prefab
 
@@ -35,12 +35,15 @@ namespace Player_Scripts
         
         private bool _initialSetup = true;
 
-
         /*
         * Enables component on entering game.
         */
         public void SetupPlayer()
         {
+            if (isLocalPlayer)
+            {
+                GameManager.Singleton.SetSceneCamera(false);
+            }
             CmdBroadcastPlayerSetup();
         }
 
@@ -125,12 +128,17 @@ namespace Player_Scripts
             {
                 weaponInstance.SetActive(false);
             }
-
+            
             foreach (var behaviour in _disabledOnDeath)
             {
                 behaviour.enabled = false;
             }
 
+            foreach (var gameobject in _disableGameObjectsOnDeath)
+            {
+                gameobject.SetActive(false);
+            }
+            
             var collder = GetComponent<Collider>();
 
             if (collder != null)
@@ -142,12 +150,11 @@ namespace Player_Scripts
             GameObject deathEffectGfx =  Instantiate(_deathEffect, transform.position, Quaternion.identity);
             Destroy(deathEffectGfx,3f);
             
+            //Deactivate ui and enable scene camera
             if (isLocalPlayer)
             {
-               _povCam.SetActive(false);
-               
-                GameManager.Singleton.ScenerCamera.SetActive(true);
-               
+                GameManager.Singleton.SetSceneCamera(true);
+                GetComponent<PlayerSetup>().ActivateUi(false);
             }
 
             StartCoroutine(Respawn());
@@ -160,13 +167,6 @@ namespace Player_Scripts
         {
 
             Debug.Log("SetDefaults");
-            if (isLocalPlayer && _povCam != null)
-            {
-
-                _povCam.SetActive(true);
-                GameManager.Singleton.SetSceneCamera(false);
-            }
-            
             Graphics.SetActive(true) ;
             _isDead = false;
             var weaponInstance = GetComponent<WeaponManager>().WeaponInstance;
@@ -181,11 +181,22 @@ namespace Player_Scripts
             {
                 _disabledOnDeath[i].enabled = _wasEnabled[i];
             }
+            
+            foreach (var gameobject in _disableGameObjectsOnDeath)
+            {
+                gameobject.SetActive(true);
+            }
 
             var collder = GetComponent<Collider>();
             if (collder != null)
             {
                 collder.enabled = true;
+            }
+            //Deactivate ui and enable scene camera
+            if (isLocalPlayer)
+            {
+                GameManager.Singleton.SetSceneCamera(false);
+                GetComponent<PlayerSetup>().ActivateUi(true);
             }
             
             //Create Spawn effect
@@ -216,5 +227,10 @@ namespace Player_Scripts
             ActionsOnDeath();
         }
         #endregion
+
+        public float GetCurrentWalkingSpeedPercentage()
+        {
+            return WalkingSpeedPercentage;
+        }
     }
 }

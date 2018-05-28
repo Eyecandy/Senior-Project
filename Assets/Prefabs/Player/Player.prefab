@@ -178,8 +178,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1642281420999912}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.211, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.097, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4628881524941012}
@@ -250,7 +250,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1333478427320978}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.126, y: 0.061, z: 0.628}
+  m_LocalPosition: {x: 0.126, y: -0.058, z: 0.622}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4628881524941012}
@@ -263,7 +263,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1385399703846008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.007, y: 0.169, z: 0.045}
+  m_LocalPosition: {x: -0.007, y: 0.482, z: 0.045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4407432537738762}
@@ -689,9 +689,11 @@ MonoBehaviour:
   _disabledOnDeath:
   - {fileID: 114315035421036520}
   - {fileID: 114654718342406112}
-  _speedGainBackTime: 25
+  _disableGameObjectsOnDeath:
+  - {fileID: 1566451959559076}
+  - {fileID: 1385399703846008}
+  _speedGainBackTime: 10
   _respawnTimer: 5
-  _povCam: {fileID: 1385399703846008}
   _spawnEffect: {fileID: 1084552455894414, guid: 95e531f93f1494a1a95ffd3ed9c0d097,
     type: 2}
   _deathEffect: {fileID: 1063248353299252, guid: 0fc4b6315893c489aa7bae9d3433a951,
