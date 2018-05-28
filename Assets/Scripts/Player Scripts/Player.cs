@@ -6,39 +6,61 @@ namespace Player_Scripts
 {
     public class Player : NetworkBehaviour
     {
+        
+        //Synced Variables
         [SyncVar] public float WalkingSpeedPercentage = 100f;
         
+        [SyncVar] private bool _isDead; 
+        
+        //Serialized Variables
         [SerializeField] private float _maxWalkingSpeed = 100f;
 
-        [SyncVar] private bool _isDead; 
-
         [SerializeField] private Behaviour[] _disabledOnDeath; //behaviors to disable on death
-       
-        private bool[] _wasEnabled;
         
         [SerializeField] private float _speedGainBackTime; //time it takes to get back speed lost
 
         [SerializeField] private int _respawnTimer;        //time until respawn from point of death
 
         [SerializeField] private GameObject _povCam;
+        
+        [SerializeField] private GameObject _spawnEffect;  //Death particle system prefab
 
         [SerializeField] private GameObject _deathEffect;  //Death particle system prefab
-       
+        
+        [SerializeField] private int _minimumSpeedThreshold; //movementSpeed can not go below this threshold
+        
+        private bool[] _wasEnabled;
+        
         public GameObject Graphics; //For disabling graphics on death
-
-        [SerializeField] private int _minimumSpeedThreshold; //movementSpeed can not go below this threshold 
+        
+        private bool _initialSetup = true;
 
 
         /*
-        * enables component on entering game.
+        * Enables component on entering game.
         */
-        public void Setup()
+        public void SetupPlayer()
         {
-            _wasEnabled = new bool[_disabledOnDeath.Length];
+            CmdBroadcastPlayerSetup();
+        }
 
-            for (var i = 0; i < _wasEnabled.Length; i++)
+        [Command]
+        private void CmdBroadcastPlayerSetup()
+        {
+            RpcOnPlayerSetup();
+        }
+
+        [ClientRpc]
+        private void RpcOnPlayerSetup()
+        {
+            if (_initialSetup)
             {
-                _wasEnabled[i] = _disabledOnDeath[i].enabled;
+                _wasEnabled = new bool[_disabledOnDeath.Length];
+                for (var i = 0; i < _wasEnabled.Length; i++)
+                {
+                    _wasEnabled[i] = _disabledOnDeath[i].enabled;
+                }
+                _initialSetup = false;
             }
             SetPlayerDefaults();
         }
@@ -82,11 +104,11 @@ namespace Player_Scripts
         {
             yield return new WaitForSeconds(_respawnTimer);
             Debug.Log("Respawned");
-            
-            SetPlayerDefaults();
             var spawnPoint = NetworkManager.singleton.GetStartPosition();
             transform.position = spawnPoint.position;
             transform.rotation = spawnPoint.rotation;
+            yield return new WaitForSeconds(0.1f);
+            SetupPlayer();
         }
 
         /*
@@ -117,8 +139,8 @@ namespace Player_Scripts
             }
 
             //Spawn a death effect at players location
-            GameObject _deathEffectGfx =  Instantiate(_deathEffect, transform.position, Quaternion.identity);
-            Destroy(_deathEffectGfx,3f);
+            GameObject deathEffectGfx =  Instantiate(_deathEffect, transform.position, Quaternion.identity);
+            Destroy(deathEffectGfx,3f);
             
             if (isLocalPlayer)
             {
@@ -165,6 +187,10 @@ namespace Player_Scripts
             {
                 collder.enabled = true;
             }
+            
+            //Create Spawn effect
+            GameObject spawnEffectGfx =  Instantiate(_spawnEffect, transform.position, Quaternion.identity);
+            Destroy(spawnEffectGfx,3f);
         }
 
         

@@ -692,10 +692,12 @@ MonoBehaviour:
   _speedGainBackTime: 25
   _respawnTimer: 5
   _povCam: {fileID: 1385399703846008}
+  _spawnEffect: {fileID: 1084552455894414, guid: 95e531f93f1494a1a95ffd3ed9c0d097,
+    type: 2}
   _deathEffect: {fileID: 1063248353299252, guid: 0fc4b6315893c489aa7bae9d3433a951,
     type: 2}
-  Graphics: {fileID: 1566451959559076}
   _minimumSpeedThreshold: 2
+  Graphics: {fileID: 1566451959559076}
 --- !u!114 &114966857615800552
 MonoBehaviour:
   m_ObjectHideFlags: 1

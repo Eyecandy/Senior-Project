@@ -58,7 +58,7 @@ namespace Player_Scripts
 			
 			_head.transform.name = transform.name;
 			
-			GetComponent<Player>().Setup();
+			GetComponent<Player>().SetupPlayer();
 			
 			
 			//create player UI, like crosshair for example.
