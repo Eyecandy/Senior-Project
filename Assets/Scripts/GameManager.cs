@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour {
     private const string PlayerPrefix = "Player";
     private static readonly Dictionary<string, Player> Players = new Dictionary<string, Player>();
 
-    public GameObject ScenerCamera;
+    [SerializeField]
+    private GameObject _sceneCamera;
     public static GameManager Singleton;
 
     private void Awake()
@@ -23,12 +24,15 @@ public class GameManager : MonoBehaviour {
         {
             Singleton = this;
         }
-        
     }
 
     public void SetSceneCamera(bool active)
     {
-        ScenerCamera.SetActive(active);
+        if (_sceneCamera == null)
+        {
+            return;
+        }
+        _sceneCamera.SetActive(active);
     }
 
 
@@ -92,8 +96,6 @@ public class GameManager : MonoBehaviour {
 
     public static Dictionary<string, BallMotor> BallMotorsDictionary
     {
-   
-        
         get { return BallMotors; }
     }
     

@@ -1,4 +1,5 @@
 ﻿using Ball_Scripts;
+using UI_Scripts;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -10,8 +11,6 @@ namespace Player_Scripts
 		[SerializeField] private Behaviour[] _componentsToDisable; //the bevhaviors are manually placed in the script.
 		
 		[SerializeField] private const string RemoteLayerName = "RemotePlayer";
-		
-		private Camera _povCamera; //our PoV Cam
 		
 		[SerializeField] private GameObject _graphics; //all graphical components of player.
 		
@@ -25,6 +24,7 @@ namespace Player_Scripts
 		
 		
 		#region Unity Functions
+		
 		/*
 		 * Checks is we are the local player
 		 * if we are not the local player we diable components
@@ -47,30 +47,21 @@ namespace Player_Scripts
 			}
 			else
 			{
-				_povCamera = Camera.main;
-				if (_povCamera != null)
-				{
-					_povCamera.gameObject.SetActive(false);
-				}
 				//Disable model of player in PoV camera. only done once
 				SetLayerRecursively(_graphics, LayerMask.NameToLayer(DontDrawLayer));
+				//create player UI, like crosshair for example.
+				_playerUiInstance = Instantiate(_playerUiPrefab);
+				//to remove clone.
+				_playerUiInstance.name = transform.name + "GUI";
+				//Link the ui to the player
+				PlayerUI ui = _playerUiInstance.GetComponent<PlayerUI>();
+				ui.SetPlayer(GetComponent<Player>());
+				GetComponent<PlayerGUI>().HitMarker = _playerUiInstance.GetComponent<Images>().HitMarker;
 			}
-			
 			_head.transform.name = transform.name;
-			
-			GetComponent<Player>().Setup();
-			
-			
-			//create player UI, like crosshair for example.
-			_playerUiInstance = Instantiate(_playerUiPrefab);
-			//to remove clone.
-			_playerUiInstance.name = transform.name + "GUI";
-
-			GetComponent<PlayerGUI>().HitMarker = _playerUiInstance.GetComponent<Images>().HitMarker;
-
+			GetComponent<Player>().SetupPlayer();
 		}
 
-		
 		/*
 		 * Called when client connects by unity.
 		 */
@@ -99,16 +90,18 @@ namespace Player_Scripts
 		 */
 		private void OnDisable()
 		{
-			if (_povCamera != null)
-			{
-				_povCamera.gameObject.SetActive(true);
-			}
 			Destroy(_playerUiInstance);
-			GameManager.UnRegisterPlayer(transform.name);
-			
+			if (isLocalPlayer)
+				GameManager.Singleton.SetSceneCamera(true);
+			//Deregister player
+			GameManager.UnRegisterPlayer(transform.name);				
+		}
+
+		public void ActivateUi(bool on)
+		{
+			_playerUiInstance.SetActive(on);
 		}
 		#endregion
-		
 		
 		#region Functions called within class
         /*

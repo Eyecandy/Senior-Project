@@ -66,6 +66,7 @@ GameObject:
   - component: {fileID: 114123006287579764}
   - component: {fileID: 114157789308241898}
   - component: {fileID: 153236886076078800}
+  - component: {fileID: 82994112977514172}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -178,8 +179,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1642281420999912}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.211, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.097, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4628881524941012}
@@ -250,7 +251,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1333478427320978}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.126, y: 0.061, z: 0.628}
+  m_LocalPosition: {x: 0.126, y: -0.058, z: 0.622}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4628881524941012}
@@ -263,7 +264,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1385399703846008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.007, y: 0.169, z: 0.045}
+  m_LocalPosition: {x: -0.007, y: 0.482, z: 0.045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4407432537738762}
@@ -526,6 +527,86 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1385399703846008}
   m_Enabled: 1
+--- !u!82 &82994112977514172
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100914866961326}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8e3b4236a7258471caabb3542eee992b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.988
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114123006287579764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -689,11 +770,17 @@ MonoBehaviour:
   _disabledOnDeath:
   - {fileID: 114315035421036520}
   - {fileID: 114654718342406112}
-  _speedGainBackTime: 25
+  _disableGameObjectsOnDeath:
+  - {fileID: 1566451959559076}
+  - {fileID: 1385399703846008}
+  _speedGainBackTime: 10
   _respawnTimer: 5
-  _povCam: {fileID: 1385399703846008}
-  Graphics: {fileID: 1566451959559076}
+  _spawnEffect: {fileID: 1084552455894414, guid: 95e531f93f1494a1a95ffd3ed9c0d097,
+    type: 2}
+  _deathEffect: {fileID: 1063248353299252, guid: 0fc4b6315893c489aa7bae9d3433a951,
+    type: 2}
   _minimumSpeedThreshold: 2
+  Graphics: {fileID: 1566451959559076}
 --- !u!114 &114966857615800552
 MonoBehaviour:
   m_ObjectHideFlags: 1
