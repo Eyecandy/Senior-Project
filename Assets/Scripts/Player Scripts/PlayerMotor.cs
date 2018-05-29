@@ -80,8 +80,7 @@ namespace Player_Scripts
 		{
 			if ( _velocity != Vector3.zero )
 			{
-				 
-				_rigidbody.MovePosition(_rigidbody.position + _velocity * _player.WalkingSpeedPercentage *Time.deltaTime) ;
+				_rigidbody.MovePosition(_rigidbody.position + _velocity * _player.WalkingSpeedPercentage * Time.deltaTime) ;
 			}
 		}
 		/*

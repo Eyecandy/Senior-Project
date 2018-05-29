@@ -44,8 +44,9 @@ namespace Player_Scripts
             if (isLocalPlayer)
             {
                 GameManager.Singleton.SetSceneCamera(false);
+                CmdBroadcastPlayerSetup();
             }
-            CmdBroadcastPlayerSetup();
+            
         }
 
         [Command]
@@ -150,13 +151,14 @@ namespace Player_Scripts
             
 
             //Spawn a death effect at players location + sound
-            GetComponent<AudioSource>().Play();
+            
             GameObject deathEffectGfx =  Instantiate(_deathEffect, transform.position, Quaternion.identity);
             Destroy(deathEffectGfx,3f);
             
             //Deactivate ui and enable scene camera
             if (isLocalPlayer)
-            {
+            {   
+                GetComponent<AudioSource>().Play();
                 GameManager.Singleton.SetSceneCamera(true);
                 GetComponent<PlayerSetup>().ActivateUi(false);
             }
@@ -215,8 +217,11 @@ namespace Player_Scripts
             if (!other.transform.CompareTag("Ball")) return;
             // Let Server broadcast player's death
             CmdBroadcastPlayerDeath();
-            
+            if (!isLocalPlayer) return; 
+            //enable sound here............!.....!!!>.....!>!>!>!>!>!
         }
+        
+        
 
         //Server broadcast player's death
         [Command] 
