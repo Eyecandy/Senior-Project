@@ -243,7 +243,7 @@ MonoBehaviour:
   rotationLerpSpeed: 0.2
   scaleLerpSpeed: 0.2
   syncPosition: 0
-  syncRotation: 0
+  syncRotation: 7
   syncScale: 7
   syncVelocity: 7
   syncAngularVelocity: 7

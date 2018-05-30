@@ -3,9 +3,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Weapon;
 
-    
-
-
 namespace Player_Scripts
 {   [RequireComponent(typeof(WeaponManager))]
     [RequireComponent(typeof(PlayerGUI))]
@@ -205,7 +202,6 @@ namespace Player_Scripts
         [ClientRpc] private void RpcUseOffecsiveAbility(int isPush,string ballName)
         {
             var ballMotor = GameManager.GetBallMotor(ballName);
-           
             ballMotor._rb.AddForce( _camera.transform.forward * 100 * isPush ,ForceMode.VelocityChange);
 
         }
@@ -249,10 +245,6 @@ namespace Player_Scripts
             _isPush *= -1;
             _weaponManager.ChangeColor(_isPush);
         }
-
-       
-
-
 
         private IEnumerator DisableAnimationForSpecialEffect()
         {

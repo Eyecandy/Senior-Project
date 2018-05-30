@@ -37,31 +37,31 @@ public class GameManager : MonoBehaviour {
 
 
     public static void RegisterPlayer(string playerNetId,Player player) 
-         {
-             var playerId = PlayerPrefix + playerNetId;
-             if (Players.ContainsKey(playerId))
-             {
-                 Players[playerId] = player;
-                 player.transform.name = playerId;
-             }
-             else
-             {
-                 player.transform.name = playerId;
-                 Players.Add (playerId, player);
-             }
-         }
-         
-         
-         public static void UnRegisterPlayer(string netId) 
-         {
-             var playerId = PlayerPrefix + netId;
-             Players.Remove (playerId);
-         }
-         
-         public static Player GetPlayer(string playerId) 
-         {
-             return Players [playerId];
-         }
+    {
+        var playerId = PlayerPrefix + playerNetId;
+        if (Players.ContainsKey(playerId))
+        {
+            Players[playerId] = player;
+            player.transform.name = playerId;
+            
+        }else{
+            player.transform.name = playerId;
+            Players.Add (playerId, player);
+        }
+    }
+
+
+    public static void UnRegisterPlayer(string playerId)
+    {
+        Debug.Log("Deregister " + playerId);
+        Debug.Log("PlayersDictionary: " + Players[playerId]);
+        Players.Remove(playerId);
+    }
+
+    public static Player GetPlayer(string playerId) 
+    {
+        return Players [playerId];
+    }
     
     
     private static readonly Dictionary<string, BallMotor> BallMotors  = new Dictionary<string, BallMotor>();
@@ -69,7 +69,6 @@ public class GameManager : MonoBehaviour {
          
     public static void RegisterBallMotor(string ballNetId, BallMotor ballMotor) 
     {
-       
         if (BallMotors.ContainsKey(ballNetId))
         {
             BallMotors[ballNetId] = ballMotor;
@@ -98,9 +97,26 @@ public class GameManager : MonoBehaviour {
     {
         get { return BallMotors; }
     }
+
+    //Returns the length of the ball motors dictionary
+    public void BallMotorsDictionaryLength()
+    {
+        Debug.Log(BallMotors.Count);
+    }
     
-    
-    
-    
-    
+    //Returns the length of the ball motors dictionary
+    public void PlayersDictionaryLength()
+    {
+        Debug.Log("PlayersDictionary Length: " + Players.Count);
+    }
+
+    public void PrintDictionary()
+    {
+        Debug.Log("Start of Players");
+        foreach (var key in Players)
+        {
+            print(key);
+        }
+        Debug.Log("End of Players");
+    }
 }

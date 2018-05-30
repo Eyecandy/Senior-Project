@@ -58,27 +58,21 @@ namespace Player_Scripts
 				ui.SetPlayer(GetComponent<Player>());
 				GetComponent<PlayerGUI>().HitMarker = _playerUiInstance.GetComponent<Images>().HitMarker;
 			}
-			_head.transform.name = transform.name;
-			GetComponent<Player>().SetupPlayer();
-		}
 
-		/*
-		 * Called when client connects by unity.
-		 */
-		public override void OnStartClient() 
-		{
-			base.OnStartClient();
+			if (GetComponent<NetworkIdentity>().isServer)
+			{
+				Debug.Log("PlayerSetup: Start(): Player is HOST.");
+			}
+			else
+			{
+				Debug.Log("PlayerSetup: Start(): Player is CLIENT.");
+			}
+			_head.transform.name = transform.name;
 			var playerNetId =  GetComponent<NetworkBehaviour>().netId.ToString();
 			var player = GetComponent<Player>();
+			Debug.Log("PlayerSetup: Start(): Player: " + this.name + " NetId: " + playerNetId);
 			GameManager.RegisterPlayer(playerNetId, player);
-			var arrayOfBalls = GameObject.FindGameObjectsWithTag("Ball");
-			foreach (var ball in arrayOfBalls)
-			{
-				var ballName = ball.GetComponent<BallMotor>().BallName;
-				Debug.Log(ballName);
-				var ballMotor = ball.GetComponent<BallMotor>();
-				GameManager.RegisterBallMotor(ballName,ballMotor);
-			}
+			GetComponent<Player>().SetupPlayer();	
 		}
 
 		/*
@@ -90,6 +84,7 @@ namespace Player_Scripts
 		 */
 		private void OnDisable()
 		{
+			Debug.Log("DISABLED " + name);
 			Destroy(_playerUiInstance);
 			if (isLocalPlayer)
 				GameManager.Singleton.SetSceneCamera(true);
