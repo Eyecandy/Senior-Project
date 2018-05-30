@@ -98,6 +98,12 @@ public class GameManager : MonoBehaviour {
     {
         get { return BallMotors; }
     }
+
+    //Returns the length of the ball motors dictionary
+    public void BallMotorsDictionaryLength()
+    {
+        Debug.Log(BallMotors.Count);
+    }
     
     
     

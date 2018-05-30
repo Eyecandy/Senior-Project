@@ -162,7 +162,7 @@ MonoBehaviour:
   rotationLerpSpeed: 0.2
   scaleLerpSpeed: 0.2
   syncPosition: 0
-  syncRotation: 0
+  syncRotation: 7
   syncScale: 7
   syncVelocity: 7
   syncAngularVelocity: 7
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a52a8a9858c4175813c8abfa05613e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rb: {fileID: 0}
   _thrust: 10
   BallName: 
   StartPosition: {x: 0, y: 0, z: 0}

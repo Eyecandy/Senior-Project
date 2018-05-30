@@ -48,10 +48,8 @@ namespace Player_Scripts
 			WeaponInstance = weaponInstance;
 			weaponInstance.transform.SetParent(_weaponHolder.transform);
 			PlayerWeaponEquipped = weaponInstance.GetComponent<PlayerWeapon>();
-			Debug.Log("isLocalPlayer: " + isLocalPlayer);
 			if (isLocalPlayer)
 			{
-				Debug.Log("Set weapon layer");
 				//Set WeaponLayerName to Weapon
 				WeaponInstance.layer = LayerMask.NameToLayer(_weaponLayerName);
 				//Set Child of Weapon Layer to "Weapon" so that Muzzle Flash is aligned with the  FOV.

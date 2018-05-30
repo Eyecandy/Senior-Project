@@ -23,8 +23,6 @@ namespace Player_Scripts
 			MovementInput();
 			HorizontalCameraRotation();
 			VerticalCameraRotation();
-			
-			
 		}
 		#endregion
 

@@ -41,12 +41,21 @@ namespace Player_Scripts
         */
         public void SetupPlayer()
         {
+            // Initial Setup
+            if (_initialSetup)
+            {
+                _wasEnabled = new bool[_disabledOnDeath.Length];
+                for (var i = 0; i < _wasEnabled.Length; i++)
+                {
+                    _wasEnabled[i] = _disabledOnDeath[i].enabled;
+                }
+                _initialSetup = false;
+            }
             if (isLocalPlayer)
             {
                 GameManager.Singleton.SetSceneCamera(false);
                 CmdBroadcastPlayerSetup();
             }
-            
         }
 
         [Command]
@@ -58,15 +67,6 @@ namespace Player_Scripts
         [ClientRpc]
         private void RpcOnPlayerSetup()
         {
-            if (_initialSetup)
-            {
-                _wasEnabled = new bool[_disabledOnDeath.Length];
-                for (var i = 0; i < _wasEnabled.Length; i++)
-                {
-                    _wasEnabled[i] = _disabledOnDeath[i].enabled;
-                }
-                _initialSetup = false;
-            }
             SetPlayerDefaults();
         }
 
@@ -85,7 +85,7 @@ namespace Player_Scripts
                    WalkingSpeedPercentage -= percentageReduced;
                    StartCoroutine(GainSpeedBack(percentageReduced));
                 }
-                Debug.Log(transform.name + "has walking speed percentage " + WalkingSpeedPercentage);
+                Debug.Log(transform.name + " has walking speed percentage " + WalkingSpeedPercentage);
         }
         
         /*
@@ -216,8 +216,10 @@ namespace Player_Scripts
         {
             if (!other.transform.CompareTag("Ball")) return;
             // Let Server broadcast player's death
-            CmdBroadcastPlayerDeath();
-            if (!isLocalPlayer) return; 
+            if (isLocalPlayer)
+            {
+                CmdBroadcastPlayerDeath();
+            }
             //enable sound here............!.....!!!>.....!>!>!>!>!>!
         }
         

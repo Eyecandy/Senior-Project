@@ -25,6 +25,7 @@ namespace Ball_Scripts
 			_rb = GetComponent<Rigidbody>();
 			_renderer = GetComponent<MeshRenderer>();
 			this.name = BallName;
+			GameManager.RegisterBallMotor(BallName,this);
 //			if (!GetComponent<NetworkIdentity>().isServer)
 //			{
 //				this.enabled = false;
