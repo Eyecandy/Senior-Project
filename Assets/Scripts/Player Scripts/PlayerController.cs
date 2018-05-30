@@ -20,6 +20,10 @@ namespace Player_Scripts
 		
 		private void Update()
 		{
+			if (Input.GetKey(KeyCode.T))
+			{
+				GameManager.Singleton.PlayersDictionaryLength();
+			}
 			MovementInput();
 			HorizontalCameraRotation();
 			VerticalCameraRotation();
