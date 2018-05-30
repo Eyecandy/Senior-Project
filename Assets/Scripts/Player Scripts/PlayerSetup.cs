@@ -84,6 +84,7 @@ namespace Player_Scripts
 		 */
 		private void OnDisable()
 		{
+			Debug.Log("DISABLED " + name);
 			Destroy(_playerUiInstance);
 			if (isLocalPlayer)
 				GameManager.Singleton.SetSceneCamera(true);

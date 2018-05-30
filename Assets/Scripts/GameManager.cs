@@ -51,9 +51,10 @@ public class GameManager : MonoBehaviour {
     }
 
 
-    public static void UnRegisterPlayer(string netId)
+    public static void UnRegisterPlayer(string playerId)
     {
-        var playerId = PlayerPrefix + netId;
+        Debug.Log("Deregister " + playerId);
+        Debug.Log("PlayersDictionary: " + Players[playerId]);
         Players.Remove(playerId);
     }
 
@@ -108,9 +109,14 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log("PlayersDictionary Length: " + Players.Count);
     }
-    
-    
-    
-    
-    
+
+    public void PrintDictionary()
+    {
+        Debug.Log("Start of Players");
+        foreach (var key in Players)
+        {
+            print(key);
+        }
+        Debug.Log("End of Players");
+    }
 }
