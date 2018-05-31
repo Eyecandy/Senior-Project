@@ -123,7 +123,9 @@ namespace Player_Scripts
         {
             
             _isDead = true;
+            
             Graphics.SetActive(false) ;
+            
             Debug.Log("Died");
             var weaponInstance = GetComponent<WeaponManager>().WeaponInstance;
             if (weaponInstance != null)
@@ -154,14 +156,17 @@ namespace Player_Scripts
             
             GameObject deathEffectGfx =  Instantiate(_deathEffect, transform.position, Quaternion.identity);
             Destroy(deathEffectGfx,3f);
-            
+            GameManager.Singleton._onPlayerDeathCallBack.Invoke(transform.name); 
             //Deactivate ui and enable scene camera
             if (isLocalPlayer)
             {   
                 GetComponent<AudioSource>().Play();
                 GameManager.Singleton.SetSceneCamera(true);
                 GetComponent<PlayerSetup>().ActivateUi(false);
+               
+                
             }
+            
 
             StartCoroutine(Respawn());
         }
@@ -220,7 +225,7 @@ namespace Player_Scripts
             {
                 CmdBroadcastPlayerDeath();
             }
-            //enable sound here............!.....!!!>.....!>!>!>!>!>!
+            
         }
         
         

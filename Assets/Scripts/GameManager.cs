@@ -1,6 +1,6 @@
 ﻿
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Ball_Scripts;
 using Player_Scripts;
 using UnityEngine;
@@ -17,6 +17,12 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private GameObject _sceneCamera;
     public static GameManager Singleton;
+
+    public delegate void OnPlayerDeathCallBack(string playerKilled);
+
+    public OnPlayerDeathCallBack _onPlayerDeathCallBack;
+
+
 
     private void Awake()
     {
