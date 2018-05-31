@@ -17,7 +17,7 @@ namespace UI_Scripts
 			Debug.Log("Killed " + playerName);
 			var deathFeedNotifcationInstance = Instantiate(_deathFeedNotificationPrefab, transform);
 			deathFeedNotifcationInstance.GetComponent<DeathFeedNotification>().Setup(playerName);
-			Destroy(deathFeedNotifcationInstance,10f);
+			Destroy(deathFeedNotifcationInstance,2f);
 		
 		}
 	}
