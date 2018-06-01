@@ -3273,6 +3273,8 @@ MonoBehaviour:
   m_LobbyScene: NetworkLobby
   m_PlayScene: Level
   lobbySlots: []
+  _countdownTimer: {fileID: 1136732972471950, guid: df855bcfa6a3741d88d48fec9e040cf4,
+    type: 2}
   prematchCountdown: 3
   topPanel: {fileID: 11424994}
   mainMenuPanel: {fileID: 22442386}

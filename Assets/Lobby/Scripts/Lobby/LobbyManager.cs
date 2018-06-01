@@ -5,12 +5,15 @@ using UnityEngine.Networking;
 using UnityEngine.Networking.Types;
 using UnityEngine.Networking.Match;
 using System.Collections;
+using UI_Scripts;
 
 
 namespace Prototype.NetworkLobby
 {
-    public class LobbyManager : NetworkLobbyManager 
+    public class LobbyManager : NetworkLobbyManager
     {
+        [SerializeField] private GameObject _countdownTimer;
+        
         static short MsgKicked = MsgType.Highest + 1;
 
         static public LobbyManager s_Singleton;
@@ -55,6 +58,7 @@ namespace Prototype.NetworkLobby
 
         void Start()
         {
+            
             s_Singleton = this;
             _lobbyHooks = GetComponent<Prototype.NetworkLobby.LobbyHook>();
             currentPanel = mainMenuPanel;
@@ -112,7 +116,8 @@ namespace Prototype.NetworkLobby
             {
                 Debug.Log("LobbyManager: OLCSC(): In MATCH");
                 ChangeTo(null);
-
+//                _countdownTimer.GetComponent<CountdownTimer>().enabled = true;
+//                _countdownTimer.GetComponent<CountdownTimer>().ResetTimer();
                 Destroy(GameObject.Find("MainMenuUI(Clone)"));
 
                 //backDelegate = StopGameClbk;
@@ -146,6 +151,7 @@ namespace Prototype.NetworkLobby
                 backButton.gameObject.SetActive(false);
                 SetServerInfo("Offline", "None");
                 _isMatchmaking = false;
+                topPanel.isInGame = false;
             }
         }
         #endregion
