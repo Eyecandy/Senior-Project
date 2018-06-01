@@ -67,11 +67,14 @@ namespace Player_Scripts
 			{
 				Debug.Log("PlayerSetup: Start(): Player is CLIENT.");
 			}
-			_head.transform.name = transform.name;
+			
 			var playerNetId =  GetComponent<NetworkBehaviour>().netId.ToString();
 			var player = GetComponent<Player>();
 			Debug.Log("PlayerSetup: Start(): Player: " + this.name + " NetId: " + playerNetId);
 			GameManager.RegisterPlayer(playerNetId, player);
+			_head.transform.name = playerNetId;
+			
+			_head.transform.name = transform.name;
 			GetComponent<Player>().SetupPlayer();	
 		}
 
