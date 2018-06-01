@@ -214,7 +214,7 @@ MonoBehaviour:
     i14: 15
     i15: 148
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114473965008294972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interpolationBackTime: 0.1
-  extrapolationTimeLimit: 0.3
+  extrapolationTimeLimit: 0.5
   extrapolationDistanceLimit: 0.3
   sendPositionThreshold: 0.001
   sendRotationThreshold: 0.001
@@ -239,7 +239,7 @@ MonoBehaviour:
   positionSnapThreshold: 8
   rotationSnapThreshold: 60
   scaleSnapThreshold: 3
-  positionLerpSpeed: 0.2
+  positionLerpSpeed: 0.3
   rotationLerpSpeed: 0.2
   scaleLerpSpeed: 0.2
   syncPosition: 0
@@ -269,6 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 0}
   _thrust: 10
+  _plane: {fileID: 4203058827777576, guid: 594b14c14f2814182b529507bb7c91d1, type: 2}
   BallName: 
   StartPosition: {x: 0, y: 0, z: 0}
 --- !u!135 &135089098152856954
