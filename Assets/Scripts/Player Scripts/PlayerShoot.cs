@@ -115,6 +115,7 @@ namespace Player_Scripts
 
             if (hit.collider.CompareTag("PlayerHead"))
             {
+               
                 var dmg = 2 * _weaponEquipped.Damage;
                 CmdPlayerShot(hit.collider.name, dmg);
                 GetComponent<PlayerGUI>().SetHitMarker();

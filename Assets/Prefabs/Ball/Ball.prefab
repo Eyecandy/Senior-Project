@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interpolationBackTime: 0.1
-  extrapolationTimeLimit: 0.5
+  extrapolationTimeLimit: 0.3
   extrapolationDistanceLimit: 0.3
   sendPositionThreshold: 0.001
   sendRotationThreshold: 0.001
@@ -239,7 +239,7 @@ MonoBehaviour:
   positionSnapThreshold: 8
   rotationSnapThreshold: 60
   scaleSnapThreshold: 3
-  positionLerpSpeed: 0.3
+  positionLerpSpeed: 0.2
   rotationLerpSpeed: 0.2
   scaleLerpSpeed: 0.2
   syncPosition: 0

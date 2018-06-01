@@ -31,26 +31,11 @@ public class PlayerGUI: NetworkBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			EnableNetworkManagerHud();
+			//EnableNetworkManagerHud();
 		}
 	}
 	
-	private static void EnableNetworkManagerHud()
-	{
-		_isActive = !_isActive;
-		if (_isActive)
-		{
-			
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-		}
-		else
-		{
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
-		}
-
-	}
+	
 
 	public void SetHitMarker()
 	{

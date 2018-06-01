@@ -28,12 +28,16 @@ namespace Player_Scripts
         [SerializeField] private GameObject _deathEffect;  //Death particle system prefab
         
         [SerializeField] private int _minimumSpeedThreshold; //movementSpeed can not go below this threshold
+
+        private bool _enteredCollision;
         
         private bool[] _wasEnabled;
         
         public GameObject Graphics; //For disabling graphics on death
         
         private bool _initialSetup = true;
+        
+        
         
 
         /*
@@ -85,7 +89,7 @@ namespace Player_Scripts
                    WalkingSpeedPercentage -= percentageReduced;
                    StartCoroutine(GainSpeedBack(percentageReduced));
                 }
-                Debug.Log(transform.name + " has walking speed percentage " + WalkingSpeedPercentage);
+                Debug.Log("Player"+ "RpcPlayerIshot, "+transform.name + " has walking speed percentage " + WalkingSpeedPercentage);
         }
         
         /*
@@ -108,7 +112,7 @@ namespace Player_Scripts
         private IEnumerator Respawn()
         {
             yield return new WaitForSeconds(_respawnTimer);
-            Debug.Log("Respawned");
+            Debug.Log("Player, Respawned()");
             var spawnPoint = NetworkManager.singleton.GetStartPosition();
             transform.position = spawnPoint.position;
             transform.rotation = spawnPoint.rotation;
@@ -123,8 +127,10 @@ namespace Player_Scripts
         {
             
             _isDead = true;
+            
             Graphics.SetActive(false) ;
-            Debug.Log("Died");
+            
+            Debug.Log("Player, ActionsOnDeath()");
             var weaponInstance = GetComponent<WeaponManager>().WeaponInstance;
             if (weaponInstance != null)
             {
@@ -154,14 +160,17 @@ namespace Player_Scripts
             
             GameObject deathEffectGfx =  Instantiate(_deathEffect, transform.position, Quaternion.identity);
             Destroy(deathEffectGfx,3f);
-            
+            GameManager.Singleton._onPlayerDeathCallBack.Invoke(transform.name); 
             //Deactivate ui and enable scene camera
             if (isLocalPlayer)
             {   
                 GetComponent<AudioSource>().Play();
                 GameManager.Singleton.SetSceneCamera(true);
                 GetComponent<PlayerSetup>().ActivateUi(false);
+               
+                
             }
+            
 
             StartCoroutine(Respawn());
         }
@@ -172,7 +181,7 @@ namespace Player_Scripts
         private void SetPlayerDefaults()
         {
 
-            Debug.Log("SetDefaults");
+            Debug.Log("Player, SetDefaults()");
             Graphics.SetActive(true) ;
             _isDead = false;
             var weaponInstance = GetComponent<WeaponManager>().WeaponInstance;
@@ -209,18 +218,25 @@ namespace Player_Scripts
             
             GameObject spawnEffectGfx =  Instantiate(_spawnEffect, transform.position, Quaternion.identity);
             Destroy(spawnEffectGfx,3f);
+            _enteredCollision = false;
         }
 
-        
+        /*
+         * Player collider with any object
+         * 
+         */
         private void OnCollisionEnter(Collision other)
         {
+            //Check that the object is a ball otherwise return.
             if (!other.transform.CompareTag("Ball")) return;
             // Let Server broadcast player's death
-            if (isLocalPlayer)
-            {
-                CmdBroadcastPlayerDeath();
-            }
-            //enable sound here............!.....!!!>.....!>!>!>!>!>!
+            
+            if (_enteredCollision) return;
+            Debug.Log("Player, OnCollisionEnter, Should Enter only once per death");
+            _enteredCollision = true;
+            CmdBroadcastPlayerDeath();
+            
+
         }
         
         

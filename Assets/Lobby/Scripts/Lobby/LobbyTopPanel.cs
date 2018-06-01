@@ -14,6 +14,8 @@ namespace Prototype.NetworkLobby
         void Start()
         {
             panelImage = GetComponent<Image>();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
 
@@ -25,6 +27,25 @@ namespace Prototype.NetworkLobby
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ToggleVisibility(!isDisplayed);
+                EnableNetworkManagerHud(!isDisplayed);
+                
+            }
+
+        }
+        
+        private static void EnableNetworkManagerHud(bool isActive)
+        {
+            
+            if (!isActive)
+            {
+			
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
 
         }
