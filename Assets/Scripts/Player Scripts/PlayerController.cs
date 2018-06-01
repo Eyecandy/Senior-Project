@@ -20,11 +20,14 @@ namespace Player_Scripts
 		
 		private void Update()
 		{
+			if (Input.GetKeyDown(KeyCode.T))
+			{
+//				GameManager.Singleton.PlayersDictionaryLength();
+				GameManager.Singleton.PrintDictionary();
+			}
 			MovementInput();
 			HorizontalCameraRotation();
 			VerticalCameraRotation();
-			
-			
 		}
 		#endregion
 
