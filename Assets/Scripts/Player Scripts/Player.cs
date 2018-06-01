@@ -37,6 +37,8 @@ namespace Player_Scripts
         
         private bool _initialSetup = true;
         
+        
+        
 
         /*
         * Enables component on entering game.
@@ -219,10 +221,13 @@ namespace Player_Scripts
             _enteredCollision = false;
         }
 
-        
+        /*
+         * Player collider with any object
+         * 
+         */
         private void OnCollisionEnter(Collision other)
         {
-            
+            //Check that the object is a ball otherwise return.
             if (!other.transform.CompareTag("Ball")) return;
             // Let Server broadcast player's death
             

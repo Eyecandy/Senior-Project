@@ -14,8 +14,6 @@ namespace Player_Scripts
 		[SerializeField] private Camera _camera;
 		
 
-		
-		
 		private EmptyOffensiveAbility _emptyOffensive;
 		
 		public OffensiveSpecialAbility OffensiveSpecialAbility; //Should be tagged as offensive.
