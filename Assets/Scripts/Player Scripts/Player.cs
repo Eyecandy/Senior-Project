@@ -36,6 +36,8 @@ namespace Player_Scripts
         public GameObject Graphics; //For disabling graphics on death
         
         private bool _initialSetup = true;
+
+        public int NumberOfDeaths = 0;
         
         
         
@@ -127,10 +129,11 @@ namespace Player_Scripts
         {
             
             _isDead = true;
-            
+            NumberOfDeaths += 1;
+          
             Graphics.SetActive(false) ;
             
-            Debug.Log("Player, ActionsOnDeath()");
+           
             var weaponInstance = GetComponent<WeaponManager>().WeaponInstance;
             if (weaponInstance != null)
             {
@@ -155,24 +158,29 @@ namespace Player_Scripts
             }
             
             
-
+            Debug.Log("Player, ActionsOnDeath()");
+            GameManager.Singleton._onPlayerDeathCallBack.Invoke(name); 
             //Spawn a death effect at players location + sound
             
             GameObject deathEffectGfx =  Instantiate(_deathEffect, transform.position, Quaternion.identity);
             Destroy(deathEffectGfx,3f);
-            GameManager.Singleton._onPlayerDeathCallBack.Invoke(transform.name); 
+            
+            
             //Deactivate ui and enable scene camera
             if (isLocalPlayer)
             {   
+       
                 GetComponent<AudioSource>().Play();
                 GameManager.Singleton.SetSceneCamera(true);
                 GetComponent<PlayerSetup>().ActivateUi(false);
-               
+                StartCoroutine(Respawn());
                 
             }
             
+            
 
-            StartCoroutine(Respawn());
+
+           
         }
 
         /*
@@ -225,8 +233,9 @@ namespace Player_Scripts
          * Player collider with any object
          * 
          */
-        private void OnCollisionEnter(Collision other)
+        [Client] private void OnCollisionEnter(Collision other)
         {
+            if (!isLocalPlayer) return;
             //Check that the object is a ball otherwise return.
             if (!other.transform.CompareTag("Ball")) return;
             // Let Server broadcast player's death

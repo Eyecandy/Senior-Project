@@ -7,6 +7,8 @@ namespace UI_Scripts
 
 		// Reference to Thruster fuel fill
 		[SerializeField] private RectTransform _speedbarFill;
+		[SerializeField] private GameObject _scorePanel;
+		
 		private Player _player;
 
 		public void SetPlayer(Player player)
@@ -22,6 +24,23 @@ namespace UI_Scripts
 		void Update()
 		{
 			SetSpeedbarFill(_player.GetCurrentWalkingSpeedPercentage());
+
+			if (Input.GetKeyDown(KeyCode.Tab))
+			{	
+				
+				_scorePanel.SetActive(true);
+				
+			}
+
+			if (Input.GetKeyUp(KeyCode.Tab))
+			{
+				_scorePanel.SetActive(false);
+			}
+
 		}
+
+		
+
+
 	}
 }

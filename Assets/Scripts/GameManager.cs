@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour {
 
     public OnPlayerDeathCallBack _onPlayerDeathCallBack;
 
+    
+    
 
 
     private void Awake()
@@ -41,14 +43,21 @@ public class GameManager : MonoBehaviour {
         _sceneCamera.SetActive(active);
     }
 
+    public static Dictionary<string, Player> GetAllPlayers()
+    {
+        return Players;
+    }
+
 
     public static void RegisterPlayer(string playerNetId,Player player) 
     {
         var playerId = PlayerPrefix + playerNetId;
         if (Players.ContainsKey(playerId))
         {
+            
             Players[playerId] = player;
             player.transform.name = playerId;
+            
             
         }else{
             player.transform.name = playerId;
