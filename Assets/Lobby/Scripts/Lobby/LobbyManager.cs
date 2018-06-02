@@ -116,8 +116,9 @@ namespace Prototype.NetworkLobby
             {
                 Debug.Log("LobbyManager: OLCSC(): In MATCH");
                 ChangeTo(null);
-//                _countdownTimer.GetComponent<CountdownTimer>().enabled = true;
-//                _countdownTimer.GetComponent<CountdownTimer>().ResetTimer();
+                //Enable countdown timer script
+                _countdownTimer.GetComponent<CountdownTimer>().enabled = true;
+                _countdownTimer.GetComponent<CountdownTimer>().ResetTimer();
                 Destroy(GameObject.Find("MainMenuUI(Clone)"));
 
                 //backDelegate = StopGameClbk;
@@ -150,6 +151,7 @@ namespace Prototype.NetworkLobby
             {
                 backButton.gameObject.SetActive(false);
                 SetServerInfo("Offline", "None");
+                //If in Main Menu (lobby scene)
                 _isMatchmaking = false;
                 topPanel.isInGame = false;
             }

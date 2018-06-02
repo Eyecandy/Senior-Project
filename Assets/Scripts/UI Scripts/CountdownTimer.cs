@@ -13,7 +13,7 @@ namespace UI_Scripts
 		private Text _timerText;
 
 		private GameObject _lobbyManager;
-		public float TimeRemaining = 300f;
+		[SyncVar] public float TimeRemaining = 300f;
 		public bool IsFinished;
 
 		// Use this for initialization
@@ -21,12 +21,6 @@ namespace UI_Scripts
 		{
 			IsFinished = false;
 			_lobbyManager = GameObject.Find("LobbyManager");
-		}
-
-		public void SetIsFinished(bool value)
-		{
-			IsFinished = value;
-			
 		}
 
 		public void ResetTimer()
@@ -42,12 +36,18 @@ namespace UI_Scripts
 			{
 				IsFinished = true;
 				_lobbyManager.GetComponent<LobbyManager>().StopHostClbk();
+				this.enabled = false;
 				return;
 			}
 			TimeRemaining -= Time.deltaTime;
-			String minutesStr, secondsStr;
 			int minutes = ((int) TimeRemaining / 60);
 			float seconds = TimeRemaining % 60;
+			_timerText.text = FormatTimeString(minutes, seconds);
+		}
+
+		private String FormatTimeString(int minutes, float seconds)
+		{
+			String minutesStr, secondsStr;
 			if (minutes < 10)
 			{
 				minutesStr = "0" + minutes.ToString();
@@ -56,6 +56,7 @@ namespace UI_Scripts
 			{
 				minutesStr = minutes.ToString();
 			}
+			
 			if ((TimeRemaining % 60) < 10f)
 			{
 				secondsStr = "0" + seconds.ToString("f2");
@@ -64,7 +65,8 @@ namespace UI_Scripts
 			{
 				secondsStr = seconds.ToString("f2");
 			}
-			_timerText.text = minutesStr + ":" + secondsStr;
+			
+			return minutesStr + ":" + secondsStr;
 		}
 	}
 }
