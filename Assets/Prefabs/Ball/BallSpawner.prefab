@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ballPrefab: {fileID: 1649247462525756, guid: fd969927d237347589487b1d23a60f94,
     type: 2}
-  _numberOfBalls: 2
+  _numberOfBalls: 10
   _plane: {fileID: 4203058827777576, guid: 594b14c14f2814182b529507bb7c91d1, type: 2}
   Positions: []
 --- !u!114 &114970758489262698
