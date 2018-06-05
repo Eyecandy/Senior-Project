@@ -40,9 +40,12 @@ namespace Player_Scripts
 		private void Start()
 		{
 			
-			
-			var playerNetId =  GetComponent<NetworkBehaviour>().netId.ToString();
 			var player = GetComponent<Player>();
+			
+			var playerNetId =  player.PlayerName +"-"+ GetComponent<NetworkBehaviour>().netId.ToString();
+			
+			
+			
 			Debug.Log("PlayerSetup: Start(): Player: " + this.name + " NetId: " + playerNetId);
 			GameManager.RegisterPlayer(playerNetId, player);
 			

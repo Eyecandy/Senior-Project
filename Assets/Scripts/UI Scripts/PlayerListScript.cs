@@ -19,7 +19,7 @@ public class PlayerListScript : MonoBehaviour
 			var playerScoreInstance = Instantiate(_individualPlayerEntryPrefab, transform);
 			playerScoreInstance.transform.SetParent(transform);
 			var individualPlayerScoreScript = playerScoreInstance.GetComponent<PlayerEntry>();
-			individualPlayerScoreScript.Setup(playerVal.name,playerVal.NumberOfDeaths);
+			individualPlayerScoreScript.Setup(playerVal.PlayerName,playerVal.NumberOfDeaths);
 			
 					
 		}

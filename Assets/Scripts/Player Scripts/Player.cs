@@ -38,8 +38,8 @@ namespace Player_Scripts
         private bool _initialSetup = true;
 
         public int NumberOfDeaths = 0;
-        
-        
+
+        public string PlayerName;
         
 
         /*
@@ -61,6 +61,14 @@ namespace Player_Scripts
             {
                 GameManager.Singleton.SetSceneCamera(false);
                 CmdBroadcastPlayerSetup();
+            }
+        }
+
+        private void Update()
+        {
+            if (transform.position.y < 0.0 && isLocalPlayer && !_isDead) {
+                
+                CmdBroadcastPlayerDeath();
             }
         }
 

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
      * And if they diconnect they are removed from the dictionary.
      * This is fast way of finding out if a plyer is online or not.
      */
-    private const string PlayerPrefix = "Player";
+    //private const string PlayerPrefix = "Player";
     private static readonly Dictionary<string, Player> Players = new Dictionary<string, Player>();
 
     [SerializeField]
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour {
 
     public static void RegisterPlayer(string playerNetId,Player player) 
     {
-        var playerId = PlayerPrefix + playerNetId;
+        var playerId =  playerNetId;
         if (Players.ContainsKey(playerId))
         {
             
