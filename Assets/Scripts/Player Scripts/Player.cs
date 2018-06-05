@@ -39,7 +39,7 @@ namespace Player_Scripts
 
         public int NumberOfDeaths = 0;
 
-        public string PlayerName;
+       [SyncVar] public string PlayerName;
         
 
         /*

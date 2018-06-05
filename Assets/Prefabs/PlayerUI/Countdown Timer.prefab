@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timerText: {fileID: 114988925024426920}
-  TimeRemaining: 20
+  TimeRemaining: 100
   IsFinished: 0
 --- !u!114 &114988925024426920
 MonoBehaviour:
