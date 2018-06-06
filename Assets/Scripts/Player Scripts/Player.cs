@@ -74,8 +74,9 @@ namespace Player_Scripts
             {
                 DisableUiAndSetSceneCamera();
             }
-            else if (transform.position.y < 0.0 && isLocalPlayer && !_isDead) 
+            else if (transform.position.y < 0.0 && isLocalPlayer && !_isDead)
             {
+                _isDead = true;
                 CmdBroadcastPlayerDeath();
             }
         }
