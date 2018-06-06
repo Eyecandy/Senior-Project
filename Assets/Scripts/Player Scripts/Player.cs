@@ -38,12 +38,10 @@ namespace Player_Scripts
         private bool _initialSetup = true;
 
         public int NumberOfDeaths = 0;
-
         [SyncVar]
         public string PlayerName;
 
         public bool IsGameOver = false;
-        
 
         /*
         * Enables component on entering game.

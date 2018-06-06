@@ -40,9 +40,11 @@ namespace Player_Scripts
 		private void Start()
 		{
 			
+			
 			var player = GetComponent<Player>();
-			Debug.Log("Player name : " + player.PlayerName);
 			var playerNetId =  player.PlayerName +"-"+ GetComponent<NetworkBehaviour>().netId.ToString();
+			Debug.Log("Player name : " + player.PlayerName);
+			Debug.Log("PlayerSetup: Start(): Player: " + this.name + " NetId: " + playerNetId);
 			GameManager.RegisterPlayer(playerNetId, player);
 			
 			if (!isLocalPlayer)

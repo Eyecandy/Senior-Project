@@ -115,7 +115,7 @@ MonoBehaviour:
   _timerText: {fileID: 114988925024426920}
   _gameOverText: {fileID: 114844710017563320}
   _gameOverTimeRemaining: 10
-  TimeRemaining: 20
+  TimeRemaining: 100
 --- !u!114 &114844710017563320
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ball_Scripts;
 using Player_Scripts;
 using UnityEngine;
@@ -103,8 +104,16 @@ public class GameManager : MonoBehaviour {
             BallMotors.Add (ballNetId, ballMotor);
         }
     }
-         
-         
+
+    public static List<Player> SortedPlayersByDeath()
+    {
+        return Players.Values.OrderBy(x => x.NumberOfDeaths).ToList();
+    }
+
+
+
+
+
     public static void UnRegisterBallMotor(string ballNetId) 
     {
         
