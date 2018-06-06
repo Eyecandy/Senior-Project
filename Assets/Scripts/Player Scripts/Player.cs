@@ -187,6 +187,12 @@ namespace Player_Scripts
 
             Debug.Log("Player, SetDefaults()");
             Graphics.SetActive(true) ;
+            //Reactivate ui and enable scene camera
+            if (isLocalPlayer)
+            {
+                GameManager.Singleton.SetSceneCamera(false);
+                GetComponent<PlayerSetup>().ActivateUi(true);
+            }
             _isDead = false;
             var weaponInstance = GetComponent<WeaponManager>().WeaponInstance;
             if (weaponInstance != null)
@@ -205,12 +211,7 @@ namespace Player_Scripts
 
             ToggleCollider(true);
             
-            //Deactivate ui and enable scene camera
-            if (isLocalPlayer)
-            {
-                GameManager.Singleton.SetSceneCamera(false);
-                GetComponent<PlayerSetup>().ActivateUi(true);
-            }
+            
             
             //Create Spawn effect
             
