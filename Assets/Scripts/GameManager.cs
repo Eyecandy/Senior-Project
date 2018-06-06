@@ -22,9 +22,17 @@ public class GameManager : MonoBehaviour {
 
     public OnPlayerDeathCallBack _onPlayerDeathCallBack;
 
-    
-    
+    private static Player _localPlayerReference;
 
+    public static void SetLocalPlayerReference(Player player)
+    {
+        _localPlayerReference = player;
+    }
+    
+    public static Player GetLocalPlayerReference()
+    {
+        return _localPlayerReference;
+    }
 
     private void Awake()
     {
@@ -133,5 +141,17 @@ public class GameManager : MonoBehaviour {
             print(key);
         }
         Debug.Log("End of Players");
+    }
+
+    public static void DisableAllPlayers()
+    {
+        foreach (var player in Players.Keys)
+        {
+            Player tempPlayer = Players[player];
+            tempPlayer.Graphics.SetActive(false); //Disable renderer
+            tempPlayer.ToggleCollider(false); // Disable Collider
+            tempPlayer.ToggleBehavioursOnDeath(true); //isDead is true
+            tempPlayer.ToggleGameObjectsOnDeath(true);
+        }
     }
 }

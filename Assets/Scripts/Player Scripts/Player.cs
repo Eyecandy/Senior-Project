@@ -39,7 +39,10 @@ namespace Player_Scripts
 
         public int NumberOfDeaths = 0;
 
+        [SyncVar]
         public string PlayerName;
+
+        public bool IsGameOver = false;
         
 
         /*
@@ -56,6 +59,7 @@ namespace Player_Scripts
                     _wasEnabled[i] = _disabledOnDeath[i].enabled;
                 }
                 _initialSetup = false;
+                IsGameOver = false;
             }
             if (isLocalPlayer)
             {
@@ -66,8 +70,14 @@ namespace Player_Scripts
 
         private void Update()
         {
-            if (transform.position.y < 0.0 && isLocalPlayer && !_isDead) {
-                
+            if (!isLocalPlayer) return;
+            if (isLocalPlayer)
+            if (IsGameOver)
+            {
+                DisableUiAndSetSceneCamera();
+            }
+            else if (transform.position.y < 0.0 && isLocalPlayer && !_isDead) 
+            {
                 CmdBroadcastPlayerDeath();
             }
         }
@@ -148,23 +158,11 @@ namespace Player_Scripts
                 weaponInstance.SetActive(false);
             }
             
-            foreach (var behaviour in _disabledOnDeath)
-            {
-                behaviour.enabled = false;
-            }
+            ToggleBehavioursOnDeath(true);
 
-            foreach (var gameobject in _disableGameObjectsOnDeath)
-            {
-                gameobject.SetActive(false);
-            }
+            ToggleGameObjectsOnDeath(true);
             
-            var collder = GetComponent<Collider>();
-
-            if (collder != null)
-            {
-                collder.enabled = false;
-            }
-            
+            ToggleCollider(false);
             
             Debug.Log("Player, ActionsOnDeath()");
             GameManager.Singleton._onPlayerDeathCallBack.Invoke(name); 
@@ -175,20 +173,11 @@ namespace Player_Scripts
             
             
             //Deactivate ui and enable scene camera
-            if (isLocalPlayer)
-            {   
-       
-                GetComponent<AudioSource>().Play();
-                GameManager.Singleton.SetSceneCamera(true);
-                GetComponent<PlayerSetup>().ActivateUi(false);
-                StartCoroutine(Respawn());
-                
-            }
-            
-            
-
-
-           
+            if (!isLocalPlayer) return;
+            GetComponent<AudioSource>().Play();
+            GameManager.Singleton.SetSceneCamera(true);
+            GetComponent<PlayerSetup>().ActivateUi(false);
+            StartCoroutine(Respawn());
         }
 
         /*
@@ -213,16 +202,10 @@ namespace Player_Scripts
                 _disabledOnDeath[i].enabled = _wasEnabled[i];
             }
             
-            foreach (var gameobject in _disableGameObjectsOnDeath)
-            {
-                gameobject.SetActive(true);
-            }
+            ToggleGameObjectsOnDeath(false);
 
-            var collder = GetComponent<Collider>();
-            if (collder != null)
-            {
-                collder.enabled = true;
-            }
+            ToggleCollider(true);
+            
             //Deactivate ui and enable scene camera
             if (isLocalPlayer)
             {
@@ -252,12 +235,9 @@ namespace Player_Scripts
             Debug.Log("Player, OnCollisionEnter, Should Enter only once per death");
             _enteredCollision = true;
             CmdBroadcastPlayerDeath();
-            
-
+       
         }
         
-        
-
         //Server broadcast player's death
         [Command] 
         private void CmdBroadcastPlayerDeath()
@@ -276,6 +256,41 @@ namespace Player_Scripts
         public float GetCurrentWalkingSpeedPercentage()
         {
             return WalkingSpeedPercentage;
+        }
+
+        private void DisableUiAndSetSceneCamera()
+        {
+            GetComponent<PlayerSetup>().ActivateUi(false);
+            GameManager.Singleton.SetSceneCamera(true);
+            Graphics.SetActive(false);
+            ToggleCollider(false);
+            ToggleBehavioursOnDeath(true);
+            ToggleGameObjectsOnDeath(true);
+        }
+
+        public void ToggleCollider(bool isOn)
+        {
+            var collder = GetComponent<Collider>();
+            if (collder != null)
+            {
+                collder.enabled = isOn;
+            }
+        }
+
+        public void ToggleBehavioursOnDeath(bool isDead)
+        {
+            foreach (var behaviour in _disabledOnDeath)
+            {
+                behaviour.enabled = !isDead;
+            }
+        }
+
+        public void ToggleGameObjectsOnDeath(bool isDead)
+        {
+            foreach (var gameobject in _disableGameObjectsOnDeath)
+            {
+                gameobject.SetActive(!isDead);
+            }
         }
     }
 }

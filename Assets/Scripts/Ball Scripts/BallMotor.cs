@@ -53,7 +53,7 @@ namespace Ball_Scripts
 			if (transform.position.y < -1 && !_isFalling)
 			{
 				_isFalling = true;
-				Debug.Log("Server Ball Respawn");
+//				Debug.Log("Server Ball Respawn");
 				_renderer.enabled = false;
 				StartPosition = RandomizeStart();
 				StartCoroutine(Respawn());
@@ -130,13 +130,13 @@ namespace Ball_Scripts
 			var location = Random.Range(-_planeSide, _planeSide);
 			_currentSide = side;
 			if (side == 0){
-				Debug.Log("SIDE " + side);
+//				Debug.Log("SIDE " + side);
 				return new Vector3(location,0f,_planeSide-2.2f);
 			} else if (side == 1){
-				Debug.Log("SIDE " + side);
+//				Debug.Log("SIDE " + side);
 				return new Vector3(-_planeSide+1.78f,0f,location);
 			} else{
-				Debug.Log("SIDE " + side);
+//				Debug.Log("SIDE " + side);
 				return new Vector3(_planeSide-1.78f,0f,location);
 			}
 		}

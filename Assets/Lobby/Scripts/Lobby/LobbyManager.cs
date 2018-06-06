@@ -118,7 +118,6 @@ namespace Prototype.NetworkLobby
                 ChangeTo(null);
                 //Enable countdown timer script
                 _countdownTimer.GetComponent<CountdownTimer>().enabled = true;
-                _countdownTimer.GetComponent<CountdownTimer>().ResetTimer();
                 Destroy(GameObject.Find("MainMenuUI(Clone)"));
 
                 //backDelegate = StopGameClbk;

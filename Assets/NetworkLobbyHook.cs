@@ -9,12 +9,9 @@ public class NetworkLobbyHook : LobbyHook {
         GameObject lobbyPlayerGo,
         GameObject gamePlayerGo)
     {
-			
         var lobbyPlayer = lobbyPlayerGo.GetComponent<LobbyPlayer>();
         var localPlayer = gamePlayerGo.GetComponent<Player>();
         localPlayer.PlayerName = lobbyPlayer.playerName;
-
-
     }
 
 	

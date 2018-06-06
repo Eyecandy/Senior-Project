@@ -41,22 +41,20 @@ namespace Player_Scripts
 		{
 			
 			var player = GetComponent<Player>();
-			
+			Debug.Log("Player name : " + player.PlayerName);
 			var playerNetId =  player.PlayerName +"-"+ GetComponent<NetworkBehaviour>().netId.ToString();
-			
-			
-			
-			Debug.Log("PlayerSetup: Start(): Player: " + this.name + " NetId: " + playerNetId);
 			GameManager.RegisterPlayer(playerNetId, player);
 			
 			if (!isLocalPlayer)
 			{	
+				Debug.Log("NOT LOCAL PLAYER");
 				DisableComponents();
 				AssignRemoteLayer();
-				
 			}
 			else
 			{
+				Debug.Log("IS LOCAL PLAYER");
+				GameManager.SetLocalPlayerReference(player);
 				//Disable model of player in PoV camera. only done once
 				SetLayerRecursively(_graphics, LayerMask.NameToLayer(DontDrawLayer));
 				//create player UI, like crosshair for example.
