@@ -22,8 +22,15 @@ namespace Prototype.NetworkLobby
         void Update()
         {
             if (!isInGame)
+            {
+                if (isDisplayed)
+                {
+                    isDisplayed = false;
+                    EnableNetworkManagerHud(isDisplayed);
+                }
                 return;
-
+            }
+                
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ToggleVisibility(!isDisplayed);
@@ -38,7 +45,6 @@ namespace Prototype.NetworkLobby
             
             if (!isActive)
             {
-			
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }

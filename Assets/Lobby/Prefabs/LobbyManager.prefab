@@ -604,6 +604,7 @@ GameObject:
   - component: {fileID: 11466428}
   - component: {fileID: 11475086}
   - component: {fileID: 11415508}
+  - component: {fileID: 114167416432645106}
   m_Layer: 5
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -3273,6 +3274,8 @@ MonoBehaviour:
   m_LobbyScene: NetworkLobby
   m_PlayScene: Level
   lobbySlots: []
+  _countdownTimer: {fileID: 1136732972471950, guid: df855bcfa6a3741d88d48fec9e040cf4,
+    type: 2}
   prematchCountdown: 3
   topPanel: {fileID: 11424994}
   mainMenuPanel: {fileID: 22442386}
@@ -5699,3 +5702,14 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 155310}
   m_IsPrefabParent: 1
+--- !u!114 &114167416432645106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4578bbccff1e45c7af8cb4ee2c4e5e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

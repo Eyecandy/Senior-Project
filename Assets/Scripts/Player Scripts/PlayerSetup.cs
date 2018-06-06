@@ -39,20 +39,29 @@ namespace Player_Scripts
 		 */
 		private void Start()
 		{
+			
+			
+			var player = GetComponent<Player>();
+			var playerNetId =  player.PlayerName +"-"+ GetComponent<NetworkBehaviour>().netId.ToString();
+			Debug.Log("Player name : " + player.PlayerName);
+			Debug.Log("PlayerSetup: Start(): Player: " + this.name + " NetId: " + playerNetId);
+			GameManager.RegisterPlayer(playerNetId, player);
+			
 			if (!isLocalPlayer)
 			{	
+				Debug.Log("NOT LOCAL PLAYER");
 				DisableComponents();
 				AssignRemoteLayer();
-				
 			}
 			else
 			{
+				Debug.Log("IS LOCAL PLAYER");
+				GameManager.SetLocalPlayerReference(player);
 				//Disable model of player in PoV camera. only done once
 				SetLayerRecursively(_graphics, LayerMask.NameToLayer(DontDrawLayer));
 				//create player UI, like crosshair for example.
 				_playerUiInstance = Instantiate(_playerUiPrefab);
-				//to remove clone.
-				_playerUiInstance.name = transform.name + "GUI";
+				_playerUiInstance.name = transform.name +"GUI";
 				//Link the ui to the player
 				PlayerUI ui = _playerUiInstance.GetComponent<PlayerUI>();
 				ui.SetPlayer(GetComponent<Player>());
@@ -68,13 +77,9 @@ namespace Player_Scripts
 				Debug.Log("PlayerSetup: Start(): Player is CLIENT.");
 			}
 			
-			var playerNetId =  GetComponent<NetworkBehaviour>().netId.ToString();
-			var player = GetComponent<Player>();
-			Debug.Log("PlayerSetup: Start(): Player: " + this.name + " NetId: " + playerNetId);
-			GameManager.RegisterPlayer(playerNetId, player);
-			_head.transform.name = playerNetId;
+		
+			_head.transform.name = player.name;
 			
-			_head.transform.name = transform.name;
 			GetComponent<Player>().SetupPlayer();	
 		}
 
@@ -91,6 +96,8 @@ namespace Player_Scripts
 			Destroy(_playerUiInstance);
 			if (isLocalPlayer)
 				GameManager.Singleton.SetSceneCamera(true);
+			
+				
 			//Deregister player
 			GameManager.UnRegisterPlayer(transform.name);				
 		}
