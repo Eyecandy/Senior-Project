@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using SpriteGlow;
+﻿using SpriteGlow;
 using UnityEngine;
 
 public class LightToggle : MonoBehaviour
