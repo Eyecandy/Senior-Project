@@ -27,8 +27,8 @@ public class LightToggle : MonoBehaviour
 		}
 		else
 		{
-			_brakeLight.GlowBrightness += 0.01f;
-			if (_brakeLight.GlowBrightness >= 2.1f)
+			_brakeLight.GlowBrightness += 0.05f;
+			if (_brakeLight.GlowBrightness >= 2.5f)
 			{
 				_descend = true;
 			}
