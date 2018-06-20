@@ -37,6 +37,8 @@ namespace Prototype.NetworkLobby
         protected RectTransform currentPanel;
 
         public Button backButton;
+        
+        public Button quitButton;
 
         public Text statusInfo;
         public Text hostInfo;
@@ -64,6 +66,7 @@ namespace Prototype.NetworkLobby
             currentPanel = mainMenuPanel;
 
             backButton.gameObject.SetActive(false);
+            quitButton.gameObject.SetActive(true);
             GetComponent<Canvas>().enabled = true;
 
             DontDestroyOnLoad(gameObject);
@@ -145,10 +148,12 @@ namespace Prototype.NetworkLobby
             if (currentPanel != mainMenuPanel)
             {
                 backButton.gameObject.SetActive(true);
+                quitButton.gameObject.SetActive(false);
             }
             else
             {
                 backButton.gameObject.SetActive(false);
+                quitButton.gameObject.SetActive(true);
                 SetServerInfo("Offline", "None");
                 //If in Main Menu (lobby scene)
                 _isMatchmaking = false;

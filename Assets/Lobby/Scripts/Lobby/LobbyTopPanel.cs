@@ -7,6 +7,7 @@ namespace Prototype.NetworkLobby
     public class LobbyTopPanel : MonoBehaviour
     {
         public bool isInGame = false;
+        public Button quitButton;
 
         protected bool isDisplayed = true;
         protected Image panelImage;
@@ -18,7 +19,7 @@ namespace Prototype.NetworkLobby
             Cursor.visible = true;
         }
 
-
+    
         void Update()
         {
             if (!isInGame)
@@ -30,14 +31,19 @@ namespace Prototype.NetworkLobby
                 }
                 return;
             }
-                
+            
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ToggleVisibility(!isDisplayed);
                 EnableNetworkManagerHud(!isDisplayed);
-                
             }
+            quitButton.gameObject.SetActive(false);
 
+        }
+        
+        public void DisableQuitButton()
+        {
+            quitButton.gameObject.SetActive(false);
         }
         
         private static void EnableNetworkManagerHud(bool isActive)
