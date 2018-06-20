@@ -103,7 +103,10 @@ namespace UI_Scripts
 		{
 			if (_scriptsEnabled)
 			{
-				GameManager.GetLocalPlayerReference().IsGameOver = true;
+				GameManager.Singleton.IsGameOver = true;
+				
+				GameManager.GetLocalPlayerReference().DisableUiAndSetSceneCamera();
+				GameManager.GetLocalPlayerReference().GetComponent<PlayerSetup>().ActivateUi(true);
 				GameManager.DisableAllPlayers();
 				_scriptsEnabled = false;
 				_timerText.enabled = false;

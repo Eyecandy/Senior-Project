@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour {
 
     public OnPlayerDeathCallBack _onPlayerDeathCallBack;
 
+    public Boolean IsGameOver;
+
     private static Player _localPlayerReference;
 
     public static void SetLocalPlayerReference(Player player)
@@ -161,6 +163,9 @@ public class GameManager : MonoBehaviour {
             tempPlayer.ToggleCollider(false); // Disable Collider
             tempPlayer.ToggleBehavioursOnDeath(true); //isDead is true
             tempPlayer.ToggleGameObjectsOnDeath(true);
+            
+            
         }
     }
+    
 }
