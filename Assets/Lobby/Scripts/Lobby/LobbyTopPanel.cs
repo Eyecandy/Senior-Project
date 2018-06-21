@@ -8,6 +8,7 @@ namespace Prototype.NetworkLobby
     {
         public bool isInGame = false;
         public Button quitButton;
+        public GameObject Title;
 
         protected bool isDisplayed = true;
         protected Image panelImage;
@@ -27,6 +28,7 @@ namespace Prototype.NetworkLobby
                 if (isDisplayed)
                 {
                     isDisplayed = false;
+                    Title.SetActive(true);
                     EnableNetworkManagerHud(isDisplayed);
                 }
                 return;
@@ -38,6 +40,7 @@ namespace Prototype.NetworkLobby
                 EnableNetworkManagerHud(!isDisplayed);
             }
             quitButton.gameObject.SetActive(false);
+            Title.SetActive(false);
 
         }
         
