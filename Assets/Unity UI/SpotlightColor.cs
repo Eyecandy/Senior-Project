@@ -34,7 +34,10 @@ namespace Unity_UI
 			_timeBeforeSwitch -= Time.deltaTime;
 			if (_timeBeforeSwitch <= 0f)
 			{
-				_outline.effectColor = _colors[_current];
+				if (_outline != null)
+				{
+					_outline.effectColor = _colors[_current];
+				}
 				_spotLight.GlowColor = _colors[_current];
 				_timeBeforeSwitch = 3f;
 				_current = (_current + 1) % _colors.Length;
