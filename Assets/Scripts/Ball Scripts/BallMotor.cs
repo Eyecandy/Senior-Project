@@ -36,7 +36,7 @@ namespace Ball_Scripts
 		{
 			_rb = GetComponent<Rigidbody>();
 			_renderer = GetComponent<MeshRenderer>();
-			this.name = BallName;
+			//name = "Ball-" + this.GetComponent<NetworkBehaviour>().netId;
 			GameManager.RegisterBallMotor(BallName,this);
 			_planeSide = (_plane.localScale.x / 2f)*10f;
 			Debug.Log("Plane side " + _planeSide);

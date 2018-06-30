@@ -1028,6 +1028,7 @@ MonoBehaviour:
   _playerUiPrefab: {fileID: 1633067340166190, guid: c8b0653e92dea4d98b1b943c2c538391,
     type: 2}
   _head: {fileID: 1067417057784108}
+  _namePlatesAndSpeedBarCanvas: {fileID: 1434362376152674}
 --- !u!114 &114969426364756256
 MonoBehaviour:
   m_ObjectHideFlags: 1
