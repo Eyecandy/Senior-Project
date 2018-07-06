@@ -1004,6 +1004,8 @@ MonoBehaviour:
   _deathEffect: {fileID: 1063248353299252, guid: 0fc4b6315893c489aa7bae9d3433a951,
     type: 2}
   _minimumSpeedThreshold: 2
+  _droneSpawner: {fileID: 1794789964827010, guid: 95cd8da81cada4063b0879364838e481,
+    type: 2}
   Graphics: {fileID: 1566451959559076}
   NumberOfDeaths: 0
   PlayerName: 

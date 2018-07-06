@@ -30,6 +30,8 @@ namespace Player_Scripts
         
         [SerializeField] private int _minimumSpeedThreshold; //movementSpeed can not go below this threshold
 
+        [SerializeField] private GameObject _droneSpawner;
+
         private bool _enteredCollision;
         
         private bool[] _wasEnabled;
@@ -41,6 +43,8 @@ namespace Player_Scripts
         public int NumberOfDeaths = 0;
         [SyncVar]
         public string PlayerName;
+
+        private int _count;
 
         //public bool IsGameOver = false;
 
@@ -62,6 +66,13 @@ namespace Player_Scripts
             }
             if (isLocalPlayer)
             {
+                if (_count < 2)
+                {
+                    var droneSpawner = _droneSpawner.GetComponent<DroneSpawner>();
+                    droneSpawner.Spawn();
+                    _count++;
+                }
+
                 GameManager.Singleton.SetSceneCamera(false);
                 CmdBroadcastPlayerSetup();
             }
