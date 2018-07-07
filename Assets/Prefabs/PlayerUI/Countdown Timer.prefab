@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114193765571730502}
   - component: {fileID: 114606859887209188}
   - component: {fileID: 114747781486344924}
+  - component: {fileID: 114927564256257326}
   m_Layer: 5
   m_Name: Countdown Timer
   m_TagString: Untagged
@@ -149,6 +150,38 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &114927564256257326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1136732972471950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 223
+    i1: 133
+    i2: 91
+    i3: 207
+    i4: 166
+    i5: 163
+    i6: 116
+    i7: 29
+    i8: 136
+    i9: 212
+    i10: 143
+    i11: 236
+    i12: 158
+    i13: 4
+    i14: 12
+    i15: 244
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114988925024426920
 MonoBehaviour:
   m_ObjectHideFlags: 1

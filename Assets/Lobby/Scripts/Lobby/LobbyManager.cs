@@ -120,7 +120,7 @@ namespace Prototype.NetworkLobby
                 Debug.Log("LobbyManager: OLCSC(): In MATCH");
                 ChangeTo(null);
                 //Enable countdown timer script
-                _countdownTimer.GetComponent<CountdownTimer>().enabled = true;
+//                _countdownTimer.GetComponent<CountdownTimer>().enabled = true;
                 Destroy(GameObject.Find("MainMenuUI(Clone)"));
 
                 //backDelegate = StopGameClbk;
