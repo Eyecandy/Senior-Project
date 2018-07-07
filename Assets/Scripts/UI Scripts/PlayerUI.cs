@@ -37,6 +37,17 @@ namespace UI_Scripts
 				_scorePanel.SetActive(false);
 			}
 
+			if (GameManager.Singleton.IsGameOver)
+			{
+				foreach (Transform child in this.transform)
+				{
+					if (!child.transform.name.Equals("ScoreGameObject"))
+						child.gameObject.SetActive(false);
+				}
+
+				_scorePanel.SetActive(true);
+			}
+
 		}
 
 		

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -41,7 +42,7 @@ namespace Player_Scripts
         [SyncVar]
         public string PlayerName;
 
-        public bool IsGameOver = false;
+        //public bool IsGameOver = false;
 
         /*
         * Enables component on entering game.
@@ -57,7 +58,7 @@ namespace Player_Scripts
                     _wasEnabled[i] = _disabledOnDeath[i].enabled;
                 }
                 _initialSetup = false;
-                IsGameOver = false;
+                
             }
             if (isLocalPlayer)
             {
@@ -68,13 +69,10 @@ namespace Player_Scripts
 
         private void Update()
         {
+            
             if (!isLocalPlayer) return;
-            if (isLocalPlayer)
-            if (IsGameOver)
-            {
-                DisableUiAndSetSceneCamera();
-            }
-            else if (transform.position.y < 0.0 && isLocalPlayer && !_isDead)
+           
+            if (transform.position.y < 0.0 && isLocalPlayer && !_isDead)
             {
                 _isDead = true;
                 CmdBroadcastPlayerDeath();
@@ -131,6 +129,7 @@ namespace Player_Scripts
         private IEnumerator Respawn()
         {
             yield return new WaitForSeconds(_respawnTimer);
+            if (GameManager.Singleton.IsGameOver) yield break;
             Debug.Log("Player, Respawned()");
             var spawnPoint = NetworkManager.singleton.GetStartPosition();
             transform.position = spawnPoint.position;
@@ -144,6 +143,7 @@ namespace Player_Scripts
         */
         private void ActionsOnDeath()
         {
+            if (GameManager.Singleton.IsGameOver) return;
             
             _isDead = true;
             NumberOfDeaths += 1;
@@ -184,7 +184,7 @@ namespace Player_Scripts
          */
         private void SetPlayerDefaults()
         {
-
+            
             Debug.Log("Player, SetDefaults()");
             Graphics.SetActive(true) ;
             //Reactivate ui and enable scene camera
@@ -258,7 +258,7 @@ namespace Player_Scripts
             return WalkingSpeedPercentage;
         }
 
-        private void DisableUiAndSetSceneCamera()
+        public void DisableUiAndSetSceneCamera()
         {
             GetComponent<PlayerSetup>().ActivateUi(false);
             GameManager.Singleton.SetSceneCamera(true);

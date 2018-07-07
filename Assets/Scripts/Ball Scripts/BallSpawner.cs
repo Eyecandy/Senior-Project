@@ -14,7 +14,7 @@ namespace Ball_Scripts
         private Vector3 _corner;
         private float _span;
         public Vector3[] Positions; 
-
+        
         public override void OnStartServer()
         {
             _cornerX = (_plane.localScale.x / 2)*10 + _plane.position.x;
@@ -31,8 +31,8 @@ namespace Ball_Scripts
                 BallMotor ballMotor = ball.GetComponent<BallMotor>();
                 ballMotor.StartPosition = Positions[i];
                 _corner = _corner - spanVector3;
+                ballMotor.SetBallName("Ball-" + i);
                 NetworkServer.Spawn(ball);
-                ballMotor.SetBallName("Ball-" + ball.GetComponent<NetworkBehaviour>().netId);
             }
         }
         

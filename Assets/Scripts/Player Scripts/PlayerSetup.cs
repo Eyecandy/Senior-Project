@@ -21,6 +21,8 @@ namespace Player_Scripts
 		private GameObject _playerUiInstance;   //manually placed in script.
 		
 		[SerializeField] private GameObject _head;  //head of player.
+
+		[SerializeField] private GameObject _namePlatesAndSpeedBarCanvas;
 		
 		
 		#region Unity Functions
@@ -59,6 +61,7 @@ namespace Player_Scripts
 				GameManager.SetLocalPlayerReference(player);
 				//Disable model of player in PoV camera. only done once
 				SetLayerRecursively(_graphics, LayerMask.NameToLayer(DontDrawLayer));
+				SetLayerRecursively(_namePlatesAndSpeedBarCanvas,LayerMask.NameToLayer(DontDrawLayer));
 				//create player UI, like crosshair for example.
 				_playerUiInstance = Instantiate(_playerUiPrefab);
 				_playerUiInstance.name = transform.name +"GUI";

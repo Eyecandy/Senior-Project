@@ -36,9 +36,10 @@ namespace Ball_Scripts
 		{
 			_rb = GetComponent<Rigidbody>();
 			_renderer = GetComponent<MeshRenderer>();
-			this.name = BallName;
+			//name = "Ball-" + this.GetComponent<NetworkBehaviour>().netId;
 			GameManager.RegisterBallMotor(BallName,this);
-			_planeSide = (_plane.localScale.x / 2)*10;
+			_planeSide = (_plane.localScale.x / 2f)*10f;
+			Debug.Log("Plane side " + _planeSide);
 		}
 
 
@@ -130,13 +131,14 @@ namespace Ball_Scripts
 			var location = Random.Range(-_planeSide, _planeSide);
 			_currentSide = side;
 			if (side == 0){
-//				Debug.Log("SIDE " + side);
+				Debug.Log("SIDE " + side);
+				Debug.Log("Position " + new Vector3(location,0f,_planeSide-2.2f));
 				return new Vector3(location,0f,_planeSide-2.2f);
 			} else if (side == 1){
-//				Debug.Log("SIDE " + side);
+				Debug.Log("SIDE " + side);
 				return new Vector3(-_planeSide+1.78f,0f,location);
 			} else{
-//				Debug.Log("SIDE " + side);
+				Debug.Log("SIDE " + side);
 				return new Vector3(_planeSide-1.78f,0f,location);
 			}
 		}
