@@ -109,7 +109,6 @@ namespace Player_Scripts
             {
                 CmdPlayerShot(hit.collider.name, _weaponEquipped.Damage);
                 GetComponent<PlayerGUI>().SetHitMarker();
-                
 
             }
 

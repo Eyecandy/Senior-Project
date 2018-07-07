@@ -8,7 +8,7 @@ using PlayerController = UnityEngine.Networking.PlayerController;
 
 namespace UI_Scripts
 {
-	public class CountdownTimer : NetworkBehaviour
+	public class CountdownTimer : MonoBehaviour
 	{
 
 		[SerializeField]
@@ -24,7 +24,7 @@ namespace UI_Scripts
 
 		private bool _scriptsEnabled;
 		
-		[SyncVar] public float TimeRemaining = 20f;
+		public float TimeRemaining = 20f;
 
 
 		// Use this for initialization
